@@ -1,0 +1,693 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Affan Yousuf Siddiqui — Flutter Developer / Mobile Systems Engineer</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Rajdhani:wght@500;600;700&family=Inter:wght@400;500;600&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --bg:#0a0a0a;
+    --panel:#121212;
+    --panel-2:#161616;
+    --border:#272522;
+    --red:#e4342a;
+    --red-dim:#7a231d;
+    --red-glow: rgba(228,52,42,0.35);
+    --amber:#ff9f1c;
+    --green:#3ddc84;
+    --text:#f2f0ea;
+    --text-dim:#8c8a84;
+    --text-faint:#55534d;
+    --mono: 'JetBrains Mono', monospace;
+    --display: 'Rajdhani', sans-serif;
+    --body: 'Inter', sans-serif;
+  }
+  *{margin:0;padding:0;box-sizing:border-box;}
+  html{scroll-behavior:smooth;}
+  body{
+    background:var(--bg);
+    color:var(--text);
+    font-family:var(--body);
+    line-height:1.6;
+    overflow-x:hidden;
+  }
+  ::selection{background:var(--red);color:#0a0a0a;}
+  a{color:inherit;text-decoration:none;}
+
+  /* faint grid texture */
+  .grid-overlay{
+    position:fixed; inset:0; pointer-events:none; z-index:1;
+    background-image:
+      linear-gradient(rgba(228,52,42,0.035) 1px, transparent 1px),
+      linear-gradient(90deg, rgba(228,52,42,0.035) 1px, transparent 1px);
+    background-size:48px 48px;
+    mask-image: radial-gradient(ellipse 80% 60% at 50% 0%, black 40%, transparent 100%);
+  }
+
+  @media (prefers-reduced-motion: reduce){
+    *{animation-duration:0.001ms !important; animation-iteration-count:1 !important; transition-duration:0.001ms !important;}
+  }
+
+  /* ---------- NAV ---------- */
+  header{
+    position:fixed; top:0; left:0; right:0; z-index:100;
+    display:flex; align-items:center; justify-content:space-between;
+    padding:20px clamp(20px,5vw,64px);
+    background:rgba(10,10,10,0.75);
+    backdrop-filter:blur(10px);
+    border-bottom:1px solid var(--border);
+  }
+  .logo{
+    font-family:var(--display); font-weight:700; font-size:1.25rem; letter-spacing:0.04em;
+    display:flex; align-items:center; gap:10px;
+  }
+  .logo .dot{width:8px;height:8px;border-radius:50%;background:var(--green);box-shadow:0 0 8px var(--green);animation:blink 2.4s infinite;}
+  @keyframes blink{0%,100%{opacity:1;}50%{opacity:0.25;}}
+  nav ul{list-style:none;display:flex;gap:clamp(16px,3vw,36px);}
+  nav a{
+    font-family:var(--mono); font-size:0.72rem; letter-spacing:0.08em; text-transform:uppercase;
+    color:var(--text-dim); transition:color 0.2s;
+    position:relative;
+  }
+  nav a:hover{color:var(--red);}
+  nav ul{display:none;}
+  @media(min-width:820px){nav ul{display:flex;}}
+  .menu-btn{display:flex;background:none;border:1px solid var(--border);color:var(--text);width:38px;height:38px;align-items:center;justify-content:center;border-radius:4px;cursor:pointer;}
+  @media(min-width:820px){.menu-btn{display:none;}}
+  .mobile-nav{
+    position:fixed; top:69px; left:0; right:0; background:var(--panel); border-bottom:1px solid var(--border);
+    z-index:99; display:none; flex-direction:column; padding:10px 24px 20px;
+  }
+  .mobile-nav.open{display:flex;}
+  .mobile-nav a{font-family:var(--mono);font-size:0.8rem;letter-spacing:0.06em;color:var(--text-dim);padding:12px 0;border-bottom:1px solid var(--border);text-transform:uppercase;}
+
+  section{position:relative;z-index:2;padding:120px clamp(20px,6vw,80px) 90px;}
+  .section-inner{max-width:1100px;margin:0 auto;}
+
+  /* ---------- SECTOR LABEL (signature structural device) ---------- */
+  .sector{
+    display:flex; align-items:center; gap:14px; margin-bottom:52px;
+  }
+  .sector .crosshair{
+    width:22px;height:22px;position:relative;flex-shrink:0;
+  }
+  .sector .crosshair::before,.sector .crosshair::after{
+    content:'';position:absolute;background:var(--red);
+  }
+  .sector .crosshair::before{width:100%;height:1px;top:50%;left:0;}
+  .sector .crosshair::after{height:100%;width:1px;left:50%;top:0;}
+  .sector .crosshair-ring{position:absolute;inset:2px;border:1px solid var(--red-dim);border-radius:50%;}
+  .sector-text{font-family:var(--mono);font-size:0.72rem;letter-spacing:0.14em;text-transform:uppercase;color:var(--red);}
+  .sector-text .idx{color:var(--text-faint);}
+  .sector-line{flex:1;height:1px;background:linear-gradient(90deg,var(--border),transparent);}
+  h2.title{
+    font-family:var(--display); font-weight:700; font-size:clamp(2rem,4vw,2.8rem);
+    letter-spacing:0.01em; margin-bottom:8px;
+  }
+  .subtitle{color:var(--text-dim);font-size:0.95rem;max-width:560px;margin-bottom:44px;}
+
+  /* ---------- HERO ---------- */
+  #hero{
+    min-height:100vh; display:flex; align-items:center; padding-top:140px;
+  }
+  .hero-grid{
+    display:grid; grid-template-columns:1.15fr 0.85fr; gap:56px; align-items:center; width:100%;
+  }
+  @media(max-width:900px){.hero-grid{grid-template-columns:1fr;}}
+  .eyebrow{
+    font-family:var(--mono);font-size:0.75rem;letter-spacing:0.16em;color:var(--red);
+    text-transform:uppercase; margin-bottom:22px; display:flex; align-items:center; gap:10px;
+  }
+  .eyebrow::before{content:'';width:26px;height:1px;background:var(--red);}
+  h1{
+    font-family:var(--display); font-weight:700; font-size:clamp(2.6rem,6vw,4.6rem);
+    line-height:1.02; letter-spacing:0.01em; margin-bottom:20px;
+  }
+  h1 span{color:var(--red);}
+  .hero-desc{color:var(--text-dim);font-size:1.05rem;max-width:520px;margin-bottom:36px;}
+  .cta-row{display:flex;gap:14px;flex-wrap:wrap;margin-bottom:48px;}
+  .btn{
+    font-family:var(--mono); font-size:0.78rem; letter-spacing:0.06em; text-transform:uppercase;
+    padding:14px 26px; border-radius:2px; cursor:pointer; transition:all 0.2s; display:inline-flex; align-items:center; gap:8px;
+    border:1px solid var(--red);
+  }
+  .btn-primary{background:var(--red);color:#0a0a0a;font-weight:600;}
+  .btn-primary:hover{background:transparent;color:var(--red);box-shadow:0 0 22px var(--red-glow);}
+  .btn-ghost{background:transparent;color:var(--text);border-color:var(--border);}
+  .btn-ghost:hover{border-color:var(--red);color:var(--red);}
+
+  .stat-row{display:flex;gap:36px;flex-wrap:wrap;}
+  .stat b{display:block;font-family:var(--display);font-size:1.6rem;color:var(--text);}
+  .stat span{font-family:var(--mono);font-size:0.68rem;letter-spacing:0.08em;color:var(--text-dim);text-transform:uppercase;}
+
+  /* HUD PANEL */
+  .hud{
+    background:var(--panel); border:1px solid var(--border); border-radius:6px; padding:22px;
+    position:relative; overflow:hidden;
+    box-shadow: 0 0 60px rgba(228,52,42,0.06), inset 0 0 60px rgba(0,0,0,0.4);
+  }
+  .hud-top{display:flex;justify-content:space-between;align-items:center;margin-bottom:16px;font-family:var(--mono);font-size:0.68rem;letter-spacing:0.08em;color:var(--text-dim);text-transform:uppercase;}
+  .hud-top .status{color:var(--green);display:flex;align-items:center;gap:6px;}
+  .hud-top .status .d{width:6px;height:6px;background:var(--green);border-radius:50%;box-shadow:0 0 6px var(--green);animation:blink 2s infinite;}
+  .radar{
+    position:relative; width:100%; aspect-ratio:1/1; max-width:280px; margin:0 auto 18px;
+    border-radius:50%; border:1px solid var(--border);
+    background:
+      repeating-radial-gradient(circle at center, transparent 0, transparent 32px, rgba(228,52,42,0.05) 33px);
+  }
+  .radar::before{
+    content:'';position:absolute;inset:0;border-radius:50%;
+    background:conic-gradient(from 0deg, var(--red) 0deg, transparent 55deg, transparent 360deg);
+    opacity:0.55;
+    animation:sweep 4s linear infinite;
+  }
+  @keyframes sweep{to{transform:rotate(360deg);}}
+  .radar-ring{position:absolute;border:1px solid rgba(228,52,42,0.18);border-radius:50%;}
+  .radar-ring.r1{inset:20%;}
+  .radar-ring.r2{inset:40%;}
+  .radar::after{content:'';position:absolute;top:50%;left:50%;width:1px;height:100%;background:rgba(228,52,42,0.15);transform:translate(-50%,-50%);}
+  .radar-cross{position:absolute;top:50%;left:0;width:100%;height:1px;background:rgba(228,52,42,0.15);}
+  .blip{position:absolute;width:5px;height:5px;background:var(--red);border-radius:50%;box-shadow:0 0 8px var(--red);}
+  .telemetry{font-family:var(--mono);font-size:0.72rem;color:var(--text-dim);display:flex;flex-direction:column;gap:7px;border-top:1px solid var(--border);padding-top:14px;}
+  .telemetry .row{display:flex;justify-content:space-between;}
+  .telemetry .row b{color:var(--text);font-weight:500;}
+  .telemetry .row .live{color:var(--amber);}
+
+  /* ---------- SKILLS ---------- */
+  .skill-groups{display:grid;grid-template-columns:repeat(auto-fit,minmax(230px,1fr));gap:24px;}
+  .skill-card{background:var(--panel);border:1px solid var(--border);border-radius:6px;padding:24px;transition:border-color 0.2s;}
+  .skill-card:hover{border-color:var(--red-dim);}
+  .skill-card h3{font-family:var(--mono);font-size:0.72rem;letter-spacing:0.1em;text-transform:uppercase;color:var(--red);margin-bottom:16px;}
+  .chip-row{display:flex;flex-wrap:wrap;gap:8px;}
+  .chip{
+    font-family:var(--mono); font-size:0.78rem; padding:6px 12px; border:1px solid var(--border); border-radius:3px;
+    color:var(--text-dim); background:var(--panel-2); transition:all 0.2s;
+  }
+  .chip:hover{color:var(--text);border-color:var(--red-dim);}
+
+  /* ---------- PROJECTS ---------- */
+  .projects{display:flex;flex-direction:column;gap:20px;}
+  .project{
+    background:var(--panel); border:1px solid var(--border); border-radius:6px; padding:32px;
+    display:grid; grid-template-columns:auto 1fr; gap:28px; transition:border-color 0.2s;
+  }
+  .project:hover{border-color:var(--red-dim);}
+  @media(max-width:720px){.project{grid-template-columns:1fr;}}
+  .project-id{font-family:var(--mono);font-size:0.7rem;color:var(--text-faint);writing-mode:horizontal-tb;}
+  .project-head{display:flex;justify-content:space-between;align-items:flex-start;gap:16px;flex-wrap:wrap;margin-bottom:10px;}
+  .project h3{font-family:var(--display);font-weight:700;font-size:1.5rem;}
+  .project h3 a{border-bottom:1px solid transparent;}
+  .project h3 a:hover{color:var(--red);border-color:var(--red);}
+  .project-links{display:flex;gap:14px;font-family:var(--mono);font-size:0.7rem;color:var(--text-dim);}
+  .project-links a:hover{color:var(--red);}
+  .project ul{margin:14px 0 16px 18px;color:var(--text-dim);font-size:0.92rem;}
+  .project ul li{margin-bottom:6px;}
+  .tag-row{display:flex;flex-wrap:wrap;gap:8px;}
+  .tag{font-family:var(--mono);font-size:0.68rem;letter-spacing:0.03em;color:var(--red);border:1px solid var(--red-dim);padding:4px 9px;border-radius:2px;}
+
+  /* ---------- EXPERIENCE ---------- */
+  .timeline{position:relative;padding-left:32px;}
+  .timeline::before{content:'';position:absolute;left:5px;top:6px;bottom:6px;width:1px;background:var(--border);}
+  .tl-item{position:relative;margin-bottom:44px;}
+  .tl-item:last-child{margin-bottom:0;}
+  .tl-item::before{
+    content:''; position:absolute; left:-32px; top:6px; width:11px;height:11px;border-radius:50%;
+    background:var(--bg); border:2px solid var(--red);
+  }
+  .tl-meta{display:flex;justify-content:space-between;flex-wrap:wrap;gap:8px;margin-bottom:6px;}
+  .tl-role{font-family:var(--display);font-weight:700;font-size:1.25rem;}
+  .tl-date{font-family:var(--mono);font-size:0.7rem;color:var(--red);letter-spacing:0.05em;}
+  .tl-org{font-family:var(--mono);font-size:0.78rem;color:var(--text-dim);margin-bottom:12px;}
+  .tl-item ul{margin-left:18px;color:var(--text-dim);font-size:0.92rem;}
+  .tl-item ul li{margin-bottom:6px;}
+
+  /* ---------- EDUCATION strip ---------- */
+  .edu-strip{
+    display:flex; justify-content:space-between; align-items:center; flex-wrap:wrap; gap:16px;
+    background:var(--panel); border:1px solid var(--border); border-left:3px solid var(--red);
+    padding:24px 28px; border-radius:4px;
+  }
+  .edu-strip h3{font-family:var(--display);font-weight:700;font-size:1.15rem;}
+  .edu-strip p{font-family:var(--mono);font-size:0.75rem;color:var(--text-dim);margin-top:4px;}
+  .edu-strip .badge{font-family:var(--mono);font-size:0.68rem;color:var(--green);border:1px solid var(--green);padding:5px 10px;border-radius:3px;}
+
+  /* ---------- CONTACT ---------- */
+  .contact-grid{display:grid;grid-template-columns:1fr 1fr;gap:48px;}
+  @media(max-width:800px){.contact-grid{grid-template-columns:1fr;}}
+  .contact-links{display:flex;flex-direction:column;gap:18px;}
+  .contact-link{
+    display:flex; align-items:center; justify-content:space-between; padding:18px 20px;
+    background:var(--panel); border:1px solid var(--border); border-radius:5px; transition:all 0.2s;
+  }
+  .contact-link:hover{border-color:var(--red);transform:translateX(4px);}
+  .contact-link .l{font-family:var(--mono);font-size:0.68rem;letter-spacing:0.08em;color:var(--text-dim);text-transform:uppercase;}
+  .contact-link .v{font-family:var(--body);font-weight:500;font-size:0.95rem;margin-top:2px;}
+  .contact-link .arrow{color:var(--red);font-family:var(--mono);}
+
+  form{display:flex;flex-direction:column;gap:16px;}
+  .field label{font-family:var(--mono);font-size:0.68rem;letter-spacing:0.08em;color:var(--text-dim);text-transform:uppercase;display:block;margin-bottom:8px;}
+  .field input,.field textarea{
+    width:100%; background:var(--panel); border:1px solid var(--border); border-radius:4px; padding:13px 14px;
+    color:var(--text); font-family:var(--body); font-size:0.92rem; transition:border-color 0.2s;
+  }
+  .field input:focus,.field textarea:focus{outline:none;border-color:var(--red);}
+  .field textarea{resize:vertical;min-height:110px;}
+
+  footer{
+    padding:32px clamp(20px,6vw,80px); border-top:1px solid var(--border);
+    display:flex; justify-content:space-between; flex-wrap:wrap; gap:12px;
+    font-family:var(--mono); font-size:0.68rem; color:var(--text-faint); letter-spacing:0.05em;
+  }
+
+  .reveal{opacity:0;transform:translateY(24px);transition:opacity 0.7s ease, transform 0.7s ease;}
+  .reveal.in{opacity:1;transform:none;}
+
+  /* ---------- PROFILE CARD (photo + speaking intro) ---------- */
+  .profile-wrap{display:flex;flex-direction:column;gap:20px;}
+  .id-card{
+    position:relative; background:var(--panel); border:1px solid var(--border); border-radius:8px;
+    padding:14px; box-shadow:0 0 60px rgba(228,52,42,0.08), inset 0 0 40px rgba(0,0,0,0.35);
+  }
+  .id-card .corner{position:absolute;width:16px;height:16px;border:2px solid var(--red);}
+  .id-card .corner.tl{top:8px;left:8px;border-right:none;border-bottom:none;}
+  .id-card .corner.tr{top:8px;right:8px;border-left:none;border-bottom:none;}
+  .id-card .corner.bl{bottom:8px;left:8px;border-right:none;border-top:none;}
+  .id-card .corner.br{bottom:8px;right:8px;border-left:none;border-top:none;}
+  .id-photo{
+    position:relative; border-radius:5px; overflow:hidden; aspect-ratio:2/3; width:100%; max-width:300px; margin:0 auto;
+    filter:saturate(0.92) contrast(1.05);
+  }
+  .id-photo img{width:100%;height:100%;object-fit:cover;display:block;}
+  .id-photo::after{
+    content:''; position:absolute; inset:0;
+    background:linear-gradient(180deg, transparent 60%, rgba(10,10,10,0.75) 100%),
+               linear-gradient(0deg, rgba(228,52,42,0.08), transparent 40%);
+  }
+  .scan-line{position:absolute;left:0;right:0;height:2px;background:linear-gradient(90deg,transparent,var(--red),transparent);opacity:0.8;animation:scan 3.2s linear infinite;}
+  @keyframes scan{0%{top:0%;}100%{top:100%;}}
+  .id-meta{display:flex;justify-content:space-between;align-items:center;padding:12px 6px 4px;font-family:var(--mono);font-size:0.66rem;letter-spacing:0.08em;color:var(--text-dim);text-transform:uppercase;}
+  .id-meta .verified{color:var(--green);display:flex;align-items:center;gap:5px;}
+  .id-meta .verified .d{width:5px;height:5px;border-radius:50%;background:var(--green);box-shadow:0 0 5px var(--green);}
+
+  .speech-bubble{
+    background:var(--panel); border:1px solid var(--border); border-radius:8px; padding:20px 22px;
+    position:relative; min-height:96px;
+  }
+  .speech-bubble::before{
+    content:''; position:absolute; top:-8px; left:32px; width:14px;height:14px;
+    background:var(--panel); border-left:1px solid var(--border); border-top:1px solid var(--border);
+    transform:rotate(45deg);
+  }
+  .speech-label{font-family:var(--mono);font-size:0.64rem;letter-spacing:0.1em;color:var(--red);text-transform:uppercase;margin-bottom:10px;display:flex;align-items:center;gap:8px;}
+  .wave{display:flex;align-items:center;gap:2px;height:12px;}
+  .wave span{width:2px;background:var(--red);border-radius:1px;animation:wave 1s ease-in-out infinite;}
+  .wave span:nth-child(1){height:40%;animation-delay:0s;}
+  .wave span:nth-child(2){height:100%;animation-delay:0.15s;}
+  .wave span:nth-child(3){height:60%;animation-delay:0.3s;}
+  .wave span:nth-child(4){height:90%;animation-delay:0.45s;}
+  .wave span:nth-child(5){height:50%;animation-delay:0.6s;}
+  @keyframes wave{0%,100%{transform:scaleY(0.4);}50%{transform:scaleY(1);}}
+  #typedText{font-family:var(--body);font-size:0.98rem;color:var(--text);line-height:1.6;}
+  .cursor{display:inline-block;width:2px;height:1.05em;background:var(--red);vertical-align:text-bottom;margin-left:2px;animation:blink 0.9s step-end infinite;}
+
+  /* ---------- TICKER ---------- */
+  .ticker-bar{
+    border-top:1px solid var(--border); border-bottom:1px solid var(--border);
+    background:var(--panel-2); overflow:hidden; white-space:nowrap; position:relative; z-index:2;
+  }
+  .ticker-track{display:inline-flex;gap:60px;padding:12px 0;animation:ticker 26s linear infinite;}
+  .ticker-track span{font-family:var(--mono);font-size:0.72rem;letter-spacing:0.08em;color:var(--text-dim);text-transform:uppercase;display:inline-flex;align-items:center;gap:10px;}
+  .ticker-track span b{color:var(--red);}
+  @keyframes ticker{from{transform:translateX(0);}to{transform:translateX(-50%);}}
+</style>
+</head>
+<body>
+
+<div class="grid-overlay"></div>
+
+<header>
+  <div class="logo"><span class="dot"></span>AFFAN.YS</div>
+  <nav><ul>
+    <li><a href="#skills">Skills</a></li>
+    <li><a href="#projects">Projects</a></li>
+    <li><a href="#experience">Experience</a></li>
+    <li><a href="#contact">Contact</a></li>
+  </ul></nav>
+  <button class="menu-btn" id="menuBtn" aria-label="Open menu">☰</button>
+</header>
+<div class="mobile-nav" id="mobileNav">
+  <a href="#skills">Skills</a>
+  <a href="#projects">Projects</a>
+  <a href="#experience">Experience</a>
+  <a href="#contact">Contact</a>
+</div>
+
+<!-- HERO -->
+<section id="hero">
+  <div class="section-inner hero-grid">
+    <div>
+      <div class="eyebrow">Flutter Developer · Mobile Systems Engineer</div>
+      <h1>Affan Yousuf<br><span>Siddiqui</span></h1>
+      <p class="hero-desc">I build cross-platform Flutter systems for real-time, mission-critical environments — from UAV ground control software flying in defence operations, to offline-first medical IoT apps that never miss a reading.</p>
+      <div class="cta-row">
+        <a href="#projects" class="btn btn-primary">View Work</a>
+        <a href="#contact" class="btn btn-ghost">Get In Touch</a>
+      </div>
+      <div class="stat-row">
+        <div class="stat"><b>4+</b><span>Flutter apps shipped</span></div>
+        <div class="stat"><b>1</b><span>Published Dart package</span></div>
+        <div class="stat"><b>1+ yr</b><span>Production UAV software</span></div>
+      </div>
+    </div>
+
+    <div class="profile-wrap">
+      <div class="id-card reveal">
+        <div class="corner tl"></div><div class="corner tr"></div><div class="corner bl"></div><div class="corner br"></div>
+        <div class="id-photo">
+          <img src="images/affan.jpg" alt="Affan Yousuf Siddiqui">
+          <div class="scan-line"></div>
+        </div>
+        <div class="id-meta">
+          <span>OPERATOR // A.Y.S</span>
+          <span class="verified"><span class="d"></span>VERIFIED</span>
+        </div>
+      </div>
+
+      <div class="speech-bubble reveal">
+        <div class="speech-label">
+          <div class="wave"><span></span><span></span><span></span><span></span><span></span></div>
+          LIVE INTRO
+        </div>
+        <p id="typedText"></p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<div class="ticker-bar">
+  <div class="ticker-track" id="tickerTrack"></div>
+</div>
+
+<!-- SKILLS -->
+<section id="skills">
+  <div class="section-inner">
+    <div class="sector">
+      <div class="crosshair"><div class="crosshair-ring"></div></div>
+      <div class="sector-text"><span class="idx">SECTOR 01 //</span> TECHNICAL PAYLOAD</div>
+      <div class="sector-line"></div>
+    </div>
+    <h2 class="title">Skills &amp; Stack</h2>
+    <p class="subtitle">The languages, frameworks, and systems I use to ship cross-platform, real-time software.</p>
+
+    <div class="skill-groups">
+      <div class="skill-card">
+        <h3>Languages</h3>
+        <div class="chip-row">
+          <span class="chip">Dart</span><span class="chip">TypeScript</span><span class="chip">JavaScript</span><span class="chip">Python</span><span class="chip">Kotlin</span>
+        </div>
+      </div>
+      <div class="skill-card">
+        <h3>Mobile &amp; State</h3>
+        <div class="chip-row">
+          <span class="chip">Flutter SDK</span><span class="chip">Android</span><span class="chip">iOS</span><span class="chip">Material Design</span><span class="chip">Cupertino</span><span class="chip">Riverpod</span><span class="chip">Provider</span><span class="chip">BLoC</span>
+        </div>
+      </div>
+      <div class="skill-card">
+        <h3>Networking &amp; APIs</h3>
+        <div class="chip-row">
+          <span class="chip">REST APIs</span><span class="chip">Dio</span><span class="chip">JWT</span><span class="chip">UDP Sockets</span><span class="chip">TCP</span><span class="chip">USB Serial</span>
+        </div>
+      </div>
+      <div class="skill-card">
+        <h3>UAV &amp; Real-Time Systems</h3>
+        <div class="chip-row">
+          <span class="chip">MAVLink v2</span><span class="chip">Telemetry</span><span class="chip">Mission Planning</span><span class="chip">Payload Control</span><span class="chip">Geofencing</span><span class="chip">Real-Time Streams</span>
+        </div>
+      </div>
+      <div class="skill-card">
+        <h3>Backend, Data &amp; Tools</h3>
+        <div class="chip-row">
+          <span class="chip">NestJS</span><span class="chip">PostgreSQL</span><span class="chip">Firebase</span><span class="chip">Firestore</span><span class="chip">FCM</span><span class="chip">Mapbox</span><span class="chip">H3</span><span class="chip">GPS Tracking</span><span class="chip">BLE</span><span class="chip">ESP32</span><span class="chip">Git</span><span class="chip">GitHub</span>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- PROJECTS -->
+<section id="projects">
+  <div class="section-inner">
+    <div class="sector">
+      <div class="crosshair"><div class="crosshair-ring"></div></div>
+      <div class="sector-text"><span class="idx">SECTOR 02 //</span> MISSION LOG</div>
+      <div class="sector-line"></div>
+    </div>
+    <h2 class="title">Projects</h2>
+    <p class="subtitle">Production and open-source systems I've designed and shipped.</p>
+
+    <div class="projects">
+      <article class="project reveal">
+        <div class="project-id">01</div>
+        <div>
+          <div class="project-head">
+            <h3><a href="https://pub.dev/packages/gremsy_camera" target="_blank" rel="noopener">gremsy_camera</a></h3>
+            <div class="project-links">
+              <a href="https://pub.dev/packages/gremsy_camera" target="_blank" rel="noopener">pub.dev ↗</a>
+            </div>
+          </div>
+          <p style="color:var(--text-dim);font-size:0.9rem;">Published open-source Dart package · 130 pub points</p>
+          <ul>
+            <li>Controls Gremsy gimbals and cameras over MAVLink/UDP for UAV payloads.</li>
+            <li>Supports gimbal angle/speed control, camera capture, zoom, EO/IR switching, and tap-to-track object tracking with real-time state streaming.</li>
+            <li>Integrated into production workflows inside EnSight GCS for UAV payload control.</li>
+          </ul>
+          <div class="tag-row"><span class="tag">Dart</span><span class="tag">Flutter</span><span class="tag">MAVLink</span><span class="tag">UDP Sockets</span><span class="tag">Payload Control</span></div>
+        </div>
+      </article>
+
+      <article class="project reveal">
+        <div class="project-id">02</div>
+        <div>
+          <div class="project-head">
+            <h3>EnSight GCS</h3>
+            <div class="project-links"><span style="color:var(--text-faint);">Private / Defence deployment</span></div>
+          </div>
+          <p style="color:var(--text-dim);font-size:0.9rem;">UAV Ground Control System</p>
+          <ul>
+            <li>Android and Windows GCS workflows for telemetry, command control, mission planning, geofencing, payload control, RTSP video, and multi-link communication.</li>
+            <li>Real-time communication and state-management flows for high-frequency vehicle data, mission state, payload status, and connection health.</li>
+            <li>Production-ready UAV control software used in real-world defence/military drone operations.</li>
+          </ul>
+          <div class="tag-row"><span class="tag">Flutter</span><span class="tag">Dart</span><span class="tag">MAVLink</span><span class="tag">Riverpod</span><span class="tag">Provider</span><span class="tag">UDP/TCP/USB</span><span class="tag">REST APIs</span></div>
+        </div>
+      </article>
+
+      <article class="project reveal">
+        <div class="project-id">03</div>
+        <div>
+          <div class="project-head">
+            <h3>Zonaro</h3>
+            <div class="project-links"><span style="color:var(--text-faint);">Full-stack</span></div>
+          </div>
+          <p style="color:var(--text-dim);font-size:0.9rem;">Geospatial Territory Capture Platform</p>
+          <ul>
+            <li>Full-stack geospatial product — Flutter frontend, NestJS/TypeScript backend, PostgreSQL database, JWT authentication.</li>
+            <li>GPS-based territory capture using H3 hexagonal spatial grid, Mapbox tracking, closed-loop route detection, and offline-first Isar storage.</li>
+          </ul>
+          <div class="tag-row"><span class="tag">Flutter</span><span class="tag">NestJS</span><span class="tag">TypeScript</span><span class="tag">PostgreSQL</span><span class="tag">Mapbox</span><span class="tag">H3</span><span class="tag">BLoC</span><span class="tag">Isar</span></div>
+        </div>
+      </article>
+    </div>
+  </div>
+</section>
+
+<!-- EXPERIENCE -->
+<section id="experience">
+  <div class="section-inner">
+    <div class="sector">
+      <div class="crosshair"><div class="crosshair-ring"></div></div>
+      <div class="sector-text"><span class="idx">SECTOR 03 //</span> FLIGHT HISTORY</div>
+      <div class="sector-line"></div>
+    </div>
+    <h2 class="title">Work Experience</h2>
+    <p class="subtitle">1+ years building cross-platform, production, and mission-critical software.</p>
+
+    <div class="timeline">
+      <div class="tl-item reveal">
+        <div class="tl-meta">
+          <div class="tl-role">Flutter Developer / Mobile Systems Engineer</div>
+          <div class="tl-date">JUL 2025 — PRESENT</div>
+        </div>
+        <div class="tl-org">Enord Pvt. Ltd. — IIITD Innovation &amp; Incubation Centre, New Delhi</div>
+        <ul>
+          <li>Develop production-grade Flutter modules for EnSight GCS, a cross-platform UAV Ground Control Station supporting Android and Windows.</li>
+          <li>Implement real-time MAVLink telemetry, command, mission, payload, geofence, and flight-control workflows.</li>
+          <li>Built 4 core modules across telemetry dashboard, mission planning, payload/video control, and connection management.</li>
+          <li>Integrated UDP, TCP, USB, and REST API communication layers for drone connectivity and operational control.</li>
+          <li>Applied Riverpod, Provider, and modular architecture for high-frequency telemetry and scalable workflows.</li>
+          <li>Contributed to field-ready UAV software deployed for real-world defence/military drone operations.</li>
+        </ul>
+      </div>
+
+      <div class="tl-item reveal">
+        <div class="tl-meta">
+          <div class="tl-role">Application Developer Intern</div>
+          <div class="tl-date">FEB 2025 — JUL 2025</div>
+        </div>
+        <div class="tl-org">Mr. Technical Veer Digital Services, New Delhi</div>
+        <ul>
+          <li>Built and maintained cross-platform Flutter applications using modular architecture and reusable component libraries.</li>
+          <li>Integrated REST APIs using Dio with authentication handling, JSON parsing, and structured error management.</li>
+          <li>Implemented Riverpod-based state management across production modules; supported debugging and feature delivery.</li>
+        </ul>
+      </div>
+
+      <div class="tl-item reveal">
+        <div class="tl-meta">
+          <div class="tl-role">Freelance Mobile Developer</div>
+          <div class="tl-date">2024 — PRESENT</div>
+        </div>
+        <div class="tl-org">Client: ShapeIQ</div>
+        <ul>
+          <li>Sole Flutter developer for a cross-platform medical IoT app with real-time monitoring and offline-first data handling.</li>
+          <li>Built alert workflows, recovery score logic, local persistence, and scalable mobile architecture for continuous data collection.</li>
+        </ul>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- EDUCATION -->
+<section id="education" style="padding-top:0;">
+  <div class="section-inner">
+    <div class="edu-strip reveal">
+      <div>
+        <h3>B.Tech — Computer Science &amp; Engineering</h3>
+        <p>Jamia Hamdard University, New Delhi · NAAC A+ · 2021 – 2025</p>
+      </div>
+      <div class="badge">GRADUATED</div>
+    </div>
+  </div>
+</section>
+
+<!-- CONTACT -->
+<section id="contact">
+  <div class="section-inner">
+    <div class="sector">
+      <div class="crosshair"><div class="crosshair-ring"></div></div>
+      <div class="sector-text"><span class="idx">SECTOR 04 //</span> ESTABLISH LINK</div>
+      <div class="sector-line"></div>
+    </div>
+    <h2 class="title">Get In Touch</h2>
+    <p class="subtitle">Open to Flutter, mobile systems, and real-time engineering roles and collaborations.</p>
+
+    <div class="contact-grid">
+      <div class="contact-links">
+        <a class="contact-link reveal" href="mailto:affanyousuf26@gmail.com">
+          <div><div class="l">Email</div><div class="v">affanyousuf26@gmail.com</div></div>
+          <div class="arrow">→</div>
+        </a>
+        <a class="contact-link reveal" href="tel:+919910254442">
+          <div><div class="l">Phone</div><div class="v">+91 99102 54442</div></div>
+          <div class="arrow">→</div>
+        </a>
+        <a class="contact-link reveal" href="https://www.linkedin.com/in/affan-yousuf-b17774218/" target="_blank" rel="noopener">
+          <div><div class="l">LinkedIn</div><div class="v">linkedin.com/in/affan-yousuf</div></div>
+          <div class="arrow">↗</div>
+        </a>
+        <a class="contact-link reveal" href="https://github.com/Affanyousuf26" target="_blank" rel="noopener">
+          <div><div class="l">GitHub</div><div class="v">github.com/Affanyousuf26</div></div>
+          <div class="arrow">↗</div>
+        </a>
+        <a class="contact-link reveal" href="https://pub.dev/packages/gremsy_camera" target="_blank" rel="noopener">
+          <div><div class="l">pub.dev</div><div class="v">gremsy_camera package</div></div>
+          <div class="arrow">↗</div>
+        </a>
+      </div>
+
+      <form id="contactForm" class="reveal">
+        <div class="field">
+          <label for="name">Name</label>
+          <input type="text" id="name" required placeholder="Your name">
+        </div>
+        <div class="field">
+          <label for="email">Email</label>
+          <input type="email" id="email" required placeholder="you@example.com">
+        </div>
+        <div class="field">
+          <label for="message">Message</label>
+          <textarea id="message" required placeholder="Let's talk about..."></textarea>
+        </div>
+        <button type="submit" class="btn btn-primary" style="align-self:flex-start;border:1px solid var(--red);">Send Message</button>
+      </form>
+    </div>
+  </div>
+</section>
+
+<footer>
+  <span>© 2026 AFFAN YOUSUF SIDDIQUI</span>
+  <span>BUILT WITH FLUTTER-GRADE PRECISION</span>
+</footer>
+
+<script>
+  // typewriter "speaking" intro
+  const introLines = [
+    "Hi, I'm Affan — a Flutter developer and mobile systems engineer.",
+    "I build cross-platform apps, real-time systems, and production UAV ground control software.",
+    "Currently shipping telemetry, mission planning, and payload control for drones flying real operations."
+  ];
+  const typedEl = document.getElementById('typedText');
+  let li = 0, ci = 0;
+  function typeStep(){
+    if(li >= introLines.length){ return; }
+    const line = introLines[li];
+    if(ci <= line.length){
+      typedEl.innerHTML = introLines.slice(0,li).join(' ') + (li>0?' ':'') + line.slice(0,ci) + '<span class="cursor"></span>';
+      ci++;
+      setTimeout(typeStep, 22);
+    } else {
+      li++; ci = 0;
+      setTimeout(typeStep, 500);
+    }
+  }
+  typeStep();
+
+  // ticker content
+  const tickerItems = [
+    'MAVLINK v2 · ESTABLISHED', 'LINK · UDP / TCP / USB', 'PAYLOAD CTRL · ACTIVE',
+    'PLATFORM · ANDROID / WINDOWS', 'STACK · FLUTTER · RIVERPOD', 'GCS · EnSight', 'PACKAGE · gremsy_camera v0.1.0'
+  ];
+  const track = document.getElementById('tickerTrack');
+  const build = () => tickerItems.map(t => `<span><b>//</b> ${t}</span>`).join('');
+  track.innerHTML = build() + build();
+
+  // mobile nav toggle
+  const menuBtn = document.getElementById('menuBtn');
+  const mobileNav = document.getElementById('mobileNav');
+  menuBtn.addEventListener('click', () => mobileNav.classList.toggle('open'));
+  mobileNav.querySelectorAll('a').forEach(a => a.addEventListener('click', () => mobileNav.classList.remove('open')));
+
+  // scroll reveal
+  const revealEls = document.querySelectorAll('.reveal');
+  const io = new IntersectionObserver((entries) => {
+    entries.forEach(e => { if(e.isIntersecting){ e.target.classList.add('in'); io.unobserve(e.target); } });
+  }, { threshold: 0.15 });
+  revealEls.forEach(el => io.observe(el));
+
+  // contact form (mailto fallback, no backend)
+  document.getElementById('contactForm').addEventListener('submit', function(e){
+    e.preventDefault();
+    const name = document.getElementById('name').value;
+    const email = document.getElementById('email').value;
+    const message = document.getElementById('message').value;
+    const subject = encodeURIComponent('Portfolio contact from ' + name);
+    const body = encodeURIComponent(message + '\n\n— ' + name + ' (' + email + ')');
+    window.location.href = `mailto:affanyousuf26@gmail.com?subject=${subject}&body=${body}`;
+  });
+</script>
+
+</body>
+</html>
