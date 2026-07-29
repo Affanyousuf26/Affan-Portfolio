@@ -1,6 +1,49 @@
 # Affan Yousuf Siddiqui Portfolio
 
-A single-page portfolio site for Affan Yousuf Siddiqui, built with plain HTML, CSS, and JavaScript.
+A personal portfolio website for Affan Yousuf Siddiqui, focused on Flutter development, mobile systems engineering, UAV ground control software, real-time telemetry, and cross-platform application development.
+
+Live site:
+
+```text
+https://affanyousuf26.github.io/Affan-Portfolio/
+```
+
+## Overview
+
+This is a single-page static portfolio built with plain HTML, CSS, and JavaScript. The visual design is inspired by UAV ground-control and telemetry dashboards, using a dark HUD-style interface with red accents, technical labels, animated details, and responsive sections.
+
+## What It Includes
+
+- Hero section with profile photo and live intro animation
+- Skills and technology stack
+- Featured projects
+- Work experience timeline
+- Education section
+- Contact links for email, phone, LinkedIn, GitHub, and pub.dev
+- Contact form using a `mailto:` fallback
+- Responsive layout for desktop and mobile
+- GitHub Pages deployment through GitHub Actions
+
+## Featured Content
+
+The portfolio highlights work around:
+
+- Flutter and Dart application development
+- UAV ground control systems
+- MAVLink telemetry and payload control
+- UDP, TCP, USB serial, and REST communication layers
+- Real-time mobile systems
+- Offline-first application workflows
+- Firebase, PostgreSQL, Mapbox, H3, NestJS, and related tools
+
+## Tech Stack
+
+- HTML5
+- CSS3
+- JavaScript
+- Google Fonts
+- GitHub Actions
+- GitHub Pages
 
 ## Project Structure
 
@@ -16,30 +59,16 @@ A single-page portfolio site for Affan Yousuf Siddiqui, built with plain HTML, C
 └── README.md
 ```
 
-## Live Site
-
-After GitHub Pages is enabled for this repository, the site will be available at:
-
-```text
-https://affanyousuf26.github.io/Affan-Portfolio/
-```
-
-## GitHub Pages Setup
-
-This repository includes a GitHub Actions workflow at `.github/workflows/pages.yml`.
-
-To enable hosting:
-
-1. Open the repository on GitHub.
-2. Go to **Settings > Pages**.
-3. Under **Build and deployment**, set **Source** to **GitHub Actions**.
-4. Save the setting if GitHub asks you to.
-5. Open the **Actions** tab and wait for the Pages deployment to finish.
-
 ## Local Preview
 
-Open `index.html` directly in a browser. No build step or backend is required.
+Open `index.html` directly in a browser. No build step, package installation, server, or backend is required.
 
-## Updating The Site
+## Deployment
 
-Edit `index.html`, then commit and push to `main`. GitHub Actions will redeploy the site automatically.
+The site is deployed with GitHub Pages using the workflow in:
+
+```text
+.github/workflows/pages.yml
+```
+
+Every push to the `main` branch triggers a new deployment.
