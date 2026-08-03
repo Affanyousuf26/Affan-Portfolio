@@ -14,12 +14,16 @@ This is a single-page static portfolio built with plain HTML, CSS, and JavaScrip
 
 ## What It Includes
 
-- Hero section with profile photo and live intro animation
-- Skills and technology stack
+- Boot sequence and HUD-style header/status details
+- Hero section with profile photo inside a phone frame and live intro animation
+- Animated `pubspec.yaml` skills and technology stack
 - Featured projects
+- Interactive Zonaro app preview modal
+- In-page drone dodge game
 - Work experience timeline
 - Education section
-- Contact links for email, phone, LinkedIn, GitHub, and pub.dev
+- Bottom tab navigation and contact bottom sheet
+- Contact links for email, phone, LinkedIn, and GitHub
 - Contact form using a `mailto:` fallback
 - Responsive layout for desktop and mobile
 - GitHub Pages deployment through GitHub Actions
@@ -51,7 +55,11 @@ The portfolio highlights work around:
 .
 ├── index.html
 ├── images/
-│   └── affan.jpg
+│   ├── affan.jpg
+│   └── zonaro/
+│       ├── icon.png
+│       ├── onboarding.png
+│       └── splash.png
 ├── .github/
 │   └── workflows/
 │       └── pages.yml
