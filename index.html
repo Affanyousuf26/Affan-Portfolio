@@ -163,10 +163,7 @@
   .status-badge.live{background:rgba(61,220,132,0.1);color:#3ddc84;border:1px solid rgba(61,220,132,0.3);}
   .status-badge.concept{background:rgba(255,159,28,0.1);color:#ff9f1c;border:1px solid rgba(255,159,28,0.3);}
 
-  .flagship{background:var(--panel);border:1px solid #2a3f52;border-radius:8px;padding:32px;margin-bottom:22px;display:grid;grid-template-columns:280px 1fr;gap:32px;}
-  @media(max-width:800px){.flagship{grid-template-columns:1fr;}}
-  .flagship-thumb{border-radius:6px;overflow:hidden;border:1px solid var(--border);aspect-ratio:9/16;background:#050505;}
-  .flagship-thumb img{width:100%;height:100%;object-fit:contain;object-position:top;display:block;}
+  .flagship{background:linear-gradient(180deg,#151515,#101010);border:1px solid #2a3f52;border-radius:8px;padding:32px;margin-bottom:22px;display:block;}
   .flagship h3{font-family:var(--display);font-weight:700;font-size:1.8rem;}
   .flagship .tagline{font-family:var(--mono);font-size:0.85rem;color:#4a90d9;margin:6px 0 12px;}
   .flagship .scenario{background:rgba(228,52,42,0.06);border-left:2px solid var(--red);padding:10px 14px;margin:14px 0;font-size:0.86rem;color:var(--text-dim);}
@@ -178,10 +175,8 @@
   .arch-note{font-family:var(--mono);font-size:0.7rem;color:var(--text-faint);margin-top:10px;padding-top:10px;border-top:1px dashed var(--border);}
 
   .proj-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(300px,1fr));gap:20px;}
-  .proj-card{background:var(--panel);border:1px solid var(--border);border-radius:8px;overflow:hidden;transition:border-color 0.2s;display:flex;flex-direction:column;}
+  .proj-card{background:var(--panel);border:1px solid var(--border);border-radius:8px;transition:border-color 0.2s;display:flex;flex-direction:column;min-height:280px;}
   .proj-card:hover{border-color:var(--red-dim);}
-  .proj-thumb{aspect-ratio:9/12;overflow:hidden;background:#050505;border-bottom:1px solid var(--border);display:flex;align-items:flex-start;justify-content:center;padding:10px;}
-  .proj-thumb img{width:100%;height:100%;object-fit:contain;object-position:top;display:block;}
   .proj-card-body{padding:18px 20px;display:flex;flex-direction:column;gap:8px;flex:1;}
   .proj-card-top{display:flex;justify-content:space-between;align-items:flex-start;gap:10px;}
   .proj-card h4{font-family:var(--display);font-weight:700;font-size:1.15rem;}
@@ -259,9 +254,9 @@
   .device-column{display:flex;flex-direction:column;align-items:center;min-height:0;}
   .demo-phone{width:min(330px,78vw);}
   .demo-phone .phone-screen{background:#050505;}
-  .demo-phone .phone-content{overflow-y:auto;overscroll-behavior:contain;scrollbar-width:thin;scrollbar-color:var(--red-dim) #080808;}
+  .demo-phone .phone-content{height:calc(100% - 148px);overflow-y:auto;overscroll-behavior:contain;scrollbar-width:thin;scrollbar-color:var(--red-dim) #080808;}
   .demo-phone .phone-content::after{display:none;}
-  .demo-screen-img{width:100%;height:auto;min-height:100%;object-fit:contain;object-position:top;display:block;cursor:pointer;background:#050505;}
+  .demo-screen-img{width:100%;height:auto;min-height:100%;object-fit:contain;object-position:top;display:block;background:#050505;}
   .demo-caption{text-align:center;font-family:var(--mono);font-size:0.68rem;color:var(--text-dim);letter-spacing:0.06em;text-transform:uppercase;margin-top:12px;min-height:1.4em;}
   .demo-dots{display:flex;justify-content:center;gap:6px;margin-top:12px;flex-wrap:wrap;max-width:300px;}
   .demo-dots span{width:6px;height:6px;border-radius:50%;background:var(--border);transition:background 0.2s;}
@@ -269,8 +264,10 @@
   .demo-controls{display:grid;grid-template-columns:42px 1fr 42px;gap:8px;width:min(330px,78vw);margin-top:14px;}
   .demo-control-btn{height:40px;background:var(--panel-2);border:1px solid var(--border);border-radius:4px;color:var(--text);font-family:var(--mono);font-size:0.7rem;letter-spacing:0.06em;text-transform:uppercase;cursor:pointer;}
   .demo-control-btn:hover{border-color:var(--red);color:var(--red);}
-  .demo-tap-hint{position:sticky;bottom:14px;left:50%;transform:translateX(-50%);width:max-content;font-family:var(--mono);font-size:0.64rem;color:#fff;background:rgba(0,0,0,0.68);padding:6px 12px;border-radius:12px;animation:pulseHint 1.6s ease-in-out infinite;z-index:6;letter-spacing:0.05em;margin:-38px auto 14px;pointer-events:none;}
-  @keyframes pulseHint{0%,100%{opacity:0.5;}50%{opacity:1;}}
+  .demo-control-btn:disabled{opacity:0.35;cursor:not-allowed;}
+  .phone-actions{position:absolute;left:10px;right:10px;bottom:16px;z-index:7;display:grid;grid-template-columns:repeat(auto-fit,minmax(72px,1fr));gap:6px;padding:8px;background:rgba(5,5,5,0.86);border:1px solid rgba(255,255,255,0.1);border-radius:12px;backdrop-filter:blur(8px);}
+  .phone-action{min-height:30px;border:1px solid rgba(255,255,255,0.12);background:rgba(18,18,18,0.86);color:#f2f0ea;border-radius:8px;font-family:var(--mono);font-size:0.58rem;letter-spacing:0.03em;cursor:pointer;}
+  .phone-action.active{border-color:var(--red);color:var(--red);background:rgba(228,52,42,0.12);}
   .demo-panel{min-width:0;overflow-y:auto;padding-right:8px;}
   .demo-panel-kicker{font-family:var(--mono);font-size:0.66rem;letter-spacing:0.14em;text-transform:uppercase;color:var(--red);margin-bottom:12px;}
   .demo-panel h2{font-family:var(--display);font-size:clamp(1.8rem,3vw,2.7rem);line-height:1;margin-bottom:10px;}
@@ -339,7 +336,7 @@
       <div class="speech-bubble">
         <div class="speech-label">
           <div class="wave" id="waveIcon"><span></span><span></span><span></span><span></span><span></span></div>LIVE INTRO
-          <button class="voice-toggle" id="voiceToggle" type="button" aria-label="Toggle voice narration">🔊</button>
+          <button class="voice-toggle muted" id="voiceToggle" type="button" aria-label="Play voice narration">▶</button>
         </div>
         <p id="typedText"></p>
         <audio id="introAudio" src="assets/audio/intro.mp3" preload="auto"></audio>
@@ -371,10 +368,9 @@
   <div class="section-inner">
     <div class="sector"><div class="crosshair"><div class="crosshair-ring"></div></div><div class="sector-text"><span class="idx">SECTOR 02 //</span> MISSION LOG</div><div class="sector-line"></div></div>
     <h2 class="title">Projects</h2>
-    <p class="subtitle">Tap any project to actually launch it.</p>
+    <p class="subtitle">Project details stay here. The app UI opens only when you launch a live demo.</p>
 
     <div class="flagship reveal">
-      <div class="flagship-thumb"><img src="images/gcs/03_dashboard.png" alt="GCS_DEMO dashboard"></div>
       <div>
         <div class="proj-card-top">
           <h3>GCS_DEMO</h3>
@@ -391,86 +387,79 @@
         </div>
         <div class="arch-note">Powers this: <span style="color:var(--text);">siyi_a8_mini</span> + <span style="color:var(--text);">gremsy_camera_controls</span> — protocol-level Dart SDKs controlling real gimbal hardware over UDP/serial (pan · tilt · zoom · record).</div>
         <div class="tag-row" style="margin:14px 0;"><span class="tag">Flutter</span><span class="tag">FastAPI</span><span class="tag">WebSocket</span><span class="tag">Failsafe logic</span></div>
-        <button class="tap-badge" data-launch="gcs">▶ Launch App</button>
+        <button class="tap-badge" data-launch="gcs">▶ Live Demo</button>
       </div>
     </div>
 
     <div class="proj-grid">
 
       <article class="proj-card reveal">
-        <div class="proj-thumb"><img src="images/zonaro2/05_summary.png" alt="Zonaro run summary"></div>
         <div class="proj-card-body">
           <div class="proj-card-top"><h4>Zonaro</h4><span class="status-badge concept">Concept / design study</span></div>
           <p class="tagline">What if Strava was a turf war?</p>
           <p class="desc">An 11-screen product concept — GPS running reimagined as city-wide territory conquest. Design and systems thinking, not yet built.</p>
           <div class="tag-row"><span class="tag">Product design</span><span class="tag">Gamification</span></div>
-          <button class="tap-badge" data-launch="zonaro" style="margin-top:10px;align-self:flex-start;">▶ Launch App</button>
+          <button class="tap-badge" data-launch="zonaro" style="margin-top:10px;align-self:flex-start;">▶ Live Demo</button>
         </div>
       </article>
 
       <article class="proj-card reveal">
-        <div class="proj-thumb"><img src="images/ig/01_feed.png" alt="Instagram clone feed"></div>
         <div class="proj-card-body">
           <div class="proj-card-top"><h4>Instagram clone</h4><span class="status-badge live">Interactive prototype</span></div>
           <p class="tagline">UI clone — practice project, not affiliated with Instagram</p>
           <p class="desc">Feed, explore, reels, and profile — the broadest UI-surface project, proving range across common app patterns.</p>
           <div class="tag-row"><span class="tag">Flutter</span><span class="tag">UI breadth</span></div>
-          <button class="tap-badge" data-launch="ig" style="margin-top:10px;align-self:flex-start;">▶ Launch App</button>
+          <button class="tap-badge" data-launch="ig" style="margin-top:10px;align-self:flex-start;">▶ Live Demo</button>
         </div>
       </article>
 
       <article class="proj-card reveal">
-        <div class="proj-thumb"><img src="images/food/01_home.png" alt="Food delivery app"></div>
         <div class="proj-card-body">
           <div class="proj-card-top"><h4>Food delivery app</h4><span class="status-badge live">Interactive prototype</span></div>
           <p class="tagline">Browse, order, track — the full commerce loop</p>
           <p class="desc">Learning project, UI redesigned by me — home → item detail → cart → order tracking.</p>
           <div class="tag-row"><span class="tag">Flutter</span><span class="tag">Commerce UX</span></div>
-          <button class="tap-badge" data-launch="food" style="margin-top:10px;align-self:flex-start;">▶ Launch App</button>
+          <button class="tap-badge" data-launch="food" style="margin-top:10px;align-self:flex-start;">▶ Live Demo</button>
         </div>
       </article>
 
       <article class="proj-card reveal">
-        <div class="proj-thumb"><img src="images/edu/01_feed.png" alt="Edu_questor feed"></div>
         <div class="proj-card-body">
           <div class="proj-card-top"><h4>Edu_questor</h4><span class="status-badge live">Interactive prototype</span></div>
           <p class="tagline">A platform connecting students and tutors</p>
           <p class="desc">Two-sided marketplace — matching, chat, and trust-signal profile design. Core loop: feed → tutor profile → chat.</p>
           <div class="tag-row"><span class="tag">Flutter</span><span class="tag">Marketplace UX</span></div>
-          <button class="tap-badge" data-launch="edu" style="margin-top:10px;align-self:flex-start;">▶ Launch App</button>
+          <button class="tap-badge" data-launch="edu" style="margin-top:10px;align-self:flex-start;">▶ Live Demo</button>
         </div>
       </article>
 
       <article class="proj-card reveal">
-        <div class="proj-thumb"><img src="images/finance/02_assets.png" alt="Finance Terminal"></div>
         <div class="proj-card-body">
           <div class="proj-card-top"><h4>Finance_Terminal</h4><span class="status-badge live">Interactive prototype</span></div>
           <p class="tagline">A wealth and markets dashboard</p>
           <p class="desc">Net worth tracking, live market indices, portfolio breakdown, secure biometric login. Dark + gold identity.</p>
           <div class="tag-row"><span class="tag">Flutter</span><span class="tag">Fintech UI</span></div>
-          <button class="tap-badge" data-launch="finance" style="margin-top:10px;align-self:flex-start;">▶ Launch App</button>
+          <button class="tap-badge" data-launch="finance" style="margin-top:10px;align-self:flex-start;">▶ Live Demo</button>
         </div>
       </article>
 
       <article class="proj-card reveal">
-        <div class="proj-thumb"><img src="images/task/01_tasks.png" alt="TaskFlow"></div>
         <div class="proj-card-body">
           <div class="proj-card-top"><h4>task-tracker</h4><span class="status-badge live">Interactive prototype</span></div>
           <p class="tagline">A focused desktop task manager</p>
           <p class="desc">Small-scope, restrained by design — list view and a desktop-native slide-in panel for new tasks.</p>
           <div class="tag-row"><span class="tag">Desktop UX</span></div>
-          <button class="tap-badge" data-launch="task" style="margin-top:10px;align-self:flex-start;">▶ Launch App</button>
+          <button class="tap-badge" data-launch="task" style="margin-top:10px;align-self:flex-start;">▶ Live Demo</button>
         </div>
       </article>
 
       <article class="proj-card reveal">
-        <div class="proj-thumb"><img src="images/overlay/03_tools.png" alt="Overlay app"></div>
         <div class="proj-card-body">
           <div class="proj-card-top"><h4>overlay_app</h4><span class="status-badge live">Interaction demo</span></div>
           <p class="tagline">A floating, always-on-top quick-launcher</p>
           <p class="desc">Minimized bubble expands into a compact action panel — the interaction itself is the product.</p>
           <div class="tag-row"><span class="tag">Windows / Android</span></div>
-          <button class="tap-badge" data-launch="overlay" style="margin-top:10px;align-self:flex-start;">▶ Launch App</button>
+          <button class="tap-badge" data-launch="overlay" style="margin-top:10px;align-self:flex-start;">▶ Live Demo</button>
         </div>
       </article>
 
@@ -600,8 +589,8 @@
           <div class="phone-statusbar"><span>9:41</span><span>●●● 5G 100%</span></div>
           <div class="phone-content" id="demoScreenScroller">
             <img class="demo-screen-img" id="demoScreenImg" src="" alt="App screen">
-            <div class="demo-tap-hint" id="demoTapHint">Tap screen / use controls</div>
           </div>
+          <div class="phone-actions" id="phoneActions"></div>
           <div class="phone-home"></div>
         </div>
       </div>
@@ -686,33 +675,50 @@
     const toggleBtn = document.getElementById('voiceToggle');
     const audioEl = document.getElementById('introAudio');
 
-    let voiceEnabled = true;
+    let isPlaying = false;
     let hasPlayed = false;
 
     function playIntro(){
-      if(hasPlayed || !voiceEnabled) return;
-      hasPlayed = true;
-      typeStep();
-      audioEl.currentTime = 0;
-      audioEl.play().catch(() => { /* autoplay blocked until user interacts — fine, caption still runs */ });
+      if(!hasPlayed){
+        hasPlayed = true;
+        typeStep();
+      }
+      audioEl.play().then(() => {
+        isPlaying = true;
+        toggleBtn.textContent = '⏸';
+        toggleBtn.classList.remove('muted');
+      }).catch(() => {
+        isPlaying = false;
+        toggleBtn.textContent = '▶';
+        toggleBtn.classList.add('muted');
+      });
     }
 
     function onScroll(){
-      if(hasPlayed || !voiceEnabled || !heroEl) return;
+      if(hasPlayed || !heroEl) return;
       const rect = heroEl.getBoundingClientRect();
       const heroHeight = rect.height;
       const scrolledPast = -rect.top; // px scrolled into the hero section
       const pct = scrolledPast / heroHeight;
-      if(pct >= 0.4){ playIntro(); }
+      if(pct >= 0.4){ typeStep(); hasPlayed = true; }
     }
     window.addEventListener('scroll', onScroll, {passive:true});
 
     toggleBtn.addEventListener('click', () => {
-      voiceEnabled = !voiceEnabled;
-      toggleBtn.textContent = voiceEnabled ? '🔊' : '🔇';
-      toggleBtn.classList.toggle('muted', !voiceEnabled);
-      if(!voiceEnabled){ audioEl.pause(); }
-      else if(hasPlayed && audioEl.paused && audioEl.currentTime > 0){ audioEl.play().catch(()=>{}); }
+      if(isPlaying){
+        audioEl.pause();
+        isPlaying = false;
+        toggleBtn.textContent = '▶';
+        toggleBtn.classList.add('muted');
+        return;
+      }
+      playIntro();
+    });
+    audioEl.addEventListener('ended', () => {
+      isPlaying = false;
+      toggleBtn.textContent = '↻';
+      toggleBtn.classList.add('muted');
+      audioEl.currentTime = 0;
     });
   })();
 
@@ -793,8 +799,8 @@
   const demoScreenImg = document.getElementById('demoScreenImg');
   const demoScreenScroller = document.getElementById('demoScreenScroller');
   const demoCaption = document.getElementById('demoCaption');
-  const demoTapHint = document.getElementById('demoTapHint');
   const demoDots = document.getElementById('demoDots');
+  const phoneActions = document.getElementById('phoneActions');
   const demoTitle = document.getElementById('demoTitle');
   const demoSummary = document.getElementById('demoSummary');
   const demoMeta = document.getElementById('demoMeta');
@@ -810,10 +816,10 @@
       summary:'Operate a simulated UAV from splash to mission planning. The preview keeps the original screens visible while letting the visitor move through the flight-control flow.',
       tags:['Telemetry','Mission planning','Failsafe','WebSocket'],
       screens:[
-        { src:'images/gcs/01_splash.png', caption:'Splash — Aeronautical Command & Intelligence', state:'Booting command console and loading the RAVEN profile.' },
-        { src:'images/gcs/02_login.png', caption:'GCS Access Control — secure uplink', state:'Authenticate before mission controls become available.' },
-        { src:'images/gcs/03_dashboard.png', caption:'RAVEN-01 Dashboard — live telemetry', state:'Telemetry is live. Scroll the screen to inspect map, signal, battery, and system status.' },
-        { src:'images/gcs/04_mission.png', caption:'Mission Planning — waypoints & geofence', state:'Plan waypoints, check geofence boundaries, and prepare the simulated sortie.' },
+        { src:'images/gcs/01_splash.png', caption:'Splash — Aeronautical Command & Intelligence', action:'Boot', state:'Booting command console and loading the RAVEN profile.' },
+        { src:'images/gcs/02_login.png', caption:'GCS Access Control — secure uplink', action:'Login', state:'Authenticate before mission controls become available.' },
+        { src:'images/gcs/03_dashboard.png', caption:'RAVEN-01 Dashboard — live telemetry', action:'Telemetry', state:'Telemetry is live. Scroll the screen to inspect map, signal, battery, and system status.' },
+        { src:'images/gcs/04_mission.png', caption:'Mission Planning — waypoints & geofence', action:'Mission', state:'Plan waypoints, check geofence boundaries, and prepare the simulated sortie.' },
       ]
     },
     zonaro: {
@@ -821,14 +827,14 @@
       summary:'A GPS territory-conquest concept. Move through onboarding, run tracking, capture summary, guild, leaderboard, and achievements like a real product walkthrough.',
       tags:['GPS loop','Gamification','Product design','Territory capture'],
       screens:[
-        { src:'images/zonaro2/01_splash.png', caption:'Splash — Run. Claim. Rule.', state:'Brand moment before the player enters the city conquest loop.' },
-        { src:'images/zonaro2/02_onboarding.png', caption:'Onboarding', state:'The product explains the fantasy: movement becomes territory.' },
-        { src:'images/zonaro2/03_login.png', caption:'Login', state:'Entry point for personal progress, guilds, and achievements.' },
-        { src:'images/zonaro2/04_run.png', caption:'Run in progress — live route tracking', state:'Active GPS route tracking is running. This is the core capture moment.' },
-        { src:'images/zonaro2/05_summary.png', caption:'Run Summary — zone captured', state:'The route resolves into captured zones and progress feedback.' },
-        { src:'images/zonaro2/06_guild.png', caption:'Guild Headquarters', state:'Team ownership and collective progress give the app a reason to return.' },
-        { src:'images/zonaro2/07_leaderboard.png', caption:'City Leaderboard', state:'Competitive ranking turns personal running into city-scale competition.' },
-        { src:'images/zonaro2/08_achievements.png', caption:'Legacy of Conquest — achievements', state:'Long-term goals reward repeat usage and mastery.' },
+        { src:'images/zonaro2/01_splash.png', caption:'Splash — Run. Claim. Rule.', action:'Open', state:'Brand moment before the player enters the city conquest loop.' },
+        { src:'images/zonaro2/02_onboarding.png', caption:'Onboarding', action:'Learn', state:'The product explains the fantasy: movement becomes territory.' },
+        { src:'images/zonaro2/03_login.png', caption:'Login', action:'Sign in', state:'Entry point for personal progress, guilds, and achievements.' },
+        { src:'images/zonaro2/04_run.png', caption:'Run in progress — live route tracking', action:'Start run', state:'Active GPS route tracking is running. This is the core capture moment.' },
+        { src:'images/zonaro2/05_summary.png', caption:'Run Summary — zone captured', action:'Summary', state:'The route resolves into captured zones and progress feedback.' },
+        { src:'images/zonaro2/06_guild.png', caption:'Guild Headquarters', action:'Guild', state:'Team ownership and collective progress give the app a reason to return.' },
+        { src:'images/zonaro2/07_leaderboard.png', caption:'City Leaderboard', action:'Rankings', state:'Competitive ranking turns personal running into city-scale competition.' },
+        { src:'images/zonaro2/08_achievements.png', caption:'Legacy of Conquest — achievements', action:'Rewards', state:'Long-term goals reward repeat usage and mastery.' },
       ]
     },
     ig: {
@@ -836,10 +842,10 @@
       summary:'A broad UI-surface practice build. Use the flow to jump through feed, explore, reels, and profile surfaces.',
       tags:['Feed','Explore','Reels','Profile'],
       screens:[
-        { src:'images/ig/01_feed.png', caption:'Home Feed', state:'Feed scrolling and post hierarchy are the main interaction pattern.' },
-        { src:'images/ig/02_explore.png', caption:'Explore', state:'Discovery grid for visual browsing.' },
-        { src:'images/ig/03_reels.png', caption:'Reels', state:'Full-screen media surface with vertical navigation.' },
-        { src:'images/ig/04_profile.png', caption:'Profile', state:'Account identity, posts, and social proof in one view.' },
+        { src:'images/ig/01_feed.png', caption:'Home Feed', action:'Feed', state:'Feed scrolling and post hierarchy are the main interaction pattern.' },
+        { src:'images/ig/02_explore.png', caption:'Explore', action:'Explore', state:'Discovery grid for visual browsing.' },
+        { src:'images/ig/03_reels.png', caption:'Reels', action:'Reels', state:'Full-screen media surface with vertical navigation.' },
+        { src:'images/ig/04_profile.png', caption:'Profile', action:'Profile', state:'Account identity, posts, and social proof in one view.' },
       ]
     },
     food: {
@@ -847,10 +853,10 @@
       summary:'A commerce loop from discovery to order tracking. The preview makes the complete user journey clear.',
       tags:['Commerce','Cart','Checkout','Tracking'],
       screens:[
-        { src:'images/food/01_home.png', caption:'Home', state:'Browse categories and featured items.' },
-        { src:'images/food/02_detail.png', caption:'Item detail', state:'Configure the item before adding it to cart.' },
-        { src:'images/food/03_cart.png', caption:'Cart', state:'Review order items, totals, and checkout intent.' },
-        { src:'images/food/04_orders.png', caption:'Order tracking', state:'Post-purchase status keeps the user informed.' },
+        { src:'images/food/01_home.png', caption:'Home', action:'Browse', state:'Browse categories and featured items.' },
+        { src:'images/food/02_detail.png', caption:'Item detail', action:'Customize', state:'Configure the item before adding it to cart.' },
+        { src:'images/food/03_cart.png', caption:'Cart', action:'Cart', state:'Review order items, totals, and checkout intent.' },
+        { src:'images/food/04_orders.png', caption:'Order tracking', action:'Track', state:'Post-purchase status keeps the user informed.' },
       ]
     },
     edu: {
@@ -858,9 +864,9 @@
       summary:'A two-sided education marketplace flow covering discovery, tutor evaluation, and chat.',
       tags:['Marketplace','Tutor profile','Chat','Trust signals'],
       screens:[
-        { src:'images/edu/01_feed.png', caption:'Feed', state:'Students discover tutors and learning opportunities.' },
-        { src:'images/edu/02_tutor.png', caption:'Tutor profile', state:'Profile depth and trust cues help the student decide.' },
-        { src:'images/edu/03_chat.png', caption:'Chat', state:'The marketplace loop closes with direct conversation.' },
+        { src:'images/edu/01_feed.png', caption:'Feed', action:'Discover', state:'Students discover tutors and learning opportunities.' },
+        { src:'images/edu/02_tutor.png', caption:'Tutor profile', action:'Tutor', state:'Profile depth and trust cues help the student decide.' },
+        { src:'images/edu/03_chat.png', caption:'Chat', action:'Chat', state:'The marketplace loop closes with direct conversation.' },
       ]
     },
     task: {
@@ -868,8 +874,8 @@
       summary:'A compact desktop task manager. The preview focuses on list scanning and quick task creation.',
       tags:['Desktop UX','Task list','Slide panel'],
       screens:[
-        { src:'images/task/01_tasks.png', caption:'All tasks', state:'Dense task scanning without visual noise.' },
-        { src:'images/task/02_new.png', caption:'New task panel', state:'A slide-in creation flow keeps the user in context.' },
+        { src:'images/task/01_tasks.png', caption:'All tasks', action:'Tasks', state:'Dense task scanning without visual noise.' },
+        { src:'images/task/02_new.png', caption:'New task panel', action:'New task', state:'A slide-in creation flow keeps the user in context.' },
       ]
     },
     finance: {
@@ -877,10 +883,10 @@
       summary:'A wealth dashboard with secure entry, assets, market overview, and profile state.',
       tags:['Fintech','Portfolio','Markets','Secure login'],
       screens:[
-        { src:'images/finance/01_login.png', caption:'Secure login', state:'Security-first entry point for a financial product.' },
-        { src:'images/finance/02_assets.png', caption:'Assets dashboard', state:'Portfolio state is summarized for fast scanning.' },
-        { src:'images/finance/03_markets.png', caption:'Markets overview', state:'Market movement gives the dashboard live context.' },
-        { src:'images/finance/04_profile.png', caption:'Profile overview', state:'User account and preferences close the product loop.' },
+        { src:'images/finance/01_login.png', caption:'Secure login', action:'Unlock', state:'Security-first entry point for a financial product.' },
+        { src:'images/finance/02_assets.png', caption:'Assets dashboard', action:'Assets', state:'Portfolio state is summarized for fast scanning.' },
+        { src:'images/finance/03_markets.png', caption:'Markets overview', action:'Markets', state:'Market movement gives the dashboard live context.' },
+        { src:'images/finance/04_profile.png', caption:'Profile overview', action:'Profile', state:'User account and preferences close the product loop.' },
       ]
     },
     overlay: {
@@ -888,9 +894,9 @@
       summary:'A floating quick-launcher interaction demo. Move from launcher to minimized bubble to expanded tools.',
       tags:['Overlay','Quick tools','Always on top'],
       screens:[
-        { src:'images/overlay/01_launcher.png', caption:'Overlay Launcher', state:'The app starts as a small utility entry point.' },
-        { src:'images/overlay/02_bubble.png', caption:'Minimized bubble — always on top', state:'The minimized state stays available without stealing focus.' },
-        { src:'images/overlay/03_tools.png', caption:'Expanded Quick Tools', state:'The bubble expands into focused actions.' },
+        { src:'images/overlay/01_launcher.png', caption:'Overlay Launcher', action:'Launcher', state:'The app starts as a small utility entry point.' },
+        { src:'images/overlay/02_bubble.png', caption:'Minimized bubble — always on top', action:'Bubble', state:'The minimized state stays available without stealing focus.' },
+        { src:'images/overlay/03_tools.png', caption:'Expanded Quick Tools', action:'Tools', state:'The bubble expands into focused actions.' },
       ]
     },
   };
@@ -906,9 +912,9 @@
     demoScreenImg.alt = `${activeDemo.title} ${s.caption}`;
     demoCaption.textContent = s.caption;
     demoDots.innerHTML = currentScreens.map((_,i) => `<span class="${i===screenIndex?'active':''}"></span>`).join('');
-    demoScreenList.innerHTML = currentScreens.map((screen,i) => `<button class="screen-btn ${i===screenIndex?'active':''}" type="button" data-screen="${i}">${String(i+1).padStart(2,'0')} · ${screen.caption}</button>`).join('');
+    phoneActions.innerHTML = currentScreens.map((screen,i) => `<button class="phone-action ${i===screenIndex?'active':''}" type="button" data-screen="${i}">${screen.action || screen.caption}</button>`).join('');
+    demoScreenList.innerHTML = currentScreens.map((screen,i) => `<button class="screen-btn ${i===screenIndex?'active':''}" type="button" data-screen="${i}">${String(i+1).padStart(2,'0')} · ${screen.action || screen.caption}</button>`).join('');
     demoInteraction.textContent = s.state;
-    demoTapHint.style.display = currentScreens.length > 1 ? 'block' : 'none';
     demoPrev.disabled = screenIndex === 0;
     demoNext.disabled = screenIndex === currentScreens.length - 1;
     demoScreenScroller.scrollTop = 0;
@@ -937,10 +943,13 @@
   });
   document.getElementById('closeAppModal').addEventListener('click', closeDemo);
   appModal.addEventListener('click', (e) => { if(e.target === appModal) closeDemo(); });
-  demoScreenImg.addEventListener('click', () => goToScreen(screenIndex + 1));
   demoPrev.addEventListener('click', () => goToScreen(screenIndex - 1));
   demoNext.addEventListener('click', () => goToScreen(screenIndex + 1));
   demoRestart.addEventListener('click', () => goToScreen(0));
+  phoneActions.addEventListener('click', (e) => {
+    const btn = e.target.closest('[data-screen]');
+    if(btn) goToScreen(Number(btn.dataset.screen));
+  });
   demoScreenList.addEventListener('click', (e) => {
     const btn = e.target.closest('[data-screen]');
     if(btn) goToScreen(Number(btn.dataset.screen));
