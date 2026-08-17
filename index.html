@@ -253,26 +253,66 @@
   .app-modal-window{width:min(390px,92vw);max-height:94vh;display:flex;flex-direction:column;align-items:center;gap:10px;}
   .demo-phone{width:min(350px,86vw);}
   .demo-phone .phone-screen{background:#050505;}
-  .demo-phone .phone-content{height:100%;overflow-y:auto;overscroll-behavior:contain;scrollbar-width:thin;scrollbar-color:var(--red-dim) #080808;}
+  .demo-phone.light-status .phone-statusbar{color:#161616;}
+  .demo-phone.light-status .phone-home{background:#161616;}
+  .demo-phone .phone-content{height:100%;overflow-y:auto;overscroll-behavior:contain;scrollbar-width:none;background:#0b0b0c;}
+  .demo-phone .phone-content::-webkit-scrollbar{display:none;}
   .demo-phone .phone-content::after{display:none;}
-  .screen-stage{position:relative;width:100%;background:#050505;}
-  .demo-phone .demo-screen-img{width:100%;height:auto;object-fit:contain;display:block;background:#050505;transition:opacity 0.16s ease,filter 0.16s ease,transform 0.16s ease;}
-  .demo-phone.switching .demo-screen-img{opacity:0.44;filter:blur(1px);transform:scale(0.992);}
-  .hotspot{position:absolute;border:0;background:transparent;border-radius:12px;cursor:pointer;color:transparent;font-size:0;appearance:none;-webkit-tap-highlight-color:transparent;}
-  .hotspot:focus-visible{outline:2px solid rgba(255,255,255,0.75);outline-offset:2px;}
-  .hotspot:hover{background:rgba(255,255,255,0.035);}
+  .mini-app{min-height:100%;padding:42px 14px 24px;font-family:var(--body);color:#f8f8f8;transition:opacity 0.16s ease,transform 0.16s ease;}
+  .demo-phone.switching .mini-app{opacity:0.46;transform:scale(0.992);}
   .tap-ripple{position:absolute;z-index:8;width:72px;height:72px;border-radius:50%;border:1px solid rgba(255,255,255,0.45);background:rgba(255,255,255,0.16);pointer-events:none;transform:translate(-50%,-50%) scale(0.25);animation:tapRipple 0.48s ease-out forwards;}
   @keyframes tapRipple{to{opacity:0;transform:translate(-50%,-50%) scale(1.35);}}
   .app-loader{position:absolute;inset:0;z-index:7;display:flex;align-items:center;justify-content:center;background:rgba(0,0,0,0.18);opacity:0;pointer-events:none;transition:opacity 0.16s ease;}
   .app-loader.show{opacity:1;}
   .app-loader span{width:30px;height:30px;border-radius:50%;border:2px solid rgba(255,255,255,0.22);border-top-color:#fff;animation:spin 0.7s linear infinite;}
   @keyframes spin{to{transform:rotate(360deg);}}
-  .demo-caption{display:none;}
-  .demo-dots{display:none;}
-  .demo-dots span{width:6px;height:6px;border-radius:50%;background:var(--border);transition:background 0.2s;}
-  .demo-dots span.active{background:var(--red);}
   .app-toast{position:absolute;left:50%;bottom:42px;z-index:9;min-width:96px;max-width:78%;padding:9px 12px;background:rgba(18,18,18,0.88);border-radius:999px;font-family:var(--body);font-size:0.78rem;font-weight:600;color:#fff;text-align:center;opacity:0;transform:translate(-50%,8px);transition:opacity 0.2s,transform 0.2s;pointer-events:none;box-shadow:0 10px 28px rgba(0,0,0,0.32);backdrop-filter:blur(10px);}
   .app-toast.show{opacity:1;transform:translate(-50%,0);}
+  .mini-app button,.mini-app input{font:inherit;}
+  .mini-app button{cursor:pointer;-webkit-tap-highlight-color:transparent;}
+  .ma-full{min-height:calc(100vh - 220px);display:flex;flex-direction:column;justify-content:center;}
+  .ma-top{display:flex;align-items:center;justify-content:space-between;gap:10px;margin-bottom:14px;}
+  .ma-title{font-weight:800;font-size:1.28rem;line-height:1.05;letter-spacing:0;}
+  .ma-sub{font-size:0.78rem;color:var(--ma-muted);line-height:1.45;}
+  .ma-row{display:flex;align-items:center;gap:8px;}
+  .ma-between{display:flex;align-items:center;justify-content:space-between;gap:10px;}
+  .ma-grid{display:grid;gap:10px;}
+  .ma-grid.two{grid-template-columns:1fr 1fr;}
+  .ma-card{background:var(--ma-card);border:1px solid var(--ma-border);border-radius:var(--ma-radius);padding:12px;box-shadow:var(--ma-shadow);}
+  .ma-btn{border:0;border-radius:var(--ma-radius);background:var(--ma-accent);color:var(--ma-on-accent);font-weight:800;padding:11px 13px;display:inline-flex;align-items:center;justify-content:center;gap:7px;min-height:38px;}
+  .ma-btn.ghost{background:var(--ma-soft);color:var(--ma-text);border:1px solid var(--ma-border);}
+  .ma-btn.slim{min-height:30px;padding:7px 10px;font-size:0.78rem;}
+  .ma-input{width:100%;border:1px solid var(--ma-border);background:var(--ma-input);color:var(--ma-text);border-radius:var(--ma-radius);padding:11px 12px;outline:none;font-size:0.86rem;text-overflow:ellipsis;}
+  .ma-pill{border:1px solid var(--ma-border);border-radius:999px;padding:6px 10px;background:var(--ma-soft);font-size:0.72rem;color:var(--ma-muted);white-space:nowrap;}
+  .ma-pill.active{background:var(--ma-accent);border-color:var(--ma-accent);color:var(--ma-on-accent);font-weight:800;}
+  .ma-progress{height:8px;border-radius:999px;background:var(--ma-soft);overflow:hidden;}
+  .ma-progress span{display:block;height:100%;width:var(--p,50%);background:var(--ma-accent);border-radius:inherit;}
+  .ma-tabbar{position:sticky;bottom:0;margin:12px -14px -24px;padding:8px 12px 14px;background:var(--ma-tab);display:grid;grid-template-columns:repeat(var(--tabs,4),1fr);gap:5px;border-top:1px solid var(--ma-border);}
+  .ma-tab{border:0;background:transparent;color:var(--ma-muted);border-radius:12px;padding:8px 2px;font-size:0.67rem;font-weight:800;}
+  .ma-tab.active{background:var(--ma-soft);color:var(--ma-accent);}
+  .ma-avatar{width:38px;height:38px;border-radius:50%;background:var(--ma-accent);display:grid;place-items:center;color:var(--ma-on-accent);font-weight:900;flex:0 0 auto;}
+  .ma-map{height:154px;border-radius:18px;background:linear-gradient(135deg,rgba(255,255,255,0.08),rgba(255,255,255,0.02)),repeating-linear-gradient(45deg,transparent 0 20px,rgba(255,255,255,0.04) 20px 22px);position:relative;overflow:hidden;border:1px solid var(--ma-border);}
+  .ma-route{position:absolute;left:38px;top:34px;width:188px;height:88px;border:4px solid var(--ma-accent);border-left-color:transparent;border-radius:46% 54% 42% 58%;transform:rotate(-12deg);}
+  .ma-chart{height:92px;display:flex;align-items:end;gap:7px;}
+  .ma-bar{flex:1;border-radius:8px 8px 3px 3px;background:linear-gradient(180deg,var(--ma-accent),var(--ma-soft));height:var(--h);}
+  .app-gcs{--ma-bg:#071018;--ma-card:#0d1822;--ma-soft:#132638;--ma-input:#091520;--ma-border:#28435c;--ma-accent:#4aa3ff;--ma-on-accent:#03101c;--ma-text:#e9f5ff;--ma-muted:#8ab2d6;--ma-radius:5px;--ma-shadow:none;--ma-tab:rgba(5,12,18,0.96);background:#071018;color:var(--ma-text);font-family:var(--mono);}
+  .app-zonaro{--ma-bg:#191527;--ma-card:#231b31;--ma-soft:#342542;--ma-input:#241d31;--ma-border:#42314d;--ma-accent:#ffbd59;--ma-on-accent:#251501;--ma-text:#fff6e8;--ma-muted:#b9a9c4;--ma-radius:18px;--ma-shadow:0 12px 28px rgba(0,0,0,0.24);--ma-tab:#171220;background:radial-gradient(circle at 50% 0,#2b2140,#171220 64%);color:var(--ma-text);}
+  .app-ig{--ma-bg:#fff;--ma-card:#fff;--ma-soft:#f2f3f5;--ma-input:#f6f7f8;--ma-border:#e5e5e5;--ma-accent:#111;--ma-on-accent:#fff;--ma-text:#111;--ma-muted:#737373;--ma-radius:12px;--ma-shadow:none;--ma-tab:#fff;background:#fff;color:#111;}
+  .app-food{--ma-bg:#fffaf7;--ma-card:#fff;--ma-soft:#fff0ed;--ma-input:#fff;--ma-border:#eedbd6;--ma-accent:#e92820;--ma-on-accent:#fff;--ma-text:#1c1716;--ma-muted:#7c6b66;--ma-radius:12px;--ma-shadow:0 10px 24px rgba(100,40,20,0.08);--ma-tab:#fff;background:#fffaf7;color:#1c1716;}
+  .app-edu{--ma-bg:#f8fbff;--ma-card:#fff;--ma-soft:#eaf2ff;--ma-input:#fff;--ma-border:#d8e4f2;--ma-accent:#2f6fed;--ma-on-accent:#fff;--ma-text:#142033;--ma-muted:#66758a;--ma-radius:14px;--ma-shadow:0 12px 24px rgba(47,111,237,0.08);--ma-tab:#fff;background:#f8fbff;color:#142033;}
+  .app-task{--ma-bg:#101216;--ma-card:#181c22;--ma-soft:#222832;--ma-input:#11151a;--ma-border:#303844;--ma-accent:#8bc6ff;--ma-on-accent:#071016;--ma-text:#edf4fb;--ma-muted:#9aa8b7;--ma-radius:8px;--ma-shadow:none;--ma-tab:#101216;background:#101216;color:#edf4fb;}
+  .app-finance{--ma-bg:#080b0f;--ma-card:#111820;--ma-soft:#1d2630;--ma-input:#0d1218;--ma-border:#283440;--ma-accent:#d5aa4f;--ma-on-accent:#131006;--ma-text:#f5ead4;--ma-muted:#9b907f;--ma-radius:14px;--ma-shadow:0 14px 30px rgba(0,0,0,0.25);--ma-tab:#080b0f;background:#080b0f;color:#f5ead4;}
+  .app-overlay{--ma-bg:#111318;--ma-card:#191d25;--ma-soft:#252b35;--ma-input:#151922;--ma-border:#2d3540;--ma-accent:#7cf2c9;--ma-on-accent:#061610;--ma-text:#effff9;--ma-muted:#93a7a0;--ma-radius:16px;--ma-shadow:0 12px 26px rgba(0,0,0,0.25);--ma-tab:#111318;background:#111318;color:#effff9;}
+  .mini-app h3{font-size:1.05rem;line-height:1.2;margin-bottom:4px;}
+  .metric{font-size:1.38rem;font-weight:900;letter-spacing:-0.02em;}
+  .metric small{font-size:0.7rem;color:var(--ma-muted);}
+  .story{width:54px;text-align:center;font-size:0.65rem;color:var(--ma-muted);}
+  .story .ring{width:48px;height:48px;border-radius:50%;padding:2px;background:linear-gradient(135deg,#f9ce34,#ee2a7b,#6228d7);margin:0 auto 4px;}
+  .story .ring span{display:block;width:100%;height:100%;border-radius:50%;background:#fff;border:2px solid #fff;}
+  .post-img,.food-img{height:190px;border-radius:16px;background:linear-gradient(135deg,var(--c1),var(--c2));position:relative;overflow:hidden;}
+  .post-img::after,.food-img::after{content:'';position:absolute;inset:18%;border-radius:50%;background:rgba(255,255,255,0.26);filter:blur(12px);}
+  .food-img{height:154px;}
+  .task-item.done{opacity:0.56;text-decoration:line-through;}
   @media(max-width:430px){.app-modal-overlay{padding:8px;}.app-modal-close{top:12px;right:12px;}}
 </style>
 </head>
@@ -574,18 +614,13 @@
         <div class="phone-notch"></div>
         <div class="phone-statusbar"><span>9:41</span><span>●●● 5G 100%</span></div>
         <div class="phone-content" id="demoScreenScroller">
-          <div class="screen-stage" id="demoScreenStage">
-            <img class="demo-screen-img" id="demoScreenImg" src="" alt="App screen">
-            <div id="demoHotspots"></div>
-          </div>
+          <div class="mini-app" id="miniApp"></div>
         </div>
         <div class="app-loader" id="appLoader" aria-hidden="true"><span></span></div>
         <div class="app-toast" id="appToast" aria-live="polite"></div>
         <div class="phone-home"></div>
       </div>
     </div>
-    <div class="demo-dots" id="demoDots"></div>
-    <div class="demo-caption" id="demoCaption"></div>
   </div>
 </div>
 
@@ -650,6 +685,7 @@
     let isPlaying = false;
     let hasTyped = false;
     let hasAttemptedAutoPlay = false;
+    let hasCrossedHeroTrigger = false;
 
     function startCaption(){
       if(!hasTyped){
@@ -660,29 +696,44 @@
 
     function playIntro(){
       startCaption();
+      audioEl.muted = false;
       audioEl.play().then(() => {
         isPlaying = true;
         toggleBtn.textContent = '⏸';
+        toggleBtn.setAttribute('aria-label','Pause voice narration');
         toggleBtn.classList.remove('muted');
       }).catch(() => {
         isPlaying = false;
         toggleBtn.textContent = '▶';
+        toggleBtn.setAttribute('aria-label','Play voice narration');
         toggleBtn.classList.add('muted');
       });
     }
 
-    function onScroll(){
-      if(hasAttemptedAutoPlay || !heroEl) return;
+    function heroProgress(){
+      if(!heroEl) return 0;
       const rect = heroEl.getBoundingClientRect();
-      const heroHeight = rect.height;
-      const scrolledPast = -rect.top; // px scrolled into the hero section
-      const pct = scrolledPast / heroHeight;
-      if(pct >= 0.2){
+      return Math.max(0, -rect.top) / Math.max(1, rect.height);
+    }
+
+    function maybeAutoPlay(){
+      if(hasAttemptedAutoPlay || !heroEl) return;
+      if(heroProgress() >= 0.2){
+        hasCrossedHeroTrigger = true;
         hasAttemptedAutoPlay = true;
         playIntro();
       }
     }
-    window.addEventListener('scroll', onScroll, {passive:true});
+
+    function onUserActivation(){
+      if(hasCrossedHeroTrigger && !isPlaying) playIntro();
+      else setTimeout(maybeAutoPlay, 80);
+    }
+
+    window.addEventListener('scroll', maybeAutoPlay, {passive:true});
+    ['pointerdown','keydown','wheel','touchstart'].forEach(type => {
+      window.addEventListener(type, onUserActivation, {passive:true});
+    });
 
     toggleBtn.addEventListener('click', () => {
       if(isPlaying){
@@ -697,6 +748,7 @@
     audioEl.addEventListener('ended', () => {
       isPlaying = false;
       toggleBtn.textContent = '↻';
+      toggleBtn.setAttribute('aria-label','Replay voice narration');
       toggleBtn.classList.add('muted');
       audioEl.currentTime = 0;
     });
@@ -774,105 +826,44 @@
     window.location.href = `mailto:affanyousuf26@gmail.com?subject=${subject}&body=${body}`;
   });
 
-  // ---------- APP DEMO (generic, data-driven across all projects) ----------
+  // ---------- APP DEMO (real DOM mini apps, no screenshot hotspots) ----------
   const appModal = document.getElementById('appModal');
-  const demoScreenImg = document.getElementById('demoScreenImg');
   const demoScreenScroller = document.getElementById('demoScreenScroller');
-  const demoHotspots = document.getElementById('demoHotspots');
-  const demoCaption = document.getElementById('demoCaption');
-  const demoDots = document.getElementById('demoDots');
+  const miniApp = document.getElementById('miniApp');
   const demoPhone = document.querySelector('.demo-phone');
   const demoPhoneScreen = document.querySelector('.demo-phone .phone-screen');
   const appLoader = document.getElementById('appLoader');
   const appToast = document.getElementById('appToast');
 
-  const projectDemos = {
-    gcs: {
-      title:'GCS_DEMO',
-      screens:[
-        { src:'images/gcs/01_splash.png', caption:'Boot screen', toast:'Tap the boot panel to enter the secure link.', hotspots:[{label:'Boot',target:1,x:18,y:68,w:64,h:18}] },
-        { src:'images/gcs/02_login.png', caption:'Secure uplink login', toast:'Tap login to authenticate the command station.', hotspots:[{label:'Login',target:2,x:18,y:71,w:64,h:10}] },
-        { src:'images/gcs/03_dashboard.png', caption:'Live telemetry dashboard', toast:'Telemetry is live. Scroll inside the phone, then open mission planning.', hotspots:[{label:'Arm',message:'Armed',x:8,y:29,w:28,h:6},{label:'Mission',target:3,x:62,y:88,w:32,h:7}] },
-        { src:'images/gcs/04_mission.png', caption:'Mission planning', toast:'Mission tools are active. Tap dashboard to return to telemetry.', hotspots:[{label:'Dashboard',target:2,x:5,y:5,w:28,h:7},{label:'Set waypoint',message:'Waypoint added',x:30,y:55,w:38,h:10}] },
-      ]
-    },
-    zonaro: {
-      title:'Zonaro',
-      screens:[
-        { src:'images/zonaro2/01_splash.png', caption:'Splash', toast:'Tap the logo area to open Zonaro.', hotspots:[{label:'Open',target:1,x:18,y:68,w:64,h:15}] },
-        { src:'images/zonaro2/02_onboarding.png', caption:'Onboarding', toast:'Continue into account access.', hotspots:[{label:'Continue',target:2,x:14,y:82,w:72,h:10}] },
-        { src:'images/zonaro2/03_login.png', caption:'Login', toast:'Sign in to start capturing territory.', hotspots:[{label:'Sign in',target:3,x:12,y:70,w:76,h:12}] },
-        { src:'images/zonaro2/04_run.png', caption:'Live run tracking', toast:'Tap finish to resolve the captured zone.', hotspots:[{label:'Finish run',target:4,x:16,y:82,w:68,h:9},{label:'Pause',message:'Paused',x:70,y:7,w:18,h:7}] },
-        { src:'images/zonaro2/05_summary.png', caption:'Run summary', toast:'Zone captured. Jump to guild progress or rankings.', hotspots:[{label:'Guild',target:5,x:12,y:80,w:35,h:8},{label:'Leaderboard',target:6,x:53,y:80,w:35,h:8}] },
-        { src:'images/zonaro2/06_guild.png', caption:'Guild headquarters', toast:'Guild state is active. Check rankings or rewards.', hotspots:[{label:'Rewards',target:7,x:12,y:84,w:35,h:8},{label:'Rankings',target:6,x:55,y:84,w:35,h:8}] },
-        { src:'images/zonaro2/07_leaderboard.png', caption:'City leaderboard', toast:'Compare the city leaderboard, then inspect rewards.', hotspots:[{label:'Rewards',target:7,x:20,y:84,w:60,h:8},{label:'Guild',target:5,x:10,y:8,w:24,h:7}] },
-        { src:'images/zonaro2/08_achievements.png', caption:'Achievements', toast:'Rewards unlocked. Start another run from here.', hotspots:[{label:'New run',target:3,x:20,y:84,w:60,h:8}] },
-      ]
-    },
-    ig: {
-      title:'Instagram clone',
-      screens:[
-        { src:'images/ig/01_feed.png', caption:'Home feed', toast:'Scroll the feed or use the visible app controls.', hotspots:[{label:'Stories',message:'Story opened',x:5,y:7,w:90,h:6},{label:'Like',message:'Liked',x:5,y:17,w:14,h:4},{label:'Explore',target:1,x:24,y:95,w:13,h:3},{label:'Reels',target:2,x:43,y:95,w:14,h:3},{label:'Profile',target:3,x:80,y:95,w:13,h:3}] },
-        { src:'images/ig/02_explore.png', caption:'Explore', toast:'Tap a discovery tile or use the bottom tabs.', hotspots:[{label:'Open post',message:'Post opened',x:5,y:18,w:42,h:18},{label:'Feed',target:0,x:7,y:95,w:13,h:3},{label:'Reels',target:2,x:43,y:95,w:14,h:3},{label:'Profile',target:3,x:80,y:95,w:13,h:3}] },
-        { src:'images/ig/03_reels.png', caption:'Reels', toast:'Interact with reel actions or switch tabs.', hotspots:[{label:'Like',message:'Liked',x:82,y:60,w:12,h:8},{label:'Feed',target:0,x:7,y:95,w:13,h:3},{label:'Explore',target:1,x:24,y:95,w:13,h:3},{label:'Profile',target:3,x:80,y:95,w:13,h:3}] },
-        { src:'images/ig/04_profile.png', caption:'Profile', toast:'Profile actions are live. Use bottom tabs to move around.', hotspots:[{label:'Follow',message:'Following',x:9,y:31,w:38,h:6},{label:'Message',message:'Message',x:53,y:31,w:38,h:6},{label:'Feed',target:0,x:7,y:95,w:13,h:3},{label:'Explore',target:1,x:24,y:95,w:13,h:3}] },
-      ]
-    },
-    food: {
-      title:'Food delivery app',
-      screens:[
-        { src:'images/food/01_home.png', caption:'Home', toast:'Choose an item or open the cart.', hotspots:[{label:'Open pizza',target:1,x:10,y:23,w:82,h:13},{label:'Cart',target:2,x:80,y:4,w:12,h:6}] },
-        { src:'images/food/02_detail.png', caption:'Item detail', toast:'Customize the item, then add it to cart.', hotspots:[{label:'Add to cart',target:2,x:12,y:82,w:76,h:10},{label:'Size',message:'Size changed',x:14,y:55,w:28,h:8}] },
-        { src:'images/food/03_cart.png', caption:'Cart', toast:'Review the order and continue to checkout.', hotspots:[{label:'Checkout',target:3,x:12,y:82,w:76,h:10},{label:'Qty +',message:'Added',x:70,y:35,w:12,h:7}] },
-        { src:'images/food/04_orders.png', caption:'Order tracking', toast:'Track the active order or start another.', hotspots:[{label:'Order again',target:0,x:12,y:82,w:76,h:10}] },
-      ]
-    },
-    edu: {
-      title:'Edu_questor',
-      screens:[
-        { src:'images/edu/01_feed.png', caption:'Tutor feed', toast:'Open a tutor profile or start chat.', hotspots:[{label:'View tutor',target:1,x:10,y:22,w:80,h:22},{label:'Chat',target:2,x:70,y:80,w:22,h:8}] },
-        { src:'images/edu/02_tutor.png', caption:'Tutor profile', toast:'Review tutor trust cues, then message them.', hotspots:[{label:'Message',target:2,x:12,y:82,w:76,h:9},{label:'Book',message:'Booked',x:12,y:72,w:76,h:8}] },
-        { src:'images/edu/03_chat.png', caption:'Chat', toast:'Chat loop is open. Tap back to return to discovery.', hotspots:[{label:'Back',target:0,x:4,y:4,w:12,h:6},{label:'Send',message:'Sent',x:78,y:88,w:16,h:7}] },
-      ]
-    },
-    task: {
-      title:'task-tracker',
-      screens:[
-        { src:'images/task/01_tasks.png', caption:'All tasks', toast:'Open the new-task panel from the task list.', hotspots:[{label:'New task',target:1,x:78,y:12,w:16,h:10},{label:'Complete',message:'Done',x:7,y:30,w:14,h:10}] },
-        { src:'images/task/02_new.png', caption:'New task panel', toast:'Save the new task to return to the list.', hotspots:[{label:'Save task',target:0,x:70,y:78,w:20,h:10},{label:'Priority',message:'Priority changed',x:10,y:50,w:32,h:9}] },
-      ]
-    },
-    finance: {
-      title:'Finance_Terminal',
-      screens:[
-        { src:'images/finance/01_login.png', caption:'Secure login', toast:'Unlock the terminal to view portfolio assets.', hotspots:[{label:'Unlock',target:1,x:15,y:72,w:70,h:10}] },
-        { src:'images/finance/02_assets.png', caption:'Assets dashboard', toast:'Portfolio is open. Switch tabs or inspect holdings.', hotspots:[{label:'Markets',target:2,x:54,y:92,w:18,h:5},{label:'Profile',target:3,x:78,y:92,w:16,h:5},{label:'Holding',message:'Opened',x:10,y:45,w:80,h:12}] },
-        { src:'images/finance/03_markets.png', caption:'Markets overview', toast:'Market overview is active. Switch between app tabs.', hotspots:[{label:'Assets',target:1,x:28,y:92,w:18,h:5},{label:'Profile',target:3,x:78,y:92,w:16,h:5},{label:'Index',message:'Expanded',x:10,y:28,w:80,h:12}] },
-        { src:'images/finance/04_profile.png', caption:'Profile overview', toast:'Profile tools are active. Return to assets or markets.', hotspots:[{label:'Assets',target:1,x:28,y:92,w:18,h:5},{label:'Markets',target:2,x:54,y:92,w:18,h:5}] },
-      ]
-    },
-    overlay: {
-      title:'overlay_app',
-      screens:[
-        { src:'images/overlay/01_launcher.png', caption:'Overlay launcher', toast:'Minimize the launcher into its floating state.', hotspots:[{label:'Minimize',target:1,x:35,y:70,w:30,h:12}] },
-        { src:'images/overlay/02_bubble.png', caption:'Floating bubble', toast:'Tap the bubble to expand quick tools.', hotspots:[{label:'Open tools',target:2,x:38,y:45,w:24,h:15}] },
-        { src:'images/overlay/03_tools.png', caption:'Quick tools', toast:'Quick tools are expanded. Collapse back to the bubble.', hotspots:[{label:'Collapse',target:1,x:72,y:12,w:16,h:8},{label:'Action',message:'Done',x:14,y:42,w:72,h:10}] },
-      ]
-    },
+  const demoDefaults = {
+    gcs:{screen:'splash',boot:64,battery:78,alt:124,gps:14,signal:96,armed:false,mode:'STBY',waypoints:3,payload:false},
+    zonaro:{screen:'splash',running:false,seconds:0,distance:0.62,zones:3,guildTab:'team'},
+    ig:{screen:'feed',liked:false,saved:false,followed:false,profileTab:'grid',storyOpen:false},
+    food:{screen:'home',category:'Pizza',qty:1,size:'M',cartQty:0,orderStage:0},
+    edu:{screen:'feed',subject:'Math',booked:false,messages:['Hi Affan, I can help with calculus today.'],draft:''},
+    task:{screen:'list',filter:'All',tasks:[['MAVLink parser polish','High',false],['Portfolio demo rebuild','High',false],['Review ShapeIQ alerts','Med',true]],draft:'',priority:'High'},
+    finance:{screen:'login',unlocked:false,selected:'AAPL',risk:'Balanced',net:128430,delta:1.8},
+    overlay:{screen:'launcher',enabled:false,actions:0}
   };
-
-  let activeDemo = null;
-  let currentScreens = [];
-  let screenIndex = 0;
+  const demoTitles = {gcs:'GCS_DEMO',zonaro:'Zonaro',ig:'Instagram clone',food:'Food delivery',edu:'Edu_questor',task:'task-tracker',finance:'Finance_Terminal',overlay:'overlay_app'};
+  const demoStates = {};
+  let activeDemoKey = null;
   let toastTimer = null;
   let transitionTimer = null;
+  let demoLoop = null;
+
+  const clone = (value) => JSON.parse(JSON.stringify(value));
+  const state = () => demoStates[activeDemoKey];
+  const mmss = (s) => `${Math.floor(s/60)}:${String(s%60).padStart(2,'0')}`;
+  const money = (n) => '$' + Math.round(n).toLocaleString('en-US');
+  const active = (a,b) => a === b ? 'active' : '';
+  const h = (v) => String(v).replace(/[&<>"']/g, m => ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[m]));
 
   function showAppToast(message){
-    if(!message) return;
     clearTimeout(toastTimer);
     appToast.textContent = message;
     appToast.classList.add('show');
-    toastTimer = setTimeout(() => appToast.classList.remove('show'), 1200);
+    toastTimer = setTimeout(() => appToast.classList.remove('show'), 1100);
   }
 
   function showTapFeedback(event){
@@ -885,92 +876,224 @@
     ripple.addEventListener('animationend', () => ripple.remove(), {once:true});
   }
 
-  function renderScreen(){
-    const s = currentScreens[screenIndex];
-    if(!s) return;
-    demoScreenImg.src = s.src;
-    demoScreenImg.alt = `${activeDemo.title} ${s.caption}`;
-    demoCaption.textContent = `${activeDemo.title} / ${s.caption}`;
-    demoDots.innerHTML = currentScreens.map((_,i) => `<span class="${i===screenIndex?'active':''}"></span>`).join('');
-    demoHotspots.innerHTML = (s.hotspots || []).map((hotspot, index) => `
-      <button
-        class="hotspot"
-        type="button"
-        data-hotspot="${index}"
-        aria-label="${hotspot.label}"
-        style="left:${hotspot.x}%;top:${hotspot.y}%;width:${hotspot.w}%;height:${hotspot.h}%;">
-        ${hotspot.label}
-      </button>
-    `).join('');
-    clearTimeout(toastTimer);
-    appToast.classList.remove('show');
-    appToast.textContent = '';
-    demoScreenScroller.scrollTop = 0;
-  }
-
-  function openDemo(key, startIndex = 0){
-    activeDemo = projectDemos[key];
-    if(!activeDemo) return;
-    currentScreens = activeDemo.screens;
-    screenIndex = Math.max(0, Math.min(currentScreens.length - 1, startIndex));
-    clearTimeout(transitionTimer);
-    demoPhone.classList.remove('switching');
-    appLoader.classList.remove('show');
-    renderScreen();
-    appModal.classList.add('open');
-  }
-
-  function closeDemo(){ appModal.classList.remove('open'); }
-  function goToScreen(index){
-    screenIndex = Math.max(0, Math.min(currentScreens.length - 1, index));
-    renderScreen();
-  }
-
-  function transitionToScreen(index){
-    const nextIndex = Math.max(0, Math.min(currentScreens.length - 1, index));
+  function phoneTransition(callback){
     clearTimeout(transitionTimer);
     demoPhone.classList.add('switching');
     appLoader.classList.add('show');
     transitionTimer = setTimeout(() => {
-      goToScreen(nextIndex);
+      callback();
+      renderCurrentDemo();
       requestAnimationFrame(() => {
         demoPhone.classList.remove('switching');
         appLoader.classList.remove('show');
       });
-    }, 230);
+    }, 180);
   }
 
-  function activateHotspot(hotspot, event){
-    if(!hotspot) return;
-    showTapFeedback(event);
-    if(typeof hotspot.target === 'number'){
-      transitionToScreen(hotspot.target);
-      return;
-    }
-    showAppToast(hotspot.message || 'Action triggered.');
+  function setDemoState(patch, render = true){
+    Object.assign(state(), patch);
+    if(render) renderCurrentDemo();
   }
 
+  function appTop(title, right = ''){
+    return `<div class="ma-top"><div><div class="ma-title">${title}</div><div class="ma-sub">${demoTitles[activeDemoKey]}</div></div>${right}</div>`;
+  }
+
+  function miniTabs(items, current){
+    return `<div class="ma-tabbar" style="--tabs:${items.length}">${items.map(([id,label]) => `<button class="ma-tab ${active(current,id)}" data-action="nav:${id}" type="button">${label}</button>`).join('')}</div>`;
+  }
+
+  function renderGcs(s){
+    if(s.screen === 'splash') return `<div class="ma-full" style="gap:22px;text-align:center;">
+      <div style="font-size:2.7rem;">✈</div><div><div class="ma-title" style="font-size:2rem;">AERONAUTICAL<br>COMMAND &<br>INTELLIGENCE</div><div class="ma-sub">RAVEN-01 // TACTICAL UPLINK</div></div>
+      <div class="ma-card"><div class="ma-between"><b>SYSTEM INITIALIZING</b><b>${s.boot}%</b></div><div class="ma-progress" style="margin-top:9px;--p:${s.boot}%"><span></span></div><div class="ma-sub" style="margin-top:8px;">SECURE DATALINK ESTABLISHED</div></div>
+      <button class="ma-btn" data-action="gcs-login" type="button">ENTER GCS</button>
+    </div>`;
+    if(s.screen === 'login') return `<div class="ma-full" style="gap:13px;">${appTop('Access Control')}<input class="ma-input" value="RAVEN_OPERATOR" aria-label="Callsign"><input class="ma-input" value="••••••••" aria-label="Password"><button class="ma-btn" data-action="gcs-auth" type="button">AUTHORIZE UPLINK</button><div class="ma-card ma-sub">Encrypted command channel ready on UDP / TCP / USB.</div></div>`;
+    if(s.screen === 'mission') return `${appTop('Mission Plan','<button class="ma-btn slim ghost" data-action="gcs-dashboard" type="button">Dash</button>')}<div class="ma-map"><div class="ma-route"></div></div><div class="ma-grid two" style="margin-top:10px;"><div class="ma-card"><div class="ma-sub">Waypoints</div><div class="metric">${s.waypoints}</div></div><div class="ma-card"><div class="ma-sub">Geofence</div><div class="metric">OK</div></div></div><div class="ma-card" style="margin-top:10px;"><div class="ma-between"><span>WP-${s.waypoints} / sector north</span><button class="ma-btn slim" data-action="gcs-add-wp" type="button">Add WP</button></div></div><button class="ma-btn ghost" data-action="gcs-rtl" type="button" style="width:100%;margin-top:10px;">Return To Launch</button>`;
+    if(s.screen === 'payload') return `${appTop('Payload','<button class="ma-btn slim ghost" data-action="gcs-dashboard" type="button">Dash</button>')}<div class="ma-card"><div class="ma-map" style="height:190px;background:linear-gradient(135deg,#182839,#060b11);"><div style="position:absolute;left:28%;top:32%;width:44%;height:28%;border:1px solid #4aa3ff;"></div></div><div class="ma-between" style="margin-top:12px;"><span>Gimbal ${s.payload?'Recording':'Standby'}</span><button class="ma-btn slim" data-action="gcs-record" type="button">${s.payload?'Stop':'Record'}</button></div></div>`;
+    return `${appTop('RAVEN-01','<span class="ma-pill active">LINK '+s.signal+'%</span>')}<div class="ma-map"><div class="ma-route"></div></div><div class="ma-grid two" style="margin-top:10px;"><div class="ma-card"><div class="ma-sub">Battery</div><div class="metric">${s.battery}<small>%</small></div></div><div class="ma-card"><div class="ma-sub">Altitude</div><div class="metric">${s.alt}<small>m</small></div></div><div class="ma-card"><div class="ma-sub">GPS</div><div class="metric">${s.gps}<small>sat</small></div></div><div class="ma-card"><div class="ma-sub">Mode</div><div class="metric">${s.mode}</div></div></div><div class="ma-grid two" style="margin-top:10px;"><button class="ma-btn" data-action="gcs-arm" type="button">${s.armed?'DISARM':'ARM'}</button><button class="ma-btn ghost" data-action="gcs-mission" type="button">MISSION</button><button class="ma-btn ghost" data-action="gcs-payload" type="button">PAYLOAD</button><button class="ma-btn ghost" data-action="gcs-rtl" type="button">RTL</button></div>`;
+  }
+
+  function renderZonaro(s){
+    if(s.screen === 'splash') return `<div class="ma-full" style="text-align:center;gap:24px;"><div style="width:108px;height:108px;border-radius:30px;background:#5b4438;margin:0 auto;display:grid;place-items:center;font-size:2.4rem;">◆</div><div><div class="ma-title" style="font-size:2rem;color:#ffbd59;">ZONARO</div><div class="ma-sub">Run. Claim. Rule.</div></div><button class="ma-btn" data-action="zonaro-onboard" type="button">Open</button></div>`;
+    if(s.screen === 'onboard') return `<div class="ma-full" style="gap:16px;">${appTop('Claim the city')}<div class="ma-map"><div class="ma-route"></div></div><div class="ma-card"><h3>Your route becomes territory.</h3><p class="ma-sub">Close loops, capture zones, and climb the city leaderboard with your guild.</p></div><button class="ma-btn" data-action="zonaro-login" type="button">Continue</button></div>`;
+    if(s.screen === 'login') return `<div class="ma-full" style="gap:13px;">${appTop('Welcome back')}<input class="ma-input" value="affan.runner" aria-label="Username"><input class="ma-input" value="••••••" aria-label="Password"><button class="ma-btn" data-action="zonaro-run" type="button">Sign in</button></div>`;
+    if(s.screen === 'summary') return `${appTop('Zone captured')}<div class="ma-card" style="text-align:center;"><div class="metric">${s.distance.toFixed(2)}<small> km</small></div><div class="ma-sub">Captured ${s.zones} zones in ${mmss(s.seconds)}</div></div><div class="ma-grid two" style="margin-top:10px;"><button class="ma-btn" data-action="nav:guild" type="button">Guild</button><button class="ma-btn ghost" data-action="nav:leader" type="button">Leaderboard</button></div>${miniTabs([['run','Run'],['guild','Guild'],['leader','Ranks'],['achievements','Rewards']],s.screen)}`;
+    if(s.screen === 'guild') return `${appTop('Guild HQ')}<div class="ma-card"><div class="ma-between"><b>North Wolves</b><span class="ma-pill active">#2 City</span></div><div class="ma-progress" style="margin-top:14px;--p:72%"><span></span></div><p class="ma-sub" style="margin-top:8px;">18 districts controlled this week.</p></div><div class="ma-grid" style="margin-top:10px;"><div class="ma-card ma-between"><span>Affan</span><b>${s.zones} zones</b></div><div class="ma-card ma-between"><span>Riya</span><b>11 zones</b></div></div>${miniTabs([['run','Run'],['guild','Guild'],['leader','Ranks'],['achievements','Rewards']],s.screen)}`;
+    if(s.screen === 'leader') return `${appTop('Leaderboard')}<div class="ma-grid"><div class="ma-card ma-between"><span>1. City Falcons</span><b>420</b></div><div class="ma-card ma-between"><span>2. North Wolves</span><b>386</b></div><div class="ma-card ma-between"><span>3. Metro Kings</span><b>332</b></div></div>${miniTabs([['run','Run'],['guild','Guild'],['leader','Ranks'],['achievements','Rewards']],s.screen)}`;
+    if(s.screen === 'achievements') return `${appTop('Achievements')}<div class="ma-grid two"><div class="ma-card"><h3>Loop Lord</h3><p class="ma-sub">Closed 5 routes</p></div><div class="ma-card"><h3>Zone King</h3><p class="ma-sub">${s.zones}/10 zones</p></div><div class="ma-card"><h3>Early Bird</h3><p class="ma-sub">6 AM run</p></div><div class="ma-card"><h3>Guild XP</h3><p class="ma-sub">+240 XP</p></div></div>${miniTabs([['run','Run'],['guild','Guild'],['leader','Ranks'],['achievements','Rewards']],s.screen)}`;
+    return `${appTop('Live Run','<span class="ma-pill active">'+(s.running?'Tracking':'Paused')+'</span>')}<div class="ma-map"><div class="ma-route"></div></div><div class="ma-grid two" style="margin-top:10px;"><div class="ma-card"><div class="ma-sub">Distance</div><div class="metric">${s.distance.toFixed(2)}<small> km</small></div></div><div class="ma-card"><div class="ma-sub">Time</div><div class="metric">${mmss(s.seconds)}</div></div><div class="ma-card"><div class="ma-sub">Zones</div><div class="metric">${s.zones}</div></div><div class="ma-card"><div class="ma-sub">Pace</div><div class="metric">5'42</div></div></div><div class="ma-grid two" style="margin-top:10px;"><button class="ma-btn" data-action="zonaro-toggle" type="button">${s.running?'Pause':'Start'}</button><button class="ma-btn ghost" data-action="zonaro-finish" type="button">Finish</button></div>${miniTabs([['run','Run'],['guild','Guild'],['leader','Ranks'],['achievements','Rewards']],s.screen)}`;
+  }
+
+  function renderIg(s){
+    const tab = miniTabs([['feed','Home'],['explore','Search'],['reels','Reels'],['profile','Profile']],s.screen);
+    if(s.screen === 'explore') return `${appTop('Explore')}<input class="ma-input" value="flutter ui" aria-label="Search"><div class="ma-grid two" style="margin-top:10px;">${[1,2,3,4,5,6].map(i=>`<button class="ma-card post-img" style="--c1:#${i%2?'e66465':'6a7ff2'};--c2:#${i%2?'9198e5':'43e9a3'}" data-action="ig-open-post" type="button" aria-label="Open post"></button>`).join('')}</div>${tab}`;
+    if(s.screen === 'reels') return `${appTop('Reels')}<div class="post-img" style="height:430px;--c1:#111;--c2:#903;"><div style="position:absolute;right:12px;bottom:70px;display:grid;gap:12px;"><button class="ma-btn slim ghost" data-action="ig-like" type="button">${s.liked?'♥':'♡'}</button><button class="ma-btn slim ghost" data-action="toast:Comment" type="button">💬</button><button class="ma-btn slim ghost" data-action="toast:Shared" type="button">↗</button></div><div style="position:absolute;left:12px;bottom:14px;"><b>@affan.dev</b><div class="ma-sub">Building Flutter-grade motion.</div></div></div>${tab}`;
+    if(s.screen === 'profile') return `${appTop('affan.dev')}<div class="ma-row"><div class="ma-avatar">A</div><div class="ma-grid two" style="flex:1;"><div><b>48</b><div class="ma-sub">Posts</div></div><div><b>12.4K</b><div class="ma-sub">Followers</div></div></div></div><div class="ma-grid two" style="margin-top:12px;"><button class="ma-btn" data-action="ig-follow" type="button">${s.followed?'Following':'Follow'}</button><button class="ma-btn ghost" data-action="toast:Message" type="button">Message</button></div><div class="ma-row" style="margin:14px 0;">${['grid','reels','tagged'].map(t=>`<button class="ma-pill ${active(s.profileTab,t)}" data-action="ig-tab:${t}" type="button">${t}</button>`).join('')}</div><div class="ma-grid two">${[1,2,3,4].map(i=>`<div class="post-img" style="height:96px;--c1:#ddd;--c2:#${i%2?'222':'aaa'}"></div>`).join('')}</div>${tab}`;
+    return `${appTop('Instagram')}<div class="ma-row" style="overflow:hidden;margin-bottom:12px;">${['you','arya','dev','uav'].map(x=>`<button class="story" data-action="ig-story" type="button"><span class="ring"><span></span></span>${x}</button>`).join('')}</div>${s.storyOpen?'<div class="ma-card" style="margin-bottom:10px;background:#111;color:#fff;"><div class="ma-between"><b>Story</b><button class="ma-btn slim ghost" data-action="ig-story" type="button">Close</button></div><div class="post-img" style="height:210px;margin-top:10px;--c1:#111;--c2:#ee2a7b;"></div></div>':''}<div class="ma-card" style="padding:0;overflow:hidden;"><div class="ma-between" style="padding:10px 12px;"><b>affan.dev</b><span>•••</span></div><div class="post-img" style="border-radius:0;--c1:#f8b500;--c2:#fceabb;"></div><div class="ma-row" style="padding:10px 12px;"><button class="ma-btn slim ghost" data-action="ig-like" type="button">${s.liked?'♥':'♡'}</button><button class="ma-btn slim ghost" data-action="toast:Comment" type="button">💬</button><button class="ma-btn slim ghost" data-action="ig-save" type="button">${s.saved?'Saved':'Save'}</button></div><p style="padding:0 12px 12px;font-size:0.82rem;"><b>${s.liked?'1,205':'1,204'} likes</b><br>Mission-ready Flutter UI work.</p></div>${tab}`;
+  }
+
+  function renderFood(s){
+    if(s.screen === 'detail') return `${appTop('Menu item','<button class="ma-btn slim ghost" data-action="food-home" type="button">Back</button>')}<div class="food-img" style="--c1:#f7b267;--c2:#f79d65;"></div><div class="ma-between" style="margin:14px 0;"><div><h3>Double Cheeseburger</h3><p class="ma-sub">Melty cheese, pickles, chopped onions.</p></div><span class="ma-pill active">$12.99</span></div><div class="ma-row">${['S','M','L'].map(x=>`<button class="ma-pill ${active(s.size,x)}" data-action="food-size:${x}" type="button">${x}</button>`).join('')}</div><div class="ma-between ma-card" style="margin-top:14px;"><span>Quantity</span><div class="ma-row"><button class="ma-btn slim ghost" data-action="food-qty:-1" type="button">-</button><b>${s.qty}</b><button class="ma-btn slim ghost" data-action="food-qty:1" type="button">+</button></div></div><button class="ma-btn" data-action="food-add" type="button" style="width:100%;margin-top:12px;">Add ${s.qty} to cart</button>`;
+    if(s.screen === 'cart') return `${appTop('Cart','<span class="ma-pill active">${s.cartQty}</span>')}<div class="ma-card"><div class="ma-between"><div><b>Double Cheeseburger</b><p class="ma-sub">Size ${s.size}</p></div><div class="ma-row"><button class="ma-btn slim ghost" data-action="food-cart:-1" type="button">-</button><b>${s.cartQty}</b><button class="ma-btn slim ghost" data-action="food-cart:1" type="button">+</button></div></div></div><div class="ma-card" style="margin-top:10px;"><div class="ma-between"><span>Subtotal</span><b>$${(s.cartQty*12.99).toFixed(2)}</b></div><div class="ma-between"><span>Delivery</span><b>$2.99</b></div><hr style="border-color:var(--ma-border);margin:10px 0;"><div class="ma-between"><b>Total</b><b>$${(s.cartQty*12.99+2.99).toFixed(2)}</b></div></div><button class="ma-btn" data-action="food-checkout" type="button" style="width:100%;margin-top:12px;">Checkout</button>`;
+    if(s.screen === 'order') return `${appTop('Order status')}<div class="ma-card"><h3>${['Preparing','On the way','Delivered'][s.orderStage]}</h3><div class="ma-progress" style="margin:12px 0;--p:${[33,66,100][s.orderStage]}%"><span></span></div><p class="ma-sub">Luigi's Woodfired · ETA ${s.orderStage===2?'now':'18 min'}</p></div><button class="ma-btn" data-action="food-next-stage" type="button" style="width:100%;margin-top:12px;">Update Status</button><button class="ma-btn ghost" data-action="food-home" type="button" style="width:100%;margin-top:8px;">Order Again</button>`;
+    return `${appTop('Delivery Location','<button class="ma-btn slim ghost" data-action="food-cart" type="button">Cart '+s.cartQty+'</button>')}<input class="ma-input" value="Search for restaurants, dishes..." aria-label="Search food"><div class="ma-row" style="overflow:hidden;margin:12px 0;">${['Pizza','Burgers','Sushi','Healthy'].map(c=>`<button class="ma-pill ${active(s.category,c)}" data-action="food-cat:${c}" type="button">${c}</button>`).join('')}</div><button class="food-img" style="width:100%;border:0;--c1:#f7b267;--c2:#f79d65;" data-action="food-detail" type="button"><span style="position:absolute;left:14px;bottom:14px;color:#fff;text-align:left;"><b>Luigi's Woodfired</b><br>★ 4.9 · Free Delivery</span></button><h3 style="margin:14px 0 8px;">Popular Near You</h3><div class="ma-grid">${['Napoli Pizzeria','Chicago Town','Crust & Co.'].map((n,i)=>`<button class="ma-card ma-between" data-action="food-detail" type="button"><span>${n}<br><span class="ma-sub">★ ${(4.8-i/10).toFixed(1)} · ${20+i*5}-30 min</span></span><b>${i?'$$':'$$$'}</b></button>`).join('')}</div>`;
+  }
+
+  function renderEdu(s){
+    if(s.screen === 'tutor') return `${appTop('Tutor Profile','<button class="ma-btn slim ghost" data-action="edu-feed" type="button">Back</button>')}<div class="ma-card"><div class="ma-row"><div class="ma-avatar">SK</div><div><h3>Sarah Khan</h3><p class="ma-sub">Calculus · Physics · 4.9 ★</p></div></div><p style="margin-top:12px;">8 years teaching students for boards and entrance exams.</p></div><div class="ma-grid two" style="margin-top:10px;"><button class="ma-btn" data-action="edu-chat" type="button">Message</button><button class="ma-btn ghost" data-action="edu-book" type="button">${s.booked?'Booked':'Book Trial'}</button></div>`;
+    if(s.screen === 'chat') return `${appTop('Sarah Khan','<button class="ma-btn slim ghost" data-action="edu-feed" type="button">Back</button>')}<div class="ma-grid" style="margin-bottom:10px;">${s.messages.map((m,i)=>`<div class="ma-card" style="max-width:${i?'82%':'92%'};margin-left:${i?'auto':'0'};background:${i?'var(--ma-accent)':'var(--ma-card)'};color:${i?'var(--ma-on-accent)':'var(--ma-text)'}">${h(m)}</div>`).join('')}</div><div class="ma-row"><input class="ma-input" id="eduDraft" value="${h(s.draft)}" placeholder="Type message"><button class="ma-btn slim" data-action="edu-send" type="button">Send</button></div>`;
+    return `${appTop('Find Tutors')}<input class="ma-input" value="Search ${s.subject}" aria-label="Search tutor"><div class="ma-row" style="overflow:hidden;margin:12px 0;">${['Math','Physics','English'].map(x=>`<button class="ma-pill ${active(s.subject,x)}" ${s.subject===x?'':'data-action="edu-subject:'+x+'"'} type="button">${x}</button>`).join('')}</div><div class="ma-grid">${['Sarah Khan','Aman Verma','Nida Ali'].map((n,i)=>`<button class="ma-card ma-between" data-action="edu-tutor" type="button"><span><b>${n}</b><br><span class="ma-sub">${s.subject} · ${(4.9-i/10).toFixed(1)} ★ · Today</span></span><span class="ma-pill">View</span></button>`).join('')}</div>`;
+  }
+
+  function renderTask(s){
+    const visible = s.tasks.filter(t => s.filter === 'All' || (s.filter === 'Done') === t[2]);
+    if(s.screen === 'new') return `${appTop('New Task','<button class="ma-btn slim ghost" data-action="task-list" type="button">Cancel</button>')}<input class="ma-input" id="taskDraft" value="${h(s.draft)}" placeholder="Task title"><div class="ma-row" style="margin:12px 0;">${['High','Med','Low'].map(p=>`<button class="ma-pill ${active(s.priority,p)}" data-action="task-priority:${p}" type="button">${p}</button>`).join('')}</div><button class="ma-btn" data-action="task-save" type="button" style="width:100%;">Save task</button>`;
+    return `${appTop('Task Board','<button class="ma-btn slim" data-action="task-new" type="button">New</button>')}<div class="ma-row" style="margin-bottom:12px;">${['All','Open','Done'].map(f=>`<button class="ma-pill ${active(s.filter,f)}" data-action="task-filter:${f}" type="button">${f}</button>`).join('')}</div><div class="ma-grid">${visible.map((t,i)=>`<button class="ma-card ma-between task-item ${t[2]?'done':''}" data-action="task-toggle:${s.tasks.indexOf(t)}" type="button"><span>${h(t[0])}<br><span class="ma-sub">${t[1]} priority</span></span><span class="ma-pill ${t[2]?'active':''}">${t[2]?'Done':'Open'}</span></button>`).join('')}</div>`;
+  }
+
+  function renderFinance(s){
+    const holdings = [['AAPL',34200,2.4],['ETH',28100,-1.2],['NVDA',22600,3.1]];
+    if(s.screen === 'login') return `<div class="ma-full" style="gap:16px;text-align:center;"><div style="font-size:3rem;">◈</div><div><div class="ma-title" style="font-size:1.8rem;">FINANCE<br>TERMINAL</div><div class="ma-sub">Secure portfolio access</div></div><button class="ma-btn" data-action="finance-unlock" type="button">Unlock</button></div>`;
+    if(s.screen === 'markets') return `${appTop('Markets')}<div class="ma-chart ma-card">${[60,82,44,72,58,91,67].map(v=>`<span class="ma-bar" style="--h:${v}%"></span>`).join('')}</div><div class="ma-grid" style="margin-top:10px;">${['S&P 500','NIFTY 50','BTC'].map((n,i)=>`<button class="ma-card ma-between" data-action="toast:Expanded" type="button"><span>${n}<br><span class="ma-sub">Live index</span></span><b style="color:${i===1?'#ff6b6b':'#6ee7a8'}">${i===1?'-0.4':'+1.'+i}%</b></button>`).join('')}</div>${miniTabs([['assets','Assets'],['markets','Markets'],['profile','Profile']],s.screen)}`;
+    if(s.screen === 'profile') return `${appTop('Profile')}<div class="ma-card"><div class="ma-row"><div class="ma-avatar">A</div><div><b>Affan Yousuf</b><p class="ma-sub">Verified investor profile</p></div></div></div><div class="ma-card" style="margin-top:10px;"><div class="ma-between"><span>Risk profile</span><b>${s.risk}</b></div><div class="ma-row" style="margin-top:10px;">${['Safe','Balanced','Growth'].map(r=>`<button class="ma-pill ${active(s.risk,r)}" data-action="finance-risk:${r}" type="button">${r}</button>`).join('')}</div></div>${miniTabs([['assets','Assets'],['markets','Markets'],['profile','Profile']],s.screen)}`;
+    return `${appTop('Assets','<span class="ma-pill active">'+(s.delta>0?'+':'')+s.delta.toFixed(1)+'%</span>')}<div class="ma-card"><div class="ma-sub">Net worth</div><div class="metric">${money(s.net)}</div><div class="ma-progress" style="margin-top:10px;--p:68%"><span></span></div></div><div class="ma-grid" style="margin-top:10px;">${holdings.map(x=>`<button class="ma-card ma-between" data-action="finance-holding:${x[0]}" type="button"><span><b>${x[0]}</b><br><span class="ma-sub">${x[0]===s.selected?'Selected':'Holding'}</span></span><span><b>${money(x[1])}</b><br><span style="color:${x[2]>0?'#6ee7a8':'#ff6b6b'}">${x[2]>0?'+':''}${x[2]}%</span></span></button>`).join('')}</div>${miniTabs([['assets','Assets'],['markets','Markets'],['profile','Profile']],s.screen)}`;
+  }
+
+  function renderOverlay(s){
+    if(s.screen === 'bubble') return `<div class="ma-full" style="align-items:center;gap:20px;"><button style="width:86px;height:86px;border-radius:50%;border:0;background:var(--ma-accent);color:var(--ma-on-accent);font-size:2rem;box-shadow:0 18px 45px rgba(124,242,201,0.28);" data-action="overlay-tools" type="button">⚡</button><p class="ma-sub">Floating bubble active</p></div>`;
+    if(s.screen === 'tools') return `${appTop('Quick Tools','<button class="ma-btn slim ghost" data-action="overlay-bubble" type="button">Collapse</button>')}<div class="ma-grid two"><button class="ma-card" data-action="overlay-action" type="button">Screenshot</button><button class="ma-card" data-action="overlay-action" type="button">Record</button><button class="ma-card" data-action="overlay-action" type="button">Notes</button><button class="ma-card" data-action="overlay-action" type="button">Timer</button></div><div class="ma-card" style="margin-top:10px;">Actions used: <b>${s.actions}</b></div>`;
+    return `<div class="ma-full" style="gap:14px;">${appTop('Overlay Launcher')}<div class="ma-card"><div class="ma-between"><span>System overlay</span><span class="ma-pill ${s.enabled?'active':''}">${s.enabled?'Allowed':'Pending'}</span></div><p class="ma-sub" style="margin-top:8px;">Enable quick tools above other apps.</p></div><button class="ma-btn" data-action="overlay-enable" type="button">${s.enabled?'Minimize':'Enable Overlay'}</button></div>`;
+  }
+
+  const renderers = {gcs:renderGcs,zonaro:renderZonaro,ig:renderIg,food:renderFood,edu:renderEdu,task:renderTask,finance:renderFinance,overlay:renderOverlay};
+
+  function renderCurrentDemo(){
+    if(!activeDemoKey) return;
+    demoPhone.classList.toggle('light-status', ['ig','food','edu'].includes(activeDemoKey));
+    miniApp.className = `mini-app app-${activeDemoKey}`;
+    miniApp.innerHTML = renderers[activeDemoKey](state());
+  }
+
+  function startDemoLoop(){
+    clearInterval(demoLoop);
+    demoLoop = setInterval(() => {
+      if(!activeDemoKey || !appModal.classList.contains('open')) return;
+      const s = state();
+      if(activeDemoKey === 'gcs' && ['dash','mission','payload'].includes(s.screen)){
+        s.alt = Math.max(90, s.alt + (s.armed ? 2 : -1));
+        s.battery = Math.max(9, s.battery - (s.armed ? 1 : 0));
+        s.signal = Math.max(80, Math.min(99, s.signal + (Math.random() > 0.5 ? 1 : -1)));
+        renderCurrentDemo();
+      }
+      if(activeDemoKey === 'zonaro' && s.running){
+        s.seconds += 1; s.distance += 0.03; if(s.seconds % 4 === 0) s.zones += 1; renderCurrentDemo();
+      }
+      if(activeDemoKey === 'finance' && s.screen !== 'login'){
+        s.net += Math.round((Math.random() - 0.42) * 140); s.delta += (Math.random() - 0.5) * 0.12; renderCurrentDemo();
+      }
+    }, 1000);
+  }
+
+  function openDemo(key){
+    if(!renderers[key]) return;
+    activeDemoKey = key;
+    demoStates[key] = clone(demoDefaults[key]);
+    clearTimeout(transitionTimer);
+    demoPhone.classList.remove('switching');
+    appLoader.classList.remove('show');
+    renderCurrentDemo();
+    demoScreenScroller.scrollTop = 0;
+    appModal.classList.add('open');
+    startDemoLoop();
+  }
+
+  function closeDemo(){
+    appModal.classList.remove('open');
+    clearInterval(demoLoop);
+  }
+
+  function navigate(screen){
+    phoneTransition(() => { state().screen = screen; demoScreenScroller.scrollTop = 0; });
+  }
+
+  function handleDemoAction(action){
+    const s = state();
+    if(action.startsWith('nav:')){ navigate(action.split(':')[1]); return; }
+    if(action.startsWith('toast:')){ showAppToast(action.split(':')[1]); return; }
+    if(action === 'gcs-login') navigate('login');
+    else if(action === 'gcs-auth') navigate('dash');
+    else if(action === 'gcs-dashboard') navigate('dash');
+    else if(action === 'gcs-mission') navigate('mission');
+    else if(action === 'gcs-payload') navigate('payload');
+    else if(action === 'gcs-arm'){ s.armed = !s.armed; s.mode = s.armed ? 'AUTO' : 'STBY'; showAppToast(s.armed?'Armed':'Disarmed'); renderCurrentDemo(); }
+    else if(action === 'gcs-rtl'){ s.mode = 'RTL'; showAppToast('RTL set'); renderCurrentDemo(); }
+    else if(action === 'gcs-add-wp'){ s.waypoints += 1; showAppToast('Waypoint added'); renderCurrentDemo(); }
+    else if(action === 'gcs-record'){ s.payload = !s.payload; showAppToast(s.payload?'Recording':'Stopped'); renderCurrentDemo(); }
+    else if(action === 'zonaro-onboard') navigate('onboard');
+    else if(action === 'zonaro-login') navigate('login');
+    else if(action === 'zonaro-run') navigate('run');
+    else if(action === 'zonaro-toggle'){ s.running = !s.running; showAppToast(s.running?'Tracking':'Paused'); renderCurrentDemo(); }
+    else if(action === 'zonaro-finish'){ s.running = false; navigate('summary'); }
+    else if(action === 'ig-like'){ s.liked = !s.liked; showAppToast(s.liked?'Liked':'Unliked'); renderCurrentDemo(); }
+    else if(action === 'ig-story'){ s.storyOpen = !s.storyOpen; renderCurrentDemo(); }
+    else if(action === 'ig-save'){ s.saved = !s.saved; showAppToast(s.saved?'Saved':'Removed'); renderCurrentDemo(); }
+    else if(action === 'ig-follow'){ s.followed = !s.followed; showAppToast(s.followed?'Following':'Unfollowed'); renderCurrentDemo(); }
+    else if(action.startsWith('ig-tab:')){ s.profileTab = action.split(':')[1]; renderCurrentDemo(); }
+    else if(action === 'ig-open-post') showAppToast('Post opened');
+    else if(action === 'food-home') navigate('home');
+    else if(action === 'food-detail') navigate('detail');
+    else if(action === 'food-cart') navigate('cart');
+    else if(action.startsWith('food-cat:')){ s.category = action.split(':')[1]; renderCurrentDemo(); }
+    else if(action.startsWith('food-size:')){ s.size = action.split(':')[1]; showAppToast('Size changed'); renderCurrentDemo(); }
+    else if(action.startsWith('food-qty:')){ s.qty = Math.max(1, s.qty + Number(action.split(':')[1])); renderCurrentDemo(); }
+    else if(action === 'food-add'){ s.cartQty += s.qty; showAppToast('Added'); navigate('cart'); }
+    else if(action.startsWith('food-cart:')){ s.cartQty = Math.max(1, s.cartQty + Number(action.split(':')[1])); renderCurrentDemo(); }
+    else if(action === 'food-checkout') navigate('order');
+    else if(action === 'food-next-stage'){ s.orderStage = Math.min(2, s.orderStage + 1); renderCurrentDemo(); }
+    else if(action === 'edu-feed') navigate('feed');
+    else if(action === 'edu-tutor') navigate('tutor');
+    else if(action === 'edu-chat') navigate('chat');
+    else if(action === 'edu-book'){ s.booked = !s.booked; showAppToast(s.booked?'Booked':'Canceled'); renderCurrentDemo(); }
+    else if(action.startsWith('edu-subject:')){ s.subject = action.split(':')[1]; renderCurrentDemo(); }
+    else if(action === 'edu-send'){ const input = document.getElementById('eduDraft'); const text = input ? input.value.trim() : ''; if(text){ s.messages.push(text); s.draft = ''; renderCurrentDemo(); showAppToast('Sent'); } }
+    else if(action === 'task-list') navigate('list');
+    else if(action === 'task-new') navigate('new');
+    else if(action.startsWith('task-filter:')){ s.filter = action.split(':')[1]; renderCurrentDemo(); }
+    else if(action.startsWith('task-priority:')){ s.priority = action.split(':')[1]; renderCurrentDemo(); }
+    else if(action.startsWith('task-toggle:')){ const t = s.tasks[Number(action.split(':')[1])]; if(t){ t[2] = !t[2]; renderCurrentDemo(); } }
+    else if(action === 'task-save'){ const input = document.getElementById('taskDraft'); const title = input && input.value.trim() ? input.value.trim() : 'New task'; s.tasks.unshift([title,s.priority,false]); s.draft = ''; showAppToast('Saved'); navigate('list'); }
+    else if(action === 'finance-unlock'){ s.unlocked = true; navigate('assets'); }
+    else if(action.startsWith('finance-holding:')){ s.selected = action.split(':')[1]; showAppToast('Opened'); renderCurrentDemo(); }
+    else if(action.startsWith('finance-risk:')){ s.risk = action.split(':')[1]; showAppToast('Updated'); renderCurrentDemo(); }
+    else if(action === 'overlay-enable'){ s.enabled = true; navigate('bubble'); }
+    else if(action === 'overlay-bubble') navigate('bubble');
+    else if(action === 'overlay-tools') navigate('tools');
+    else if(action === 'overlay-action'){ s.actions += 1; showAppToast('Done'); renderCurrentDemo(); }
+  }
+
+  miniApp.addEventListener('click', (e) => {
+    const btn = e.target.closest('[data-action]');
+    if(!btn) return;
+    showTapFeedback(e);
+    handleDemoAction(btn.dataset.action);
+  });
+  miniApp.addEventListener('input', (e) => {
+    if(e.target.id === 'eduDraft') state().draft = e.target.value;
+    if(e.target.id === 'taskDraft') state().draft = e.target.value;
+  });
   document.querySelectorAll('[data-launch]').forEach(btn => {
     btn.addEventListener('click', () => openDemo(btn.getAttribute('data-launch')));
   });
   document.getElementById('closeAppModal').addEventListener('click', closeDemo);
   appModal.addEventListener('click', (e) => { if(e.target === appModal) closeDemo(); });
-  demoHotspots.addEventListener('click', (e) => {
-    const btn = e.target.closest('[data-hotspot]');
-    if(!btn) return;
-    const s = currentScreens[screenIndex];
-    activateHotspot(s.hotspots[Number(btn.dataset.hotspot)], e);
-  });
   window.addEventListener('keydown', (e) => {
-    if(!appModal.classList.contains('open')) return;
-    if(e.key === 'Escape') closeDemo();
+    if(appModal.classList.contains('open') && e.key === 'Escape') closeDemo();
   });
   const query = new URLSearchParams(window.location.search);
   const initialDemo = query.get('demo');
-  if(initialDemo && projectDemos[initialDemo]){
-    const initialScreen = Number(query.get('screen') || 0);
-    setTimeout(() => openDemo(initialDemo, Number.isFinite(initialScreen) ? initialScreen : 0), 3500);
-  }
+  if(initialDemo && renderers[initialDemo]) setTimeout(() => openDemo(initialDemo), 3500);
 
   // ---------- EVADE PROTOCOL GAME ----------
   (function(){
