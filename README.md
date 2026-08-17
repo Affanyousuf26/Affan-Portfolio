@@ -15,10 +15,10 @@ This is a single-page static portfolio built with plain HTML, CSS, and JavaScrip
 ## What It Includes
 
 - Boot sequence and HUD-style header/status details
-- Hero section with profile photo inside a phone frame and live intro animation
+- Hero section with profile photo inside a phone frame, live intro animation, and recorded voice intro
 - Animated `pubspec.yaml` skills and technology stack
-- Featured projects
-- Interactive Zonaro app preview modal
+- Featured project gallery with GCS, Zonaro, social, commerce, edtech, finance, task, and overlay demos
+- Reusable interactive app preview modal
 - In-page drone dodge game
 - Work experience timeline
 - Education section
@@ -38,7 +38,7 @@ The portfolio highlights work around:
 - UDP, TCP, USB serial, and REST communication layers
 - Real-time mobile systems
 - Offline-first application workflows
-- Firebase, PostgreSQL, Mapbox, H3, NestJS, and related tools
+- FastAPI, WebSocket, Firebase, PostgreSQL, Mapbox, H3, NestJS, and related tools
 
 ## Tech Stack
 
@@ -54,12 +54,22 @@ The portfolio highlights work around:
 ```text
 .
 ├── index.html
+├── assets/
+│   ├── audio/
+│   │   └── intro.mp3
+│   ├── Onboarding.svg
+│   ├── Splash Screen.svg
+│   └── image 1.svg
 ├── images/
 │   ├── affan.jpg
-│   └── zonaro/
-│       ├── icon.png
-│       ├── onboarding.png
-│       └── splash.png
+│   ├── edu/
+│   ├── finance/
+│   ├── food/
+│   ├── gcs/
+│   ├── ig/
+│   ├── overlay/
+│   ├── task/
+│   └── zonaro2/
 ├── .github/
 │   └── workflows/
 │       └── pages.yml

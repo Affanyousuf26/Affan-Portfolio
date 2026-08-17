@@ -112,6 +112,9 @@
   .wave span:nth-child(5){height:50%;animation-delay:0.6s;}
   @keyframes wave{0%,100%{transform:scaleY(0.4);}50%{transform:scaleY(1);}}
   #typedText{font-family:var(--body);font-size:0.9rem;color:var(--text);line-height:1.6;}
+  .voice-toggle{margin-left:auto;background:none;border:1px solid var(--border);color:var(--text-dim);width:26px;height:26px;border-radius:5px;cursor:pointer;font-size:0.75rem;display:flex;align-items:center;justify-content:center;transition:all 0.15s;}
+  .voice-toggle:hover{border-color:var(--red);color:var(--red);}
+  .voice-toggle.muted{color:var(--text-faint);}
   .cursor{display:inline-block;width:2px;height:1.05em;background:var(--red);vertical-align:text-bottom;margin-left:2px;animation:blink 0.9s step-end infinite;}
 
   /* ---------------- TICKER ---------------- */
@@ -155,6 +158,36 @@
   .soon-badge{font-family:var(--mono);font-size:0.66rem;letter-spacing:0.08em;text-transform:uppercase;color:var(--text-faint);border:1px dashed var(--border);padding:8px 16px;border-radius:3px;}
   .project.disabled{opacity:0.55;}
   .icon-placeholder{width:44px;height:44px;border-radius:11px;border:1px dashed var(--border);display:flex;align-items:center;justify-content:center;font-family:var(--display);font-weight:700;color:var(--text-faint);font-size:0.9rem;}
+
+  .status-badge{font-family:var(--mono);font-size:0.62rem;letter-spacing:0.06em;text-transform:uppercase;padding:5px 11px;border-radius:2px;white-space:nowrap;}
+  .status-badge.live{background:rgba(61,220,132,0.1);color:#3ddc84;border:1px solid rgba(61,220,132,0.3);}
+  .status-badge.concept{background:rgba(255,159,28,0.1);color:#ff9f1c;border:1px solid rgba(255,159,28,0.3);}
+
+  .flagship{background:var(--panel);border:1px solid #2a3f52;border-radius:8px;padding:32px;margin-bottom:22px;display:grid;grid-template-columns:280px 1fr;gap:32px;}
+  @media(max-width:800px){.flagship{grid-template-columns:1fr;}}
+  .flagship-thumb{border-radius:6px;overflow:hidden;border:1px solid var(--border);aspect-ratio:9/16;}
+  .flagship-thumb img{width:100%;height:100%;object-fit:cover;object-position:top;display:block;}
+  .flagship h3{font-family:var(--display);font-weight:700;font-size:1.8rem;}
+  .flagship .tagline{font-family:var(--mono);font-size:0.85rem;color:#4a90d9;margin:6px 0 12px;}
+  .flagship .scenario{background:rgba(228,52,42,0.06);border-left:2px solid var(--red);padding:10px 14px;margin:14px 0;font-size:0.86rem;color:var(--text-dim);}
+  .flagship .scenario b{color:var(--text);}
+
+  .arch-diagram{display:flex;align-items:center;gap:6px;flex-wrap:wrap;margin:18px 0;font-family:var(--mono);font-size:0.72rem;}
+  .arch-node{background:var(--panel-2);border:1px solid var(--border);padding:9px 13px;border-radius:4px;color:var(--text);white-space:nowrap;}
+  .arch-arrow{color:var(--text-faint);}
+  .arch-note{font-family:var(--mono);font-size:0.7rem;color:var(--text-faint);margin-top:10px;padding-top:10px;border-top:1px dashed var(--border);}
+
+  .proj-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(300px,1fr));gap:20px;}
+  .proj-card{background:var(--panel);border:1px solid var(--border);border-radius:8px;overflow:hidden;transition:border-color 0.2s;display:flex;flex-direction:column;}
+  .proj-card:hover{border-color:var(--red-dim);}
+  .proj-thumb{aspect-ratio:16/10;overflow:hidden;background:#000;border-bottom:1px solid var(--border);}
+  .proj-thumb img{width:100%;height:100%;object-fit:cover;object-position:top;display:block;}
+  .proj-card-body{padding:18px 20px;display:flex;flex-direction:column;gap:8px;flex:1;}
+  .proj-card-top{display:flex;justify-content:space-between;align-items:flex-start;gap:10px;}
+  .proj-card h4{font-family:var(--display);font-weight:700;font-size:1.15rem;}
+  .proj-card .tagline{font-family:var(--mono);font-size:0.72rem;color:var(--red);}
+  .proj-card p.desc{color:var(--text-dim);font-size:0.85rem;}
+  .proj-card .tag-row{margin-top:auto;padding-top:6px;}
 
   /* ---------------- EVADE PROTOCOL GAME ---------------- */
   .game-wrap{background:var(--panel);border:1px solid var(--border);border-radius:8px;padding:20px;}
@@ -277,8 +310,12 @@
         </div>
       </div>
       <div class="speech-bubble">
-        <div class="speech-label"><div class="wave"><span></span><span></span><span></span><span></span><span></span></div>LIVE INTRO</div>
+        <div class="speech-label">
+          <div class="wave" id="waveIcon"><span></span><span></span><span></span><span></span><span></span></div>LIVE INTRO
+          <button class="voice-toggle" id="voiceToggle" type="button" aria-label="Toggle voice narration">🔊</button>
+        </div>
         <p id="typedText"></p>
+        <audio id="introAudio" src="assets/audio/intro.mp3" preload="auto"></audio>
       </div>
     </div>
   </div>
@@ -307,48 +344,109 @@
   <div class="section-inner">
     <div class="sector"><div class="crosshair"><div class="crosshair-ring"></div></div><div class="sector-text"><span class="idx">SECTOR 02 //</span> MISSION LOG</div><div class="sector-line"></div></div>
     <h2 class="title">Projects</h2>
-    <p class="subtitle">Tap Zonaro to actually launch it.</p>
+    <p class="subtitle">Tap any project to actually launch it.</p>
 
-    <div class="projects">
-      <article class="project reveal">
-        <div class="project-head">
-          <div class="project-title-row">
-            <img class="project-icon" src="images/zonaro/icon.png" alt="Zonaro icon">
-            <h3>Zonaro</h3>
-          </div>
-          <button class="tap-badge" id="launchZonaro">▶ Launch App</button>
+    <div class="flagship reveal">
+      <div class="flagship-thumb"><img src="images/gcs/03_dashboard.png" alt="GCS_DEMO dashboard"></div>
+      <div>
+        <div class="proj-card-top">
+          <h3>GCS_DEMO</h3>
+          <span class="status-badge live">Interactive prototype</span>
         </div>
-        <p style="color:var(--text-dim);font-size:0.9rem;">Geospatial Territory Capture Platform</p>
-        <ul>
-          <li>Full-stack geospatial product — Flutter frontend, NestJS/TypeScript backend, PostgreSQL database, JWT authentication.</li>
-          <li>GPS-based territory capture using the H3 hexagonal spatial grid, Mapbox tracking, closed-loop route detection, and offline-first Isar storage.</li>
-        </ul>
-        <div class="tag-row"><span class="tag">Flutter</span><span class="tag">NestJS</span><span class="tag">PostgreSQL</span><span class="tag">Mapbox</span><span class="tag">H3</span><span class="tag">BLoC</span><span class="tag">Isar</span></div>
+        <p class="tagline">A real-time flight control dashboard for operating a simulated drone</p>
+        <p style="color:var(--text-dim);font-size:0.9rem;">Flutter desktop app + FastAPI/Python backend simulating a UAV over WebSocket at 8Hz — live telemetry, mission planning, geofence enforcement, and failsafe handling, with a chaos-testing harness for packet drop and link failure.</p>
+        <div class="scenario"><b>Scenario:</b> battery drops to 10% mid-mission — the system auto-triggers Return-to-Launch and logs the failsafe event in real time. This is the difference between an app and a system.</div>
+        <div class="arch-diagram">
+          <span class="arch-node">Flutter App</span><span class="arch-arrow">⇄</span>
+          <span class="arch-node">WebSocket</span><span class="arch-arrow">⇄</span>
+          <span class="arch-node">FastAPI Simulator</span><span class="arch-arrow">⇄</span>
+          <span class="arch-node">SQLite</span>
+        </div>
+        <div class="arch-note">Powers this: <span style="color:var(--text);">siyi_a8_mini</span> + <span style="color:var(--text);">gremsy_camera_controls</span> — protocol-level Dart SDKs controlling real gimbal hardware over UDP/serial (pan · tilt · zoom · record).</div>
+        <div class="tag-row" style="margin:14px 0;"><span class="tag">Flutter</span><span class="tag">FastAPI</span><span class="tag">WebSocket</span><span class="tag">Failsafe logic</span></div>
+        <button class="tap-badge" data-launch="gcs">▶ Launch App</button>
+      </div>
+    </div>
+
+    <div class="proj-grid">
+
+      <article class="proj-card reveal">
+        <div class="proj-thumb"><img src="images/zonaro2/05_summary.png" alt="Zonaro run summary"></div>
+        <div class="proj-card-body">
+          <div class="proj-card-top"><h4>Zonaro</h4><span class="status-badge concept">Concept / design study</span></div>
+          <p class="tagline">What if Strava was a turf war?</p>
+          <p class="desc">An 11-screen product concept — GPS running reimagined as city-wide territory conquest. Design and systems thinking, not yet built.</p>
+          <div class="tag-row"><span class="tag">Product design</span><span class="tag">Gamification</span></div>
+          <button class="tap-badge" data-launch="zonaro" style="margin-top:10px;align-self:flex-start;">▶ Launch App</button>
+        </div>
       </article>
 
-      <article class="project reveal">
-        <div class="project-head">
-          <div class="project-title-row">
-            <div class="icon-placeholder">EC</div>
-            <h3>Ecocast</h3>
-          </div>
-          <span class="soon-badge">Coming Soon</span>
+      <article class="proj-card reveal">
+        <div class="proj-thumb"><img src="images/ig/01_feed.png" alt="Instagram clone feed"></div>
+        <div class="proj-card-body">
+          <div class="proj-card-top"><h4>Instagram clone</h4><span class="status-badge live">Interactive prototype</span></div>
+          <p class="tagline">UI clone — practice project, not affiliated with Instagram</p>
+          <p class="desc">Feed, explore, reels, and profile — the broadest UI-surface project, proving range across common app patterns.</p>
+          <div class="tag-row"><span class="tag">Flutter</span><span class="tag">UI breadth</span></div>
+          <button class="tap-badge" data-launch="ig" style="margin-top:10px;align-self:flex-start;">▶ Launch App</button>
         </div>
-        <p style="color:var(--text-dim);font-size:0.9rem;">Screens and case study on the way.</p>
       </article>
 
-      <article class="project reveal">
-        <div class="project-head">
-          <div class="project-title-row"><h3>EnSight GCS</h3></div>
-          <span style="color:var(--text-faint);font-family:var(--mono);font-size:0.7rem;">Private / Defence deployment</span>
+      <article class="proj-card reveal">
+        <div class="proj-thumb"><img src="images/food/01_home.png" alt="Food delivery app"></div>
+        <div class="proj-card-body">
+          <div class="proj-card-top"><h4>Food delivery app</h4><span class="status-badge live">Interactive prototype</span></div>
+          <p class="tagline">Browse, order, track — the full commerce loop</p>
+          <p class="desc">Learning project, UI redesigned by me — home → item detail → cart → order tracking.</p>
+          <div class="tag-row"><span class="tag">Flutter</span><span class="tag">Commerce UX</span></div>
+          <button class="tap-badge" data-launch="food" style="margin-top:10px;align-self:flex-start;">▶ Launch App</button>
         </div>
-        <p style="color:var(--text-dim);font-size:0.9rem;">UAV Ground Control System</p>
-        <ul>
-          <li>Android and Windows GCS workflows for telemetry, command control, mission planning, geofencing, payload control, RTSP video, and multi-link communication.</li>
-          <li>Real-time communication and state-management flows for high-frequency vehicle data, mission state, payload status, and connection health.</li>
-        </ul>
-        <div class="tag-row"><span class="tag">Flutter</span><span class="tag">Dart</span><span class="tag">MAVLink</span><span class="tag">Riverpod</span><span class="tag">UDP/TCP/USB</span></div>
       </article>
+
+      <article class="proj-card reveal">
+        <div class="proj-thumb"><img src="images/edu/01_feed.png" alt="Edu_questor feed"></div>
+        <div class="proj-card-body">
+          <div class="proj-card-top"><h4>Edu_questor</h4><span class="status-badge live">Interactive prototype</span></div>
+          <p class="tagline">A platform connecting students and tutors</p>
+          <p class="desc">Two-sided marketplace — matching, chat, and trust-signal profile design. Core loop: feed → tutor profile → chat.</p>
+          <div class="tag-row"><span class="tag">Flutter</span><span class="tag">Marketplace UX</span></div>
+          <button class="tap-badge" data-launch="edu" style="margin-top:10px;align-self:flex-start;">▶ Launch App</button>
+        </div>
+      </article>
+
+      <article class="proj-card reveal">
+        <div class="proj-thumb"><img src="images/finance/02_assets.png" alt="Finance Terminal"></div>
+        <div class="proj-card-body">
+          <div class="proj-card-top"><h4>Finance_Terminal</h4><span class="status-badge live">Interactive prototype</span></div>
+          <p class="tagline">A wealth and markets dashboard</p>
+          <p class="desc">Net worth tracking, live market indices, portfolio breakdown, secure biometric login. Dark + gold identity.</p>
+          <div class="tag-row"><span class="tag">Flutter</span><span class="tag">Fintech UI</span></div>
+          <button class="tap-badge" data-launch="finance" style="margin-top:10px;align-self:flex-start;">▶ Launch App</button>
+        </div>
+      </article>
+
+      <article class="proj-card reveal">
+        <div class="proj-thumb"><img src="images/task/01_tasks.png" alt="TaskFlow"></div>
+        <div class="proj-card-body">
+          <div class="proj-card-top"><h4>task-tracker</h4><span class="status-badge live">Interactive prototype</span></div>
+          <p class="tagline">A focused desktop task manager</p>
+          <p class="desc">Small-scope, restrained by design — list view and a desktop-native slide-in panel for new tasks.</p>
+          <div class="tag-row"><span class="tag">Desktop UX</span></div>
+          <button class="tap-badge" data-launch="task" style="margin-top:10px;align-self:flex-start;">▶ Launch App</button>
+        </div>
+      </article>
+
+      <article class="proj-card reveal">
+        <div class="proj-thumb"><img src="images/overlay/03_tools.png" alt="Overlay app"></div>
+        <div class="proj-card-body">
+          <div class="proj-card-top"><h4>overlay_app</h4><span class="status-badge live">Interaction demo</span></div>
+          <p class="tagline">A floating, always-on-top quick-launcher</p>
+          <p class="desc">Minimized bubble expands into a compact action panel — the interaction itself is the product.</p>
+          <div class="tag-row"><span class="tag">Windows / Android</span></div>
+          <button class="tap-badge" data-launch="overlay" style="margin-top:10px;align-self:flex-start;">▶ Launch App</button>
+        </div>
+      </article>
+
     </div>
   </div>
 </section>
@@ -464,23 +562,23 @@
   </form>
 </div>
 
-<!-- ZONARO APP DEMO MODAL -->
-<div class="app-modal-overlay" id="zonaroModal">
-  <button class="app-modal-close" id="closeZonaro">✕</button>
+<!-- APP DEMO MODAL (generic, driven by project data) -->
+<div class="app-modal-overlay" id="appModal">
+  <button class="app-modal-close" id="closeAppModal">✕</button>
   <div>
     <div class="phone demo-phone">
       <div class="phone-screen">
         <div class="phone-notch"></div>
         <div class="phone-statusbar"><span>9:41</span><span>●●● 5G 100%</span></div>
         <div class="phone-content">
-          <img class="demo-screen-img" id="demoScreenImg" src="images/zonaro/splash.png" alt="Zonaro screen">
+          <img class="demo-screen-img" id="demoScreenImg" src="" alt="App screen">
           <div class="demo-tap-hint" id="demoTapHint">Tap to continue</div>
         </div>
         <div class="phone-home"></div>
       </div>
     </div>
-    <div class="demo-dots"><span class="active" data-i="0"></span><span data-i="1"></span></div>
-    <div class="demo-caption" id="demoCaption">Splash Screen</div>
+    <div class="demo-dots" id="demoDots"></div>
+    <div class="demo-caption" id="demoCaption"></div>
   </div>
 </div>
 
@@ -519,11 +617,11 @@
   }
   updateClock(); setInterval(updateClock, 30000);
 
-  // ---------- TYPEWRITER INTRO ----------
+  // ---------- TYPEWRITER CAPTION (synced to voice playback, not page load) ----------
   const introLines = [
-    "Hi, I'm Affan — a Flutter developer and mobile systems engineer.",
-    "I build cross-platform apps, real-time systems, and production UAV ground control software.",
-    "Currently shipping telemetry, mission planning, and payload control for drones flying real operations."
+    "Hey, I'm Affan — a Flutter developer and mobile systems engineer.",
+    "I build apps that go beyond the basics — real-time dashboards, fintech tools, social platforms, and systems that have to work when it actually matters.",
+    "Everything on this page is something I designed and built myself — take a look around."
   ];
   const typedEl = document.getElementById('typedText');
   let li = 0, ci = 0;
@@ -533,9 +631,44 @@
     if(ci <= line.length){
       typedEl.innerHTML = introLines.slice(0,li).join(' ') + (li>0?' ':'') + line.slice(0,ci) + '<span class="cursor"></span>';
       ci++; setTimeout(typeStep, 22);
-    } else { li++; ci = 0; setTimeout(typeStep, 500); }
+    } else { li++; ci = 0; setTimeout(typeStep, 480); }
   }
-  typeStep();
+
+  // ---------- VOICE INTRO (real recorded audio, auto-plays once at 40% scroll through hero) ----------
+  (function(){
+    const heroEl = document.getElementById('hero-section');
+    const toggleBtn = document.getElementById('voiceToggle');
+    const audioEl = document.getElementById('introAudio');
+
+    let voiceEnabled = true;
+    let hasPlayed = false;
+
+    function playIntro(){
+      if(hasPlayed || !voiceEnabled) return;
+      hasPlayed = true;
+      typeStep();
+      audioEl.currentTime = 0;
+      audioEl.play().catch(() => { /* autoplay blocked until user interacts — fine, caption still runs */ });
+    }
+
+    function onScroll(){
+      if(hasPlayed || !voiceEnabled || !heroEl) return;
+      const rect = heroEl.getBoundingClientRect();
+      const heroHeight = rect.height;
+      const scrolledPast = -rect.top; // px scrolled into the hero section
+      const pct = scrolledPast / heroHeight;
+      if(pct >= 0.4){ playIntro(); }
+    }
+    window.addEventListener('scroll', onScroll, {passive:true});
+
+    toggleBtn.addEventListener('click', () => {
+      voiceEnabled = !voiceEnabled;
+      toggleBtn.textContent = voiceEnabled ? '🔊' : '🔇';
+      toggleBtn.classList.toggle('muted', !voiceEnabled);
+      if(!voiceEnabled){ audioEl.pause(); }
+      else if(hasPlayed && audioEl.paused && audioEl.currentTime > 0){ audioEl.play().catch(()=>{}); }
+    });
+  })();
 
   // ---------- TICKER ----------
   const tickerItems = ['MAVLINK v2 · ESTABLISHED','LINK · UDP / TCP / USB','PAYLOAD CTRL · ACTIVE','PLATFORM · ANDROID / WINDOWS','STACK · FLUTTER · RIVERPOD','GCS · EnSight','PACKAGE · gremsy_camera v0.1.0'];
@@ -609,31 +742,89 @@
     window.location.href = `mailto:affanyousuf26@gmail.com?subject=${subject}&body=${body}`;
   });
 
-  // ---------- ZONARO APP DEMO ----------
-  const zonaroModal = document.getElementById('zonaroModal');
+  // ---------- APP DEMO (generic, data-driven across all projects) ----------
+  const appModal = document.getElementById('appModal');
   const demoScreenImg = document.getElementById('demoScreenImg');
   const demoCaption = document.getElementById('demoCaption');
   const demoTapHint = document.getElementById('demoTapHint');
-  const demoDots = document.querySelectorAll('.demo-dots span');
-  const screens = [
-    { src:'images/zonaro/splash.png', caption:'Splash Screen' },
-    { src:'images/zonaro/onboarding.png', caption:'Onboarding — more screens coming soon' }
-  ];
+  const demoDots = document.getElementById('demoDots');
+
+  const projectScreens = {
+    gcs: [
+      { src:'images/gcs/01_splash.png', caption:'Splash — Aeronautical Command & Intelligence' },
+      { src:'images/gcs/02_login.png', caption:'GCS Access Control — secure uplink' },
+      { src:'images/gcs/03_dashboard.png', caption:'RAVEN-01 Dashboard — live telemetry' },
+      { src:'images/gcs/04_mission.png', caption:'Mission Planning — waypoints & geofence' },
+    ],
+    zonaro: [
+      { src:'images/zonaro2/01_splash.png', caption:'Splash — Run. Claim. Rule.' },
+      { src:'images/zonaro2/02_onboarding.png', caption:'Onboarding' },
+      { src:'images/zonaro2/03_login.png', caption:'Login' },
+      { src:'images/zonaro2/04_run.png', caption:'Run in progress — live route tracking' },
+      { src:'images/zonaro2/05_summary.png', caption:'Run Summary — zone captured' },
+      { src:'images/zonaro2/06_guild.png', caption:'Guild Headquarters' },
+      { src:'images/zonaro2/07_leaderboard.png', caption:'City Leaderboard' },
+      { src:'images/zonaro2/08_achievements.png', caption:'Legacy of Conquest — achievements' },
+    ],
+    ig: [
+      { src:'images/ig/01_feed.png', caption:'Home Feed' },
+      { src:'images/ig/02_explore.png', caption:'Explore' },
+      { src:'images/ig/03_reels.png', caption:'Reels' },
+      { src:'images/ig/04_profile.png', caption:'Profile' },
+    ],
+    food: [
+      { src:'images/food/01_home.png', caption:'Home' },
+      { src:'images/food/02_detail.png', caption:'Item detail' },
+      { src:'images/food/03_cart.png', caption:'Cart' },
+      { src:'images/food/04_orders.png', caption:'Order tracking' },
+    ],
+    edu: [
+      { src:'images/edu/01_feed.png', caption:'Feed' },
+      { src:'images/edu/02_tutor.png', caption:'Tutor profile' },
+      { src:'images/edu/03_chat.png', caption:'Chat' },
+    ],
+    task: [
+      { src:'images/task/01_tasks.png', caption:'All tasks' },
+      { src:'images/task/02_new.png', caption:'New task panel' },
+    ],
+    finance: [
+      { src:'images/finance/01_login.png', caption:'Secure login' },
+      { src:'images/finance/02_assets.png', caption:'Assets dashboard' },
+      { src:'images/finance/03_markets.png', caption:'Markets overview' },
+      { src:'images/finance/04_profile.png', caption:'Profile overview' },
+    ],
+    overlay: [
+      { src:'images/overlay/01_launcher.png', caption:'Overlay Launcher' },
+      { src:'images/overlay/02_bubble.png', caption:'Minimized bubble — always on top' },
+      { src:'images/overlay/03_tools.png', caption:'Expanded Quick Tools' },
+    ],
+  };
+
+  let currentScreens = [];
   let screenIndex = 0;
+
   function renderScreen(){
-    demoScreenImg.src = screens[screenIndex].src;
-    demoCaption.textContent = screens[screenIndex].caption;
-    demoDots.forEach((d,i)=>d.classList.toggle('active', i===screenIndex));
-    demoTapHint.style.display = screenIndex < screens.length-1 ? 'block' : 'none';
+    const s = currentScreens[screenIndex];
+    demoScreenImg.src = s.src;
+    demoCaption.textContent = s.caption;
+    demoDots.innerHTML = currentScreens.map((_,i) => `<span class="${i===screenIndex?'active':''}"></span>`).join('');
+    demoTapHint.style.display = screenIndex < currentScreens.length - 1 ? 'block' : 'none';
   }
-  document.getElementById('launchZonaro').addEventListener('click', () => {
-    screenIndex = 0; renderScreen();
-    zonaroModal.classList.add('open');
+
+  document.querySelectorAll('[data-launch]').forEach(btn => {
+    btn.addEventListener('click', () => {
+      const key = btn.getAttribute('data-launch');
+      currentScreens = projectScreens[key];
+      if(!currentScreens || !currentScreens.length) return;
+      screenIndex = 0;
+      renderScreen();
+      appModal.classList.add('open');
+    });
   });
-  document.getElementById('closeZonaro').addEventListener('click', () => zonaroModal.classList.remove('open'));
-  zonaroModal.addEventListener('click', (e) => { if(e.target === zonaroModal) zonaroModal.classList.remove('open'); });
+  document.getElementById('closeAppModal').addEventListener('click', () => appModal.classList.remove('open'));
+  appModal.addEventListener('click', (e) => { if(e.target === appModal) appModal.classList.remove('open'); });
   demoScreenImg.addEventListener('click', () => {
-    if(screenIndex < screens.length - 1){ screenIndex++; renderScreen(); }
+    if(screenIndex < currentScreens.length - 1){ screenIndex++; renderScreen(); }
   });
 
   // ---------- EVADE PROTOCOL GAME ----------
