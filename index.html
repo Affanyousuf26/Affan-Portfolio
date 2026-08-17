@@ -256,16 +256,23 @@
   .demo-phone .phone-content{height:100%;overflow-y:auto;overscroll-behavior:contain;scrollbar-width:thin;scrollbar-color:var(--red-dim) #080808;}
   .demo-phone .phone-content::after{display:none;}
   .screen-stage{position:relative;width:100%;background:#050505;}
-  .demo-phone .demo-screen-img{width:100%;height:auto;object-fit:contain;display:block;background:#050505;}
-  .hotspot{position:absolute;border:1px solid rgba(228,52,42,0.9);background:rgba(228,52,42,0.08);box-shadow:0 0 18px rgba(228,52,42,0.22);border-radius:8px;cursor:pointer;color:#fff;font-family:var(--mono);font-size:0.58rem;letter-spacing:0.04em;text-transform:uppercase;display:flex;align-items:center;justify-content:center;text-align:center;padding:3px;animation:hotspotPulse 1.8s ease-in-out infinite;}
-  .hotspot:hover{background:rgba(228,52,42,0.18);}
-  @keyframes hotspotPulse{0%,100%{opacity:0.68;}50%{opacity:1;}}
+  .demo-phone .demo-screen-img{width:100%;height:auto;object-fit:contain;display:block;background:#050505;transition:opacity 0.16s ease,filter 0.16s ease,transform 0.16s ease;}
+  .demo-phone.switching .demo-screen-img{opacity:0.44;filter:blur(1px);transform:scale(0.992);}
+  .hotspot{position:absolute;border:0;background:transparent;border-radius:12px;cursor:pointer;color:transparent;font-size:0;appearance:none;-webkit-tap-highlight-color:transparent;}
+  .hotspot:focus-visible{outline:2px solid rgba(255,255,255,0.75);outline-offset:2px;}
+  .hotspot:hover{background:rgba(255,255,255,0.035);}
+  .tap-ripple{position:absolute;z-index:8;width:72px;height:72px;border-radius:50%;border:1px solid rgba(255,255,255,0.45);background:rgba(255,255,255,0.16);pointer-events:none;transform:translate(-50%,-50%) scale(0.25);animation:tapRipple 0.48s ease-out forwards;}
+  @keyframes tapRipple{to{opacity:0;transform:translate(-50%,-50%) scale(1.35);}}
+  .app-loader{position:absolute;inset:0;z-index:7;display:flex;align-items:center;justify-content:center;background:rgba(0,0,0,0.18);opacity:0;pointer-events:none;transition:opacity 0.16s ease;}
+  .app-loader.show{opacity:1;}
+  .app-loader span{width:30px;height:30px;border-radius:50%;border:2px solid rgba(255,255,255,0.22);border-top-color:#fff;animation:spin 0.7s linear infinite;}
+  @keyframes spin{to{transform:rotate(360deg);}}
   .demo-caption{display:none;}
   .demo-dots{display:none;}
   .demo-dots span{width:6px;height:6px;border-radius:50%;background:var(--border);transition:background 0.2s;}
   .demo-dots span.active{background:var(--red);}
-  .app-toast{position:absolute;left:16px;right:16px;bottom:24px;z-index:6;padding:9px 12px;border:1px solid rgba(255,255,255,0.14);background:rgba(18,18,18,0.9);border-radius:6px;font-family:var(--mono);font-size:0.66rem;color:#fff;text-align:center;opacity:0;transform:translateY(8px);transition:opacity 0.2s,transform 0.2s;pointer-events:none;}
-  .app-toast.show{opacity:1;transform:translateY(0);}
+  .app-toast{position:absolute;left:50%;bottom:42px;z-index:9;min-width:96px;max-width:78%;padding:9px 12px;background:rgba(18,18,18,0.88);border-radius:999px;font-family:var(--body);font-size:0.78rem;font-weight:600;color:#fff;text-align:center;opacity:0;transform:translate(-50%,8px);transition:opacity 0.2s,transform 0.2s;pointer-events:none;box-shadow:0 10px 28px rgba(0,0,0,0.32);backdrop-filter:blur(10px);}
+  .app-toast.show{opacity:1;transform:translate(-50%,0);}
   @media(max-width:430px){.app-modal-overlay{padding:8px;}.app-modal-close{top:12px;right:12px;}}
 </style>
 </head>
@@ -572,6 +579,7 @@
             <div id="demoHotspots"></div>
           </div>
         </div>
+        <div class="app-loader" id="appLoader" aria-hidden="true"><span></span></div>
         <div class="app-toast" id="appToast" aria-live="polite"></div>
         <div class="phone-home"></div>
       </div>
@@ -773,6 +781,9 @@
   const demoHotspots = document.getElementById('demoHotspots');
   const demoCaption = document.getElementById('demoCaption');
   const demoDots = document.getElementById('demoDots');
+  const demoPhone = document.querySelector('.demo-phone');
+  const demoPhoneScreen = document.querySelector('.demo-phone .phone-screen');
+  const appLoader = document.getElementById('appLoader');
   const appToast = document.getElementById('appToast');
 
   const projectDemos = {
@@ -781,8 +792,8 @@
       screens:[
         { src:'images/gcs/01_splash.png', caption:'Boot screen', toast:'Tap the boot panel to enter the secure link.', hotspots:[{label:'Boot',target:1,x:18,y:68,w:64,h:18}] },
         { src:'images/gcs/02_login.png', caption:'Secure uplink login', toast:'Tap login to authenticate the command station.', hotspots:[{label:'Login',target:2,x:18,y:71,w:64,h:10}] },
-        { src:'images/gcs/03_dashboard.png', caption:'Live telemetry dashboard', toast:'Telemetry is live. Scroll inside the phone, then open mission planning.', hotspots:[{label:'Arm',message:'RAVEN-01 armed. Telemetry and failsafe checks are active.',x:8,y:29,w:28,h:6},{label:'Mission',target:3,x:62,y:88,w:32,h:7}] },
-        { src:'images/gcs/04_mission.png', caption:'Mission planning', toast:'Mission tools are active. Tap dashboard to return to telemetry.', hotspots:[{label:'Dashboard',target:2,x:5,y:5,w:28,h:7},{label:'Set waypoint',message:'Waypoint added to the simulated sortie.',x:30,y:55,w:38,h:10}] },
+        { src:'images/gcs/03_dashboard.png', caption:'Live telemetry dashboard', toast:'Telemetry is live. Scroll inside the phone, then open mission planning.', hotspots:[{label:'Arm',message:'Armed',x:8,y:29,w:28,h:6},{label:'Mission',target:3,x:62,y:88,w:32,h:7}] },
+        { src:'images/gcs/04_mission.png', caption:'Mission planning', toast:'Mission tools are active. Tap dashboard to return to telemetry.', hotspots:[{label:'Dashboard',target:2,x:5,y:5,w:28,h:7},{label:'Set waypoint',message:'Waypoint added',x:30,y:55,w:38,h:10}] },
       ]
     },
     zonaro: {
@@ -791,7 +802,7 @@
         { src:'images/zonaro2/01_splash.png', caption:'Splash', toast:'Tap the logo area to open Zonaro.', hotspots:[{label:'Open',target:1,x:18,y:68,w:64,h:15}] },
         { src:'images/zonaro2/02_onboarding.png', caption:'Onboarding', toast:'Continue into account access.', hotspots:[{label:'Continue',target:2,x:14,y:82,w:72,h:10}] },
         { src:'images/zonaro2/03_login.png', caption:'Login', toast:'Sign in to start capturing territory.', hotspots:[{label:'Sign in',target:3,x:12,y:70,w:76,h:12}] },
-        { src:'images/zonaro2/04_run.png', caption:'Live run tracking', toast:'Tap finish to resolve the captured zone.', hotspots:[{label:'Finish run',target:4,x:16,y:82,w:68,h:9},{label:'Pause',message:'Run paused. GPS route stays preserved.',x:70,y:7,w:18,h:7}] },
+        { src:'images/zonaro2/04_run.png', caption:'Live run tracking', toast:'Tap finish to resolve the captured zone.', hotspots:[{label:'Finish run',target:4,x:16,y:82,w:68,h:9},{label:'Pause',message:'Paused',x:70,y:7,w:18,h:7}] },
         { src:'images/zonaro2/05_summary.png', caption:'Run summary', toast:'Zone captured. Jump to guild progress or rankings.', hotspots:[{label:'Guild',target:5,x:12,y:80,w:35,h:8},{label:'Leaderboard',target:6,x:53,y:80,w:35,h:8}] },
         { src:'images/zonaro2/06_guild.png', caption:'Guild headquarters', toast:'Guild state is active. Check rankings or rewards.', hotspots:[{label:'Rewards',target:7,x:12,y:84,w:35,h:8},{label:'Rankings',target:6,x:55,y:84,w:35,h:8}] },
         { src:'images/zonaro2/07_leaderboard.png', caption:'City leaderboard', toast:'Compare the city leaderboard, then inspect rewards.', hotspots:[{label:'Rewards',target:7,x:20,y:84,w:60,h:8},{label:'Guild',target:5,x:10,y:8,w:24,h:7}] },
@@ -801,18 +812,18 @@
     ig: {
       title:'Instagram clone',
       screens:[
-        { src:'images/ig/01_feed.png', caption:'Home feed', toast:'Scroll the feed or use the visible app controls.', hotspots:[{label:'Stories',message:'Story tray opened from the feed.',x:5,y:7,w:90,h:6},{label:'Like',message:'Post liked. Feed state updated.',x:5,y:17,w:14,h:4},{label:'Explore',target:1,x:24,y:95,w:13,h:3},{label:'Reels',target:2,x:43,y:95,w:14,h:3},{label:'Profile',target:3,x:80,y:95,w:13,h:3}] },
-        { src:'images/ig/02_explore.png', caption:'Explore', toast:'Tap a discovery tile or use the bottom tabs.', hotspots:[{label:'Open post',message:'Explore post opened from the grid.',x:5,y:18,w:42,h:18},{label:'Feed',target:0,x:7,y:95,w:13,h:3},{label:'Reels',target:2,x:43,y:95,w:14,h:3},{label:'Profile',target:3,x:80,y:95,w:13,h:3}] },
-        { src:'images/ig/03_reels.png', caption:'Reels', toast:'Interact with reel actions or switch tabs.', hotspots:[{label:'Like',message:'Reel liked.',x:82,y:60,w:12,h:8},{label:'Feed',target:0,x:7,y:95,w:13,h:3},{label:'Explore',target:1,x:24,y:95,w:13,h:3},{label:'Profile',target:3,x:80,y:95,w:13,h:3}] },
-        { src:'images/ig/04_profile.png', caption:'Profile', toast:'Profile actions are live. Use bottom tabs to move around.', hotspots:[{label:'Follow',message:'Profile followed.',x:9,y:31,w:38,h:6},{label:'Message',message:'Message composer opened.',x:53,y:31,w:38,h:6},{label:'Feed',target:0,x:7,y:95,w:13,h:3},{label:'Explore',target:1,x:24,y:95,w:13,h:3}] },
+        { src:'images/ig/01_feed.png', caption:'Home feed', toast:'Scroll the feed or use the visible app controls.', hotspots:[{label:'Stories',message:'Story opened',x:5,y:7,w:90,h:6},{label:'Like',message:'Liked',x:5,y:17,w:14,h:4},{label:'Explore',target:1,x:24,y:95,w:13,h:3},{label:'Reels',target:2,x:43,y:95,w:14,h:3},{label:'Profile',target:3,x:80,y:95,w:13,h:3}] },
+        { src:'images/ig/02_explore.png', caption:'Explore', toast:'Tap a discovery tile or use the bottom tabs.', hotspots:[{label:'Open post',message:'Post opened',x:5,y:18,w:42,h:18},{label:'Feed',target:0,x:7,y:95,w:13,h:3},{label:'Reels',target:2,x:43,y:95,w:14,h:3},{label:'Profile',target:3,x:80,y:95,w:13,h:3}] },
+        { src:'images/ig/03_reels.png', caption:'Reels', toast:'Interact with reel actions or switch tabs.', hotspots:[{label:'Like',message:'Liked',x:82,y:60,w:12,h:8},{label:'Feed',target:0,x:7,y:95,w:13,h:3},{label:'Explore',target:1,x:24,y:95,w:13,h:3},{label:'Profile',target:3,x:80,y:95,w:13,h:3}] },
+        { src:'images/ig/04_profile.png', caption:'Profile', toast:'Profile actions are live. Use bottom tabs to move around.', hotspots:[{label:'Follow',message:'Following',x:9,y:31,w:38,h:6},{label:'Message',message:'Message',x:53,y:31,w:38,h:6},{label:'Feed',target:0,x:7,y:95,w:13,h:3},{label:'Explore',target:1,x:24,y:95,w:13,h:3}] },
       ]
     },
     food: {
       title:'Food delivery app',
       screens:[
         { src:'images/food/01_home.png', caption:'Home', toast:'Choose an item or open the cart.', hotspots:[{label:'Open pizza',target:1,x:10,y:23,w:82,h:13},{label:'Cart',target:2,x:80,y:4,w:12,h:6}] },
-        { src:'images/food/02_detail.png', caption:'Item detail', toast:'Customize the item, then add it to cart.', hotspots:[{label:'Add to cart',target:2,x:12,y:82,w:76,h:10},{label:'Size',message:'Size changed for this item.',x:14,y:55,w:28,h:8}] },
-        { src:'images/food/03_cart.png', caption:'Cart', toast:'Review the order and continue to checkout.', hotspots:[{label:'Checkout',target:3,x:12,y:82,w:76,h:10},{label:'Qty +',message:'Quantity increased.',x:70,y:35,w:12,h:7}] },
+        { src:'images/food/02_detail.png', caption:'Item detail', toast:'Customize the item, then add it to cart.', hotspots:[{label:'Add to cart',target:2,x:12,y:82,w:76,h:10},{label:'Size',message:'Size changed',x:14,y:55,w:28,h:8}] },
+        { src:'images/food/03_cart.png', caption:'Cart', toast:'Review the order and continue to checkout.', hotspots:[{label:'Checkout',target:3,x:12,y:82,w:76,h:10},{label:'Qty +',message:'Added',x:70,y:35,w:12,h:7}] },
         { src:'images/food/04_orders.png', caption:'Order tracking', toast:'Track the active order or start another.', hotspots:[{label:'Order again',target:0,x:12,y:82,w:76,h:10}] },
       ]
     },
@@ -820,23 +831,23 @@
       title:'Edu_questor',
       screens:[
         { src:'images/edu/01_feed.png', caption:'Tutor feed', toast:'Open a tutor profile or start chat.', hotspots:[{label:'View tutor',target:1,x:10,y:22,w:80,h:22},{label:'Chat',target:2,x:70,y:80,w:22,h:8}] },
-        { src:'images/edu/02_tutor.png', caption:'Tutor profile', toast:'Review tutor trust cues, then message them.', hotspots:[{label:'Message',target:2,x:12,y:82,w:76,h:9},{label:'Book',message:'Trial booking selected.',x:12,y:72,w:76,h:8}] },
-        { src:'images/edu/03_chat.png', caption:'Chat', toast:'Chat loop is open. Tap back to return to discovery.', hotspots:[{label:'Back',target:0,x:4,y:4,w:12,h:6},{label:'Send',message:'Message sent.',x:78,y:88,w:16,h:7}] },
+        { src:'images/edu/02_tutor.png', caption:'Tutor profile', toast:'Review tutor trust cues, then message them.', hotspots:[{label:'Message',target:2,x:12,y:82,w:76,h:9},{label:'Book',message:'Booked',x:12,y:72,w:76,h:8}] },
+        { src:'images/edu/03_chat.png', caption:'Chat', toast:'Chat loop is open. Tap back to return to discovery.', hotspots:[{label:'Back',target:0,x:4,y:4,w:12,h:6},{label:'Send',message:'Sent',x:78,y:88,w:16,h:7}] },
       ]
     },
     task: {
       title:'task-tracker',
       screens:[
-        { src:'images/task/01_tasks.png', caption:'All tasks', toast:'Open the new-task panel from the task list.', hotspots:[{label:'New task',target:1,x:78,y:12,w:16,h:10},{label:'Complete',message:'Task marked complete.',x:7,y:30,w:14,h:10}] },
-        { src:'images/task/02_new.png', caption:'New task panel', toast:'Save the new task to return to the list.', hotspots:[{label:'Save task',target:0,x:70,y:78,w:20,h:10},{label:'Priority',message:'Priority changed.',x:10,y:50,w:32,h:9}] },
+        { src:'images/task/01_tasks.png', caption:'All tasks', toast:'Open the new-task panel from the task list.', hotspots:[{label:'New task',target:1,x:78,y:12,w:16,h:10},{label:'Complete',message:'Done',x:7,y:30,w:14,h:10}] },
+        { src:'images/task/02_new.png', caption:'New task panel', toast:'Save the new task to return to the list.', hotspots:[{label:'Save task',target:0,x:70,y:78,w:20,h:10},{label:'Priority',message:'Priority changed',x:10,y:50,w:32,h:9}] },
       ]
     },
     finance: {
       title:'Finance_Terminal',
       screens:[
         { src:'images/finance/01_login.png', caption:'Secure login', toast:'Unlock the terminal to view portfolio assets.', hotspots:[{label:'Unlock',target:1,x:15,y:72,w:70,h:10}] },
-        { src:'images/finance/02_assets.png', caption:'Assets dashboard', toast:'Portfolio is open. Switch tabs or inspect holdings.', hotspots:[{label:'Markets',target:2,x:54,y:92,w:18,h:5},{label:'Profile',target:3,x:78,y:92,w:16,h:5},{label:'Holding',message:'Holding detail opened.',x:10,y:45,w:80,h:12}] },
-        { src:'images/finance/03_markets.png', caption:'Markets overview', toast:'Market overview is active. Switch between app tabs.', hotspots:[{label:'Assets',target:1,x:28,y:92,w:18,h:5},{label:'Profile',target:3,x:78,y:92,w:16,h:5},{label:'Index',message:'Market index expanded.',x:10,y:28,w:80,h:12}] },
+        { src:'images/finance/02_assets.png', caption:'Assets dashboard', toast:'Portfolio is open. Switch tabs or inspect holdings.', hotspots:[{label:'Markets',target:2,x:54,y:92,w:18,h:5},{label:'Profile',target:3,x:78,y:92,w:16,h:5},{label:'Holding',message:'Opened',x:10,y:45,w:80,h:12}] },
+        { src:'images/finance/03_markets.png', caption:'Markets overview', toast:'Market overview is active. Switch between app tabs.', hotspots:[{label:'Assets',target:1,x:28,y:92,w:18,h:5},{label:'Profile',target:3,x:78,y:92,w:16,h:5},{label:'Index',message:'Expanded',x:10,y:28,w:80,h:12}] },
         { src:'images/finance/04_profile.png', caption:'Profile overview', toast:'Profile tools are active. Return to assets or markets.', hotspots:[{label:'Assets',target:1,x:28,y:92,w:18,h:5},{label:'Markets',target:2,x:54,y:92,w:18,h:5}] },
       ]
     },
@@ -845,7 +856,7 @@
       screens:[
         { src:'images/overlay/01_launcher.png', caption:'Overlay launcher', toast:'Minimize the launcher into its floating state.', hotspots:[{label:'Minimize',target:1,x:35,y:70,w:30,h:12}] },
         { src:'images/overlay/02_bubble.png', caption:'Floating bubble', toast:'Tap the bubble to expand quick tools.', hotspots:[{label:'Open tools',target:2,x:38,y:45,w:24,h:15}] },
-        { src:'images/overlay/03_tools.png', caption:'Quick tools', toast:'Quick tools are expanded. Collapse back to the bubble.', hotspots:[{label:'Collapse',target:1,x:72,y:12,w:16,h:8},{label:'Action',message:'Quick tool executed.',x:14,y:42,w:72,h:10}] },
+        { src:'images/overlay/03_tools.png', caption:'Quick tools', toast:'Quick tools are expanded. Collapse back to the bubble.', hotspots:[{label:'Collapse',target:1,x:72,y:12,w:16,h:8},{label:'Action',message:'Done',x:14,y:42,w:72,h:10}] },
       ]
     },
   };
@@ -854,13 +865,24 @@
   let currentScreens = [];
   let screenIndex = 0;
   let toastTimer = null;
+  let transitionTimer = null;
 
   function showAppToast(message){
     if(!message) return;
     clearTimeout(toastTimer);
     appToast.textContent = message;
     appToast.classList.add('show');
-    toastTimer = setTimeout(() => appToast.classList.remove('show'), 1800);
+    toastTimer = setTimeout(() => appToast.classList.remove('show'), 1200);
+  }
+
+  function showTapFeedback(event){
+    const rect = demoPhoneScreen.getBoundingClientRect();
+    const ripple = document.createElement('span');
+    ripple.className = 'tap-ripple';
+    ripple.style.left = `${event.clientX - rect.left}px`;
+    ripple.style.top = `${event.clientY - rect.top}px`;
+    demoPhoneScreen.appendChild(ripple);
+    ripple.addEventListener('animationend', () => ripple.remove(), {once:true});
   }
 
   function renderScreen(){
@@ -891,6 +913,9 @@
     if(!activeDemo) return;
     currentScreens = activeDemo.screens;
     screenIndex = Math.max(0, Math.min(currentScreens.length - 1, startIndex));
+    clearTimeout(transitionTimer);
+    demoPhone.classList.remove('switching');
+    appLoader.classList.remove('show');
     renderScreen();
     appModal.classList.add('open');
   }
@@ -901,10 +926,25 @@
     renderScreen();
   }
 
-  function activateHotspot(hotspot){
+  function transitionToScreen(index){
+    const nextIndex = Math.max(0, Math.min(currentScreens.length - 1, index));
+    clearTimeout(transitionTimer);
+    demoPhone.classList.add('switching');
+    appLoader.classList.add('show');
+    transitionTimer = setTimeout(() => {
+      goToScreen(nextIndex);
+      requestAnimationFrame(() => {
+        demoPhone.classList.remove('switching');
+        appLoader.classList.remove('show');
+      });
+    }, 230);
+  }
+
+  function activateHotspot(hotspot, event){
     if(!hotspot) return;
+    showTapFeedback(event);
     if(typeof hotspot.target === 'number'){
-      goToScreen(hotspot.target);
+      transitionToScreen(hotspot.target);
       return;
     }
     showAppToast(hotspot.message || 'Action triggered.');
@@ -919,7 +959,7 @@
     const btn = e.target.closest('[data-hotspot]');
     if(!btn) return;
     const s = currentScreens[screenIndex];
-    activateHotspot(s.hotspots[Number(btn.dataset.hotspot)]);
+    activateHotspot(s.hotspots[Number(btn.dataset.hotspot)], e);
   });
   window.addEventListener('keydown', (e) => {
     if(!appModal.classList.contains('open')) return;
