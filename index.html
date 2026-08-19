@@ -384,6 +384,13 @@
   .zonaro-splash .rule{width:62px;height:1px;background:#8a6d55;margin-top:24px;position:relative;z-index:1;}
   .zonaro-splash .subtitle{font-family:var(--mono);letter-spacing:0.46em;font-size:0.66rem;color:#a59a9b;position:relative;z-index:1;margin-top:16px;}
   .zonaro-splash .ma-btn{position:relative;z-index:1;width:100%;margin-top:58px;}
+  .zonaro-onboard{min-height:100%;margin:-42px -14px -24px;padding:104px 22px 28px;background:radial-gradient(circle at 50% 48%,rgba(255,189,89,0.18),transparent 20%),radial-gradient(circle at 50% 120%,rgba(255,115,32,0.22),transparent 28%),#171220;color:#fff6e8;display:flex;flex-direction:column;text-align:center;}
+  .zonaro-onboard h2{font-family:Georgia,serif;color:#ffbd59;font-size:2rem;margin-bottom:6px;}
+  .zonaro-onboard .hex{width:118px;height:104px;margin:86px auto 0;background:#342535;clip-path:polygon(25% 0,75% 0,100% 50%,75% 100%,25% 100%,0 50%);display:grid;place-items:center;box-shadow:0 0 42px rgba(255,189,89,0.12);}
+  .zonaro-login{min-height:100%;margin:-42px -14px -24px;padding:96px 32px 34px;background:radial-gradient(circle at 50% 92%,rgba(255,122,22,0.7),transparent 20%),#171220;color:#fff6e8;}
+  .zonaro-login h2{font-family:Georgia,serif;color:#ffbd59;text-align:center;font-size:1.7rem;margin-bottom:4px;}
+  .zonaro-login input{width:100%;height:40px;border:1px solid #3b2d4b;background:#21182d;color:#f7ead9;border-radius:8px;margin-top:12px;padding:0 12px;}
+  .zonaro-login .ma-btn{width:100%;margin-top:16px;}
   .zonaro-run{min-height:100%;margin:-42px -14px -24px;background:#0f0e08;color:#efe8dc;display:flex;flex-direction:column;}
   .zonaro-run-head{height:62px;padding:16px 24px 10px;display:flex;align-items:center;justify-content:space-between;background:#18170f;color:#ffbd59;}
   .zonaro-run-head .name{font-size:1.85rem;font-weight:900;}
@@ -392,12 +399,14 @@
   .zonaro-stats span{display:block;font-size:0.7rem;letter-spacing:0.05em;color:#d1c4ad;text-transform:uppercase;}
   .zonaro-stats b{font-size:1.45rem;color:#f4eee4;}
   .zonaro-stats b.gold{color:#ffbd59;}
-  .zonaro-map-stage{flex:1;background:#a5a5a7;position:relative;min-height:340px;overflow:hidden;}
+  .zonaro-map-stage{flex:1;background:#a5a5a7;position:relative;min-height:340px;overflow:hidden;background-image:url('assets/demo/zonaro-run-map.png');background-size:cover;background-position:center top;}
   .zonaro-map-stage::before{content:'';position:absolute;left:50%;top:58px;width:146px;height:390px;border:4px solid #f3ae42;border-left-color:transparent;border-top-color:#f3ae42;border-radius:55% 38% 44% 50%;transform:translateX(-40%) rotate(20deg);}
   .zonaro-map-stage::after{content:'ENTERED: THE OLD QUARTER';position:absolute;left:50%;bottom:118px;transform:translateX(-50%);border:1px solid rgba(255,189,89,0.45);border-radius:999px;padding:12px 18px;color:#ffbd59;font-family:var(--mono);font-size:0.72rem;letter-spacing:0.12em;white-space:nowrap;background:rgba(255,189,89,0.08);}
+  .app-zonaro .zonaro-map-stage::before,.app-zonaro .zonaro-map-stage::after{display:none;}
   .zonaro-controls{padding:6px 34px 24px;background:#0f0e08;display:grid;grid-template-columns:1fr 118px 1fr;align-items:center;gap:22px;}
   .zonaro-stop{width:118px;height:118px;border-radius:50%;border:16px solid #4a2f27;background:#ff8c84;color:#4f1714;font-family:var(--mono);font-weight:900;letter-spacing:0.1em;}
   .zonaro-tool{height:56px;border-radius:50%;background:#191811;border:1px solid rgba(255,189,89,0.28);color:#e4d5b7;}
+  .zonaro-summary-card{height:170px;border-radius:14px;background-image:linear-gradient(90deg,rgba(15,14,8,0.48),rgba(15,14,8,0.12)),url('assets/demo/zonaro-summary-map.png');background-size:cover;background-position:center;border:1px solid rgba(255,189,89,0.18);margin:14px 0;}
   .food-nav{position:sticky;bottom:0;margin:14px -14px -24px;padding:9px 12px 13px;background:#fff;border-top:1px solid #e4e0dd;display:grid;grid-template-columns:repeat(4,1fr);gap:4px;}
   .food-nav button{border:0;background:transparent;color:#666;font-size:0.68rem;font-weight:700;display:grid;gap:3px;place-items:center;}
   .food-nav button.active{color:#c91e18;}
@@ -426,6 +435,8 @@
   .gcs-header b{font-family:var(--display);font-size:1rem;color:#eef6ff;}
   .gcs-warn{margin:8px 0;background:#bd171d;color:#fff;text-align:center;font-size:0.57rem;letter-spacing:0.06em;font-weight:900;padding:7px 8px;}
   .gcs-satmap{height:214px;border:1px solid #223140;background:linear-gradient(rgba(255,255,255,0.04),rgba(0,0,0,0.18)),radial-gradient(circle at 35% 30%,rgba(255,255,255,0.14),transparent 9%),radial-gradient(circle at 70% 62%,rgba(255,255,255,0.12),transparent 12%),repeating-linear-gradient(160deg,#1a2025 0 18px,#12181d 19px 38px);position:relative;overflow:hidden;}
+  .gcs-satmap.has-img{background-size:cover;background-position:center;}
+  .gcs-satmap.has-img::before,.gcs-satmap.has-img::after{display:none;}
   .gcs-satmap::before{content:'';position:absolute;left:22%;top:16%;width:190px;height:126px;border:2px solid #509be2;border-left-color:transparent;border-bottom-color:transparent;transform:rotate(-18deg);clip-path:polygon(0 40%,28% 25%,45% 52%,68% 36%,100% 8%,88% 58%,54% 70%,30% 94%);}
   .gcs-satmap::after{content:'RAVEN-01';position:absolute;left:50%;top:45%;transform:translate(-50%,-50%);background:#14202d;border:1px solid #304b68;color:#bfe1ff;padding:7px 10px;font-size:0.62rem;}
   .gcs-data{border:1px solid #242f3a;background:#0d1218;margin-top:8px;padding:10px;display:grid;gap:7px;font-size:0.62rem;}
@@ -868,7 +879,7 @@
 
     let isPlaying = false;
     let hasTyped = false;
-    let hasCrossedHeroTrigger = false;
+    let hasRequestedIntro = false;
     let hasAutoPlayedIntro = false;
 
     function startCaption(){
@@ -905,16 +916,14 @@
     }
 
     function maybeAutoPlay(){
-      if(isPlaying || hasAutoPlayedIntro || !heroEl) return;
-      if(heroProgress() >= 0.2){
-        hasCrossedHeroTrigger = true;
-        playIntro({auto:true});
-      }
+      if(isPlaying || hasAutoPlayedIntro) return;
+      hasRequestedIntro = true;
+      playIntro({auto:true});
     }
 
     function onUserActivation(){
-      if((hasCrossedHeroTrigger || heroProgress() >= 0.2) && !isPlaying && !hasAutoPlayedIntro){
-        hasCrossedHeroTrigger = true;
+      if((hasRequestedIntro || heroProgress() >= 0) && !isPlaying && !hasAutoPlayedIntro){
+        hasRequestedIntro = true;
         playIntro({auto:true});
       }
       else setTimeout(maybeAutoPlay, 80);
@@ -942,6 +951,7 @@
       toggleBtn.classList.add('muted');
       audioEl.currentTime = 0;
     });
+    requestAnimationFrame(maybeAutoPlay);
   })();
 
   // ---------- TICKER ----------
@@ -1097,16 +1107,16 @@
     const nav = `<div class="gcs-bottom"><button class="${s.screen==='dash'?'active':''}" data-action="gcs-dashboard" type="button">DASH</button><button class="${s.screen==='mission'?'active':''}" data-action="gcs-mission" type="button">MISSION</button><button class="${s.screen==='payload'?'active':''}" data-action="gcs-payload" type="button">PAYLOAD</button><button data-action="gcs-rtl" type="button">RTL</button></div>`;
     if(s.screen === 'splash') return `<div class="gcs-shell"><div class="gcs-splash"><div class="gcs-plane">✈</div><div><div class="gcs-title">AERONAUTICAL<br>COMMAND &<br>INTELLIGENCE</div><div class="gcs-sub">RAVEN-01 // TACTICAL UPLINK</div></div><div class="gcs-panel" style="width:100%;"><div class="ma-between"><b>SYSTEM INITIALIZING</b><b>${s.boot}%</b></div><div class="gcs-progress" style="--p:${s.boot}%"><span></span></div><span class="gcs-ok">● SECURE DATALINK ESTABLISHED</span></div><button class="gcs-primary" data-action="gcs-login" type="button" style="width:100%;">ENTER GCS</button></div></div>`;
     if(s.screen === 'login') return `<div class="gcs-shell"><div class="gcs-login"><h3>GCS ALPHA-1 ACCESS<br>CONTROL</h3><p class="gcs-sub" style="text-align:center;letter-spacing:0.12em;">SECURE UPLINK REQUIRED</p><div class="gcs-field"><label>Operator ID</label><input value="OP-XXXX" aria-label="Operator ID"></div><div class="gcs-field"><label>Security Key</label><input value="••••••••••" aria-label="Security key"></div><button class="gcs-primary" data-action="gcs-auth" type="button">AUTHORIZE ACCESS ↪</button><div class="gcs-panel" style="font-size:0.58rem;color:#8fa8c2;">SYS: ONLINE &nbsp;&nbsp; ENCRYPTION LEVEL: MIL-SPEC AES-256</div></div></div>`;
-    if(s.screen === 'mission') return `<div class="gcs-app"><div class="gcs-header"><b>RAVEN-01</b><span>DAT:36% SECURE ✦</span></div><div class="gcs-satmap" style="height:290px;"></div><div class="gcs-data"><div class="gcs-row"><span>#01 Takeoff</span><b>300.1m</b></div><div class="gcs-row"><span>#02 Waypoint</span><b>${s.waypoints} pts</b></div><div class="gcs-row"><span>#03 Loiter</span><b>${s.mode}</b></div><button class="gcs-primary" data-action="gcs-add-wp" type="button">UPLOAD MISSION</button></div>${nav}</div>`;
-    if(s.screen === 'payload') return `<div class="gcs-app"><div class="gcs-header"><b>PAYLOAD</b><span>GIMBAL: ${s.payload?'REC':'STBY'}</span></div><div class="gcs-satmap" style="height:300px;background:linear-gradient(135deg,#17202a,#05080c);"></div><div class="gcs-actions"><button class="gcs-primary" data-action="gcs-record" type="button">${s.payload?'STOP REC':'RECORD'}</button><button class="gcs-primary" data-action="gcs-dashboard" type="button">DASH</button></div><div class="gcs-log">14:21:08 VIDEO LINK STABLE<br>14:21:10 GIMBAL YAW 28.4<br>14:21:12 PAYLOAD BUS NOMINAL</div>${nav}</div>`;
-    return `<div class="gcs-app"><div class="gcs-header"><b>RAVEN-01</b><span class="gcs-ok">CONNECTED</span></div><div class="gcs-warn">WARNING: GEOSPATIAL BOUNDARY EXCEEDED</div><div class="gcs-satmap"></div><div class="gcs-data"><div class="gcs-row"><span>ALT:</span><b>${s.alt}m AGL</b></div><div class="gcs-row"><span>SPD:</span><b>15m/s HDG 184°</b></div><div class="gcs-row"><span>BAT:</span><b>${s.battery}%</b></div><div class="gcs-row"><span>MODE:</span><b>${s.armed?'AUTO STATE: ARMED':'AUTO STATE: STBY'}</b></div></div><div class="gcs-actions"><button class="gcs-primary gcs-danger" data-action="gcs-arm" type="button">${s.armed?'DISARM':'ARM'}</button><button class="gcs-primary" data-action="gcs-rtl" type="button">RETURN TO LAUNCH</button></div><div class="gcs-log">14:21:01 COMMAND: RTL INITIATED<br>14:21:55 FAILSAFE: BATTERY LOW<br>14:28:10 MISSION: WAYPOINT ${s.waypoints} REACHED<br>14:15:00 SYS: TELEMETRY LINK STABLE</div>${nav}</div>`;
+    if(s.screen === 'mission') return `<div class="gcs-app"><div class="gcs-header"><b>RAVEN-01</b><span>DAT:36% SECURE ✦</span></div><div class="gcs-satmap has-img" style="height:290px;background-image:url('assets/demo/gcs-map-mission.png');"></div><div class="gcs-data"><div class="gcs-row"><span>#01 Takeoff</span><b>300.1m</b></div><div class="gcs-row"><span>#02 Waypoint</span><b>${s.waypoints} pts</b></div><div class="gcs-row"><span>#03 Loiter</span><b>${s.mode}</b></div><button class="gcs-primary" data-action="gcs-add-wp" type="button">UPLOAD MISSION</button></div>${nav}</div>`;
+    if(s.screen === 'payload') return `<div class="gcs-app"><div class="gcs-header"><b>PAYLOAD</b><span>GIMBAL: ${s.payload?'REC':'STBY'}</span></div><div class="gcs-satmap has-img" style="height:300px;background-image:url('assets/demo/gcs-map-payload.png');"></div><div class="gcs-actions"><button class="gcs-primary" data-action="gcs-record" type="button">${s.payload?'STOP REC':'RECORD'}</button><button class="gcs-primary" data-action="gcs-dashboard" type="button">DASH</button></div><div class="gcs-log">14:21:08 VIDEO LINK STABLE<br>14:21:10 GIMBAL YAW 28.4<br>14:21:12 PAYLOAD BUS NOMINAL</div>${nav}</div>`;
+    return `<div class="gcs-app"><div class="gcs-header"><b>RAVEN-01</b><span class="gcs-ok">CONNECTED</span></div><div class="gcs-warn">WARNING: GEOSPATIAL BOUNDARY EXCEEDED</div><div class="gcs-satmap has-img" style="background-image:url('assets/demo/gcs-map-dashboard.png');"></div><div class="gcs-data"><div class="gcs-row"><span>ALT:</span><b>${s.alt}m AGL</b></div><div class="gcs-row"><span>SPD:</span><b>15m/s HDG 184°</b></div><div class="gcs-row"><span>BAT:</span><b>${s.battery}%</b></div><div class="gcs-row"><span>MODE:</span><b>${s.armed?'AUTO STATE: ARMED':'AUTO STATE: STBY'}</b></div></div><div class="gcs-actions"><button class="gcs-primary gcs-danger" data-action="gcs-arm" type="button">${s.armed?'DISARM':'ARM'}</button><button class="gcs-primary" data-action="gcs-rtl" type="button">RETURN TO LAUNCH</button></div><div class="gcs-log">14:21:01 COMMAND: RTL INITIATED<br>14:21:55 FAILSAFE: BATTERY LOW<br>14:28:10 MISSION: WAYPOINT ${s.waypoints} REACHED<br>14:15:00 SYS: TELEMETRY LINK STABLE</div>${nav}</div>`;
   }
 
   function renderZonaro(s){
     if(s.screen === 'splash') return `<div class="zonaro-splash"><div class="zonaro-mark"></div><div class="brand">ZONARO</div><div class="rule"></div><button class="ma-btn" data-action="zonaro-onboard" type="button">Open</button><div class="subtitle">URBAN CONQUEST</div></div>`;
-    if(s.screen === 'onboard') return `<div class="ma-full" style="gap:16px;">${appTop('Claim the city')}<div class="ma-map"><div class="ma-route"></div></div><div class="ma-card"><h3>Your route becomes territory.</h3><p class="ma-sub">Close loops, capture zones, and climb the city leaderboard with your guild.</p></div><button class="ma-btn" data-action="zonaro-login" type="button">Continue</button></div>`;
-    if(s.screen === 'login') return `<div class="ma-full" style="gap:13px;">${appTop('Welcome back')}<input class="ma-input" value="affan.runner" aria-label="Username"><input class="ma-input" value="••••••" aria-label="Password"><button class="ma-btn" data-action="zonaro-run" type="button">Sign in</button></div>`;
-    if(s.screen === 'summary') return `${appTop('Zone captured')}<div class="ma-card" style="text-align:center;"><div class="metric">${s.distance.toFixed(2)}<small> km</small></div><div class="ma-sub">Captured ${s.zones} zones in ${mmss(s.seconds)}</div></div><div class="ma-grid two" style="margin-top:10px;"><button class="ma-btn" data-action="nav:guild" type="button">Guild</button><button class="ma-btn ghost" data-action="nav:leader" type="button">Leaderboard</button></div>${miniTabs([['run','Run'],['guild','Guild'],['leader','Ranks'],['achievements','Rewards']],s.screen)}`;
+    if(s.screen === 'onboard') return `<div class="zonaro-onboard"><h2>Zonaro</h2><div class="gcs-sub" style="color:#d6c2b0;letter-spacing:0.24em;">RUN. CLAIM. RULE.</div><div class="hex"><div class="zonaro-mark" style="width:52px;height:52px;border-radius:16px;box-shadow:none;"></div></div><button class="ma-btn" data-action="zonaro-login" type="button" style="margin-top:auto;width:100%;">Get started →</button><button class="zonaro-tool" data-action="zonaro-login" type="button" style="width:100%;border-radius:0;border:0;background:transparent;margin-top:16px;">I already have an account</button></div>`;
+    if(s.screen === 'login') return `<div class="zonaro-login"><h2>Zonaro</h2><div class="gcs-sub" style="text-align:center;color:#d6c2b0;letter-spacing:0.2em;">URBAN CONQUEST</div><label class="ma-sub" style="margin-top:72px;display:block;">Email</label><input value="affan.runner" aria-label="Email"><label class="ma-sub" style="margin-top:12px;display:block;">Password</label><input value="••••••••" aria-label="Password"><button class="ma-btn" data-action="zonaro-run" type="button">Log in</button><p class="ma-sub" style="text-align:center;margin-top:86px;">Don't have an account? <b style="color:#ffbd59;">Sign up.</b></p></div>`;
+    if(s.screen === 'summary') return `<div class="zonaro-run" style="padding:30px 22px 24px;display:block;"><div class="zonaro-run-head" style="height:auto;padding:0;background:transparent;"><div class="name">Zonaro</div><span>🏆</span></div><h2 style="font-family:Georgia,serif;color:#ffbd59;text-align:center;margin:34px 0 6px;">Zone captured!</h2><p class="ma-sub" style="text-align:center;">You broke the defense and now control this area.</p><div class="zonaro-summary-card"></div><div class="ma-card"><h3>CAPTURED<br>Lodhi Gardens</h3><p class="ma-sub">Historic sector fully integrated into your territory.</p></div><div class="ma-grid three" style="grid-template-columns:repeat(3,1fr);margin-top:12px;"><div class="ma-pill">DISTANCE<br><b>${s.distance.toFixed(1)} KM</b></div><div class="ma-pill">DURATION<br><b>${mmss(s.seconds)}</b></div><div class="ma-pill">GAINED<br><b>+150 XP</b></div></div><button class="ma-btn" data-action="zonaro-run" type="button" style="width:100%;margin-top:18px;">Back to map →</button></div>`;
     if(s.screen === 'guild') return `${appTop('Guild HQ')}<div class="ma-card"><div class="ma-between"><b>North Wolves</b><span class="ma-pill active">#2 City</span></div><div class="ma-progress" style="margin-top:14px;--p:72%"><span></span></div><p class="ma-sub" style="margin-top:8px;">18 districts controlled this week.</p></div><div class="ma-grid" style="margin-top:10px;"><div class="ma-card ma-between"><span>Affan</span><b>${s.zones} zones</b></div><div class="ma-card ma-between"><span>Riya</span><b>11 zones</b></div></div>${miniTabs([['run','Run'],['guild','Guild'],['leader','Ranks'],['achievements','Rewards']],s.screen)}`;
     if(s.screen === 'leader') return `${appTop('Leaderboard')}<div class="ma-grid"><div class="ma-card ma-between"><span>1. City Falcons</span><b>420</b></div><div class="ma-card ma-between"><span>2. North Wolves</span><b>386</b></div><div class="ma-card ma-between"><span>3. Metro Kings</span><b>332</b></div></div>${miniTabs([['run','Run'],['guild','Guild'],['leader','Ranks'],['achievements','Rewards']],s.screen)}`;
     if(s.screen === 'achievements') return `${appTop('Achievements')}<div class="ma-grid two"><div class="ma-card"><h3>Loop Lord</h3><p class="ma-sub">Closed 5 routes</p></div><div class="ma-card"><h3>Zone King</h3><p class="ma-sub">${s.zones}/10 zones</p></div><div class="ma-card"><h3>Early Bird</h3><p class="ma-sub">6 AM run</p></div><div class="ma-card"><h3>Guild XP</h3><p class="ma-sub">+240 XP</p></div></div>${miniTabs([['run','Run'],['guild','Guild'],['leader','Ranks'],['achievements','Rewards']],s.screen)}`;
@@ -1223,7 +1233,7 @@
     else if(action === 'gcs-record'){ s.payload = !s.payload; showAppToast(s.payload?'Recording':'Stopped'); renderCurrentDemo(); }
     else if(action === 'zonaro-onboard') navigate('onboard');
     else if(action === 'zonaro-login') navigate('login');
-    else if(action === 'zonaro-run') navigate('run');
+    else if(action === 'zonaro-run'){ s.running = true; navigate('run'); }
     else if(action === 'zonaro-toggle'){ s.running = !s.running; showAppToast(s.running?'Tracking':'Paused'); renderCurrentDemo(); }
     else if(action === 'zonaro-finish'){ s.running = false; navigate('summary'); }
     else if(action === 'ig-like'){ s.liked = !s.liked; showAppToast(s.liked?'Liked':'Unliked'); renderCurrentDemo(); }
