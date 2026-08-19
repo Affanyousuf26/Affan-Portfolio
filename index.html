@@ -457,7 +457,7 @@
           <button class="voice-toggle muted" id="voiceToggle" type="button" aria-label="Play voice narration">▶</button>
         </div>
         <p id="typedText"></p>
-        <audio id="introAudio" src="assets/audio/intro.mp3" preload="auto"></audio>
+        <audio id="introAudio" src="assets/audio/intro.mp3" preload="auto" playsinline></audio>
       </div>
     </div>
   </div>
@@ -786,6 +786,7 @@
     let isPlaying = false;
     let hasTyped = false;
     let hasCrossedHeroTrigger = false;
+    let hasAutoPlayedIntro = false;
 
     function startCaption(){
       if(!hasTyped){
@@ -794,19 +795,23 @@
       }
     }
 
-    function playIntro(){
+    function playIntro({auto = false} = {}){
+      if(auto && hasAutoPlayedIntro) return Promise.resolve(false);
       startCaption();
       audioEl.muted = false;
       return audioEl.play().then(() => {
         isPlaying = true;
+        if(auto) hasAutoPlayedIntro = true;
         toggleBtn.textContent = '⏸';
         toggleBtn.setAttribute('aria-label','Pause voice narration');
         toggleBtn.classList.remove('muted');
+        return true;
       }).catch(() => {
         isPlaying = false;
         toggleBtn.textContent = '▶';
         toggleBtn.setAttribute('aria-label','Play voice narration');
         toggleBtn.classList.add('muted');
+        return false;
       });
     }
 
@@ -817,17 +822,17 @@
     }
 
     function maybeAutoPlay(){
-      if(isPlaying || !heroEl) return;
+      if(isPlaying || hasAutoPlayedIntro || !heroEl) return;
       if(heroProgress() >= 0.2){
         hasCrossedHeroTrigger = true;
-        playIntro();
+        playIntro({auto:true});
       }
     }
 
     function onUserActivation(){
-      if((hasCrossedHeroTrigger || heroProgress() >= 0.2) && !isPlaying){
+      if((hasCrossedHeroTrigger || heroProgress() >= 0.2) && !isPlaying && !hasAutoPlayedIntro){
         hasCrossedHeroTrigger = true;
-        playIntro();
+        playIntro({auto:true});
       }
       else setTimeout(maybeAutoPlay, 80);
     }
