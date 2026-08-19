@@ -192,16 +192,16 @@
   .proj-card .tagline{font-family:var(--mono);font-size:0.72rem;color:var(--red);}
   .proj-card p.desc{color:var(--text-dim);font-size:0.85rem;}
   .proj-card .tag-row{margin-top:auto;padding-top:6px;}
-  .flagship-visual{position:relative;min-height:100%;background:radial-gradient(circle at 40% 36%,rgba(74,163,255,0.24),transparent 24%),linear-gradient(160deg,#071018,#050708);border-left:1px solid rgba(74,163,255,0.2);overflow:hidden;}
-  .flagship-visual::before{content:'';position:absolute;inset:28px;border:1px solid rgba(74,163,255,0.22);border-radius:50%;background:repeating-radial-gradient(circle,transparent 0 35px,rgba(74,163,255,0.12) 36px 37px);}
-  .flagship-visual::after{content:'';position:absolute;left:50%;top:50%;width:130px;height:88px;border:2px solid rgba(74,163,255,0.8);border-left-color:transparent;border-radius:50%;transform:translate(-50%,-50%) rotate(-14deg);box-shadow:0 0 28px rgba(74,163,255,0.4);}
+  .flagship-visual{position:relative;min-height:100%;background:#05080c;border-left:1px solid rgba(74,163,255,0.2);overflow:hidden;display:grid;place-items:center;padding:22px;}
+  .flagship-visual::before{content:'';position:absolute;inset:0;background:linear-gradient(180deg,rgba(5,8,12,0.06),rgba(5,8,12,0.72)),url('assets/demo/gcs-map-dashboard.png');background-size:contain;background-repeat:no-repeat;background-position:center;filter:saturate(0.92) contrast(1.08);}
+  .flagship-visual::after{content:'RAVEN-01';position:absolute;left:24px;top:24px;border:1px solid rgba(74,163,255,0.42);background:rgba(6,13,22,0.82);color:#cce6ff;font-family:var(--mono);font-size:0.72rem;letter-spacing:0.14em;padding:8px 11px;box-shadow:0 0 26px rgba(74,163,255,0.18);}
   .radar-dot{position:absolute;width:8px;height:8px;border-radius:50%;background:var(--green);box-shadow:0 0 18px var(--green);}
   .radar-dot.a{left:28%;top:32%;}.radar-dot.b{right:24%;top:46%;}.radar-dot.c{left:48%;bottom:26%;}
   .proj-visual{height:118px;margin:-18px -20px 14px;position:relative;overflow:hidden;border-bottom:1px solid rgba(255,255,255,0.08);background:#101010;}
   .proj-visual::before,.proj-visual::after{content:'';position:absolute;}
-  .pv-zonaro{background:radial-gradient(circle at 50% 30%,#4a3349,#171220 70%);}
-  .pv-zonaro::before{left:34%;top:22%;width:96px;height:96px;border-radius:34px;background:#5b4438;box-shadow:inset 0 0 0 22px #382b2d;}
-  .pv-zonaro::after{left:18%;right:18%;bottom:-20px;height:70px;border-radius:50% 50% 0 0;background:#261d33;}
+  .pv-zonaro{background:linear-gradient(180deg,rgba(18,15,31,0.04),rgba(18,15,31,0.68)),url('assets/demo/zonaro-screen-onboard.png');background-size:cover;background-position:center 31%;}
+  .pv-zonaro::before{left:calc(50% - 38px);top:31px;width:76px;height:76px;border-radius:23px;background:#5b4438;box-shadow:inset 0 0 0 23px #302520,0 18px 34px rgba(0,0,0,0.32);}
+  .pv-zonaro::after{left:20px;right:20px;bottom:16px;height:14px;border-radius:999px;background:#ffc467;box-shadow:0 0 24px rgba(255,196,103,0.26);}
   .pv-ig{background:#fafafa;}
   .pv-ig::before{inset:14px;display:block;background:linear-gradient(90deg,#feda75,#fa7e1e,#d62976,#962fbf,#4f5bd5);border-radius:18px;}
   .pv-ig::after{left:36%;top:25%;width:74px;height:74px;border:10px solid #fff;border-radius:50%;box-shadow:0 0 0 8px rgba(255,255,255,0.3);}
@@ -407,14 +407,54 @@
   .zonaro-stop{width:118px;height:118px;border-radius:50%;border:16px solid #4a2f27;background:#ff8c84;color:#4f1714;font-family:var(--mono);font-weight:900;letter-spacing:0.1em;}
   .zonaro-tool{height:56px;border-radius:50%;background:#191811;border:1px solid rgba(255,189,89,0.28);color:#e4d5b7;}
   .zonaro-summary-card{height:170px;border-radius:14px;background-image:linear-gradient(90deg,rgba(15,14,8,0.48),rgba(15,14,8,0.12)),url('assets/demo/zonaro-summary-map.png');background-size:cover;background-position:center;border:1px solid rgba(255,189,89,0.18);margin:14px 0;}
-  .z-screen{margin:0 -14px -24px;position:relative;background-image:var(--z-img);background-size:100% 100%;background-position:top center;background-repeat:no-repeat;aspect-ratio:var(--z-ratio,390/884);min-height:100%;font-family:var(--body);}
-  .z-hit{position:absolute;border:0;background:transparent;color:transparent;cursor:pointer;}
-  .z-state{position:absolute;left:-9999px;top:auto;width:1px;height:1px;overflow:hidden;}
-  .z-live-stats{position:absolute;left:8.2%;right:8.2%;top:13.8%;height:14.4%;background:#28271f;border-radius:18px;display:grid;grid-template-columns:repeat(3,1fr);align-items:center;padding:0 16px;color:#f4eee4;box-shadow:0 14px 28px rgba(0,0,0,0.25);}
-  .z-live-stats div+div{border-left:1px solid rgba(255,189,89,0.14);padding-left:13px;}
-  .z-live-stats span{display:block;text-transform:uppercase;font-size:0.62rem;letter-spacing:0.06em;color:#d1c4ad;}
-  .z-live-stats b{font-size:1.35rem;}
-  .z-live-stats .gold{color:#ffbd59;}
+  .mini-app.app-zonaro{height:100%;overflow:hidden;}
+  .z-app{min-height:calc(100% + 66px);margin:-42px -14px -24px;background:#14101f;color:#f7efe6;font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif;position:relative;overflow:hidden;}
+  .z-app button{border:0;}
+  .z-bg{position:absolute;inset:0;background:radial-gradient(circle at 50% 54%,rgba(255,189,89,0.11),transparent 26%),radial-gradient(circle at 50% 100%,rgba(255,122,23,0.16),transparent 30%),#14101f;pointer-events:none;}
+  .z-brand{font-family:Georgia,serif;color:#ffc467;font-weight:800;letter-spacing:-0.03em;}
+  .z-screen-dom{position:relative;z-index:1;min-height:100%;padding:34px 20px 24px;display:flex;flex-direction:column;}
+  .z-center{text-align:center;align-items:center;}
+  .z-splash-mark{width:132px;height:132px;margin-top:96px;border-radius:42px;background:#5b4438;display:grid;place-items:center;box-shadow:inset 0 0 0 40px #302520,0 28px 60px rgba(0,0,0,0.38);}
+  .z-splash-mark::before{content:'';width:55px;height:55px;border-radius:50%;background:#ffc467;}
+  .z-splash-title{font-size:2.2rem;margin-top:22px;}
+  .z-spaced{font-family:var(--mono);letter-spacing:0.36em;color:#aaa0a4;font-size:0.65rem;text-transform:uppercase;}
+  .z-orbit{height:292px;width:100%;position:relative;margin-top:36px;}
+  .z-orbit::before{content:'';position:absolute;left:50%;top:50%;width:140px;height:122px;transform:translate(-50%,-50%);clip-path:polygon(25% 0,75% 0,100% 50%,75% 100%,25% 100%,0 50%);background:#45353b;box-shadow:0 0 50px rgba(255,189,89,0.1);}
+  .z-orbit::after{content:'';position:absolute;left:50%;top:50%;width:45px;height:45px;transform:translate(-50%,-50%);border-radius:50%;background:#ffc467;box-shadow:0 0 0 1px rgba(0,0,0,0.04);}
+  .z-line{position:absolute;height:2px;background:#8c653a;opacity:0.82;transform:rotate(-12deg);}
+  .z-line.a{left:30px;right:118px;top:86px}.z-line.b{left:132px;right:46px;bottom:74px}.z-line.c{left:74px;right:108px;bottom:46px;opacity:0.42}.z-dot{position:absolute;width:15px;height:15px;border-radius:50%;background:#ffc467;box-shadow:0 0 16px rgba(255,196,103,0.5);}
+  .z-dot.a{right:48px;top:75px}.z-dot.b{left:32px;bottom:104px;background:#9b8458;}
+  .z-primary{width:100%;height:57px;border-radius:16px;background:#ffc467;color:#201305;font-weight:800;font-size:0.94rem;box-shadow:0 16px 36px rgba(255,196,103,0.14);}
+  .z-link{background:transparent;color:#f0e9e2;font-weight:700;margin-top:16px;}
+  .z-terms{margin-top:auto;color:#817a80;font-size:0.7rem;line-height:1.35;}
+  .z-login{justify-content:center;gap:16px;}
+  .z-field label{display:flex;justify-content:space-between;margin-bottom:8px;color:#f7efe6;font-weight:800;font-size:0.82rem;letter-spacing:0.04em;}
+  .z-field label a{color:#ffc467;font-weight:500;}
+  .z-field input{height:56px;border-radius:14px;border:1px solid #53404b;background:#221b2d;color:#f6efe8;width:100%;padding:0 18px;font-size:0.95rem;}
+  .z-auth-row{display:flex;justify-content:center;gap:24px;color:#746f77;font-size:1rem;margin-top:28px;}
+  .z-run{background:#090905;height:calc(100% + 66px);min-height:0;display:flex;flex-direction:column;}
+  .z-run-head{height:56px;background:#1c1a11;color:#ffc467;display:flex;align-items:center;justify-content:space-between;padding:0 20px;}
+  .z-run-head .z-brand{font-size:1.78rem;}
+  .z-avatar{width:34px;height:34px;border-radius:50%;background:linear-gradient(135deg,#fac46a,#664235);border:2px solid #47322b;}
+  .z-map{flex:1;min-height:0;position:relative;background:#9d9d9f url('assets/demo/zonaro-run-map.png') center top/cover no-repeat;overflow:hidden;}
+  .z-map::before{content:'';position:absolute;inset:0;background:rgba(170,170,170,0.18);}
+  .z-stats{position:absolute;left:22px;right:22px;top:34px;background:#2b2a21;border-radius:18px;display:grid;grid-template-columns:repeat(3,1fr);padding:18px 10px;box-shadow:0 16px 30px rgba(0,0,0,0.28);}
+  .z-stats div{text-align:center}.z-stats div+div{border-left:1px solid rgba(255,196,103,0.11);}
+  .z-stats span{display:block;color:#d6c7ac;font-size:0.64rem;text-transform:uppercase;letter-spacing:0.04em}.z-stats b{font-size:1.42rem;line-height:1.05}.z-stats small{font-size:0.7rem;color:#d7c39d}.z-stats .gold{color:#ffc467;}
+  .z-controls{background:linear-gradient(180deg,#111009,#080904);padding:18px 34px 28px;display:grid;grid-template-columns:1fr 116px 1fr;align-items:center;gap:20px;}
+  .z-stop{width:116px;height:116px;border-radius:50%;background:#ff8d84;color:#481716;border:14px solid #513228;font-family:var(--mono);font-size:0.72rem;font-weight:900;letter-spacing:0.08em;box-shadow:0 16px 30px rgba(0,0,0,0.35);}
+  .z-tool{width:50px;height:50px;border-radius:50%;background:#17150e;color:#f4ddad;border:1px solid rgba(255,196,103,0.3);justify-self:center;font-size:1.1rem;}
+  .z-panel-screen{padding-bottom:86px;background:linear-gradient(180deg,#171220,#100d19);}
+  .z-topbar{display:flex;align-items:center;justify-content:space-between;margin-bottom:18px;}
+  .z-card{background:#251d2f;border:1px solid #433248;border-radius:18px;padding:14px;box-shadow:0 12px 26px rgba(0,0,0,0.22);}
+  .z-list{display:grid;gap:10px;margin-top:14px;}
+  .z-item{display:grid;grid-template-columns:38px 1fr auto;gap:10px;align-items:center;background:#201928;border:1px solid #382a42;border-radius:14px;padding:10px;color:#f7efe6;text-align:left;}
+  .z-badge{width:38px;height:38px;border-radius:12px;background:#4b3943;display:grid;place-items:center;color:#ffc467;font-weight:900;}
+  .z-item small,.z-card small{color:#a99ca8;}
+  .z-nav{position:sticky;bottom:0;margin:auto -20px -24px;padding:10px 10px 14px;background:#130f1c;border-top:1px solid #2c2235;display:grid;grid-template-columns:repeat(4,1fr);gap:4px;}
+  .z-nav button{background:transparent;color:#8b818f;font-size:0.62rem;font-weight:800;padding:8px 2px;border-radius:12px;}
+  .z-nav button.active{background:#241b2e;color:#ffc467;}
+  .z-summary-map{height:150px;border-radius:16px;background:url('assets/demo/zonaro-summary-map.png') center/cover no-repeat;margin:14px 0;filter:saturate(0.9);}
   .food-nav{position:sticky;bottom:0;margin:14px -14px -24px;padding:9px 12px 13px;background:#fff;border-top:1px solid #e4e0dd;display:grid;grid-template-columns:repeat(4,1fr);gap:4px;}
   .food-nav button{border:0;background:transparent;color:#666;font-size:0.68rem;font-weight:700;display:grid;gap:3px;place-items:center;}
   .food-nav button.active{color:#c91e18;}
@@ -443,7 +483,7 @@
   .gcs-header b{font-family:var(--display);font-size:1rem;color:#eef6ff;}
   .gcs-warn{margin:8px 0;background:#bd171d;color:#fff;text-align:center;font-size:0.57rem;letter-spacing:0.06em;font-weight:900;padding:7px 8px;}
   .gcs-satmap{height:214px;border:1px solid #223140;background:linear-gradient(rgba(255,255,255,0.04),rgba(0,0,0,0.18)),radial-gradient(circle at 35% 30%,rgba(255,255,255,0.14),transparent 9%),radial-gradient(circle at 70% 62%,rgba(255,255,255,0.12),transparent 12%),repeating-linear-gradient(160deg,#1a2025 0 18px,#12181d 19px 38px);position:relative;overflow:hidden;}
-  .gcs-satmap.has-img{background-size:cover;background-position:center;}
+  .gcs-satmap.has-img{background-color:#060b10;background-size:contain;background-position:center;background-repeat:no-repeat;}
   .gcs-satmap.has-img::before,.gcs-satmap.has-img::after{display:none;}
   .gcs-satmap::before{content:'';position:absolute;left:22%;top:16%;width:190px;height:126px;border:2px solid #509be2;border-left-color:transparent;border-bottom-color:transparent;transform:rotate(-18deg);clip-path:polygon(0 40%,28% 25%,45% 52%,68% 36%,100% 8%,88% 58%,54% 70%,30% 94%);}
   .gcs-satmap::after{content:'RAVEN-01';position:absolute;left:50%;top:45%;transform:translate(-50%,-50%);background:#14202d;border:1px solid #304b68;color:#bfe1ff;padding:7px 10px;font-size:0.62rem;}
@@ -1121,16 +1161,16 @@
   }
 
   function renderZonaro(s){
-    const navHits = `<button class="z-hit" style="left:0;bottom:0;width:25%;height:8%;" data-action="zonaro-run" type="button" aria-label="Map"></button><button class="z-hit" style="left:25%;bottom:0;width:25%;height:8%;" data-action="nav:guild" type="button" aria-label="Territories"></button><button class="z-hit" style="left:50%;bottom:0;width:25%;height:8%;" data-action="nav:achievements" type="button" aria-label="Activities"></button><button class="z-hit" style="left:75%;bottom:0;width:25%;height:8%;" data-action="nav:leader" type="button" aria-label="Profile"></button>`;
-    const screen = (name, ratio, label, hits = '', extra = '') => `<div class="z-screen" style="--z-img:url('assets/demo/${name}.png');--z-ratio:${ratio};"><span class="z-state">${label}</span>${extra}${hits}</div>`;
-    if(s.screen === 'splash') return screen('zonaro-screen-splash','390/884','Zonaro splash','<button class="z-hit" style="inset:0;" data-action="zonaro-onboard" type="button" aria-label="Open Zonaro"></button>');
-    if(s.screen === 'onboard') return screen('zonaro-screen-onboard','390/884','Zonaro onboarding',`<button class="z-hit" style="left:5%;right:5%;top:78%;height:7%;" data-action="zonaro-login" type="button" aria-label="Get started"></button><button class="z-hit" style="left:16%;right:16%;top:88%;height:5%;" data-action="zonaro-login" type="button" aria-label="I already have an account"></button>`);
-    if(s.screen === 'login') return screen('zonaro-screen-login','390/884','Zonaro login','<button class="z-hit" style="left:16%;right:16%;top:50%;height:7%;" data-action="zonaro-run" type="button" aria-label="Log in"></button>');
-    if(s.screen === 'summary') return screen('zonaro-screen-summary','398/1148','Zonaro zone captured',`<button class="z-hit" style="left:5%;right:5%;bottom:3%;height:8%;z-index:3;" data-action="zonaro-run" type="button" aria-label="Back to map"></button>`);
-    if(s.screen === 'guild') return screen('zonaro-screen-guild','414/1234','Zonaro vanguard headquarters',navHits);
-    if(s.screen === 'leader') return screen('zonaro-screen-leader','414/1042','Zonaro leaderboard',navHits);
-    if(s.screen === 'achievements') return screen('zonaro-screen-achievements','414/1335','Zonaro achievements',navHits);
-    return screen('zonaro-screen-run','398/884','Zonaro run in progress',`<button class="z-hit" style="left:36%;top:76%;width:28%;height:14%;" data-action="zonaro-finish" type="button" aria-label="Stop run"></button><button class="z-hit" style="left:7%;top:81%;width:18%;height:8%;" data-action="nav:guild" type="button" aria-label="Guild"></button><button class="z-hit" style="right:7%;top:81%;width:18%;height:8%;" data-action="nav:leader" type="button" aria-label="Rank"></button>`);
+    const nav = `<div class="z-nav"><button class="${s.screen==='run'?'active':''}" data-action="zonaro-run" type="button">MAP</button><button class="${s.screen==='guild'?'active':''}" data-action="nav:guild" type="button">GUILD</button><button class="${s.screen==='achievements'?'active':''}" data-action="nav:achievements" type="button">BADGES</button><button class="${s.screen==='leader'?'active':''}" data-action="nav:leader" type="button">RANK</button></div>`;
+    const shell = (body, cls = '') => `<div class="z-app ${cls}"><div class="z-bg"></div>${body}</div>`;
+    if(s.screen === 'splash') return shell(`<div class="z-screen-dom z-center"><div class="z-splash-mark"></div><div class="z-brand z-splash-title">Zonaro</div><div class="z-spaced" style="margin-top:16px;">Urban Conquest</div><button class="z-primary" data-action="zonaro-onboard" type="button" style="margin-top:auto;">Open app</button></div>`);
+    if(s.screen === 'onboard') return shell(`<div class="z-screen-dom z-center"><div class="z-brand" style="font-size:2.45rem;margin-top:66px;">Zonaro</div><div class="z-spaced" style="margin-top:8px;">Run. Claim. Rule.</div><div class="z-orbit"><span class="z-line a"></span><span class="z-line b"></span><span class="z-line c"></span><span class="z-dot a"></span><span class="z-dot b"></span></div><button class="z-primary" data-action="zonaro-login" type="button">Get started →</button><button class="z-link" data-action="zonaro-login" type="button">I already have an account</button><p class="z-terms">By continuing, you agree to our Terms of Service<br>and Privacy Policy.</p></div>`);
+    if(s.screen === 'login') return shell(`<div class="z-screen-dom z-login"><div style="text-align:center;margin-bottom:96px;"><div class="z-brand" style="font-size:1.9rem;">Zonaro</div><div class="z-spaced" style="margin-top:8px;letter-spacing:0.22em;">Urban Conquest</div></div><div class="z-field"><label>Email</label><input value="" placeholder="Enter your email" aria-label="Email"></div><div class="z-field"><label>Password <a>Forgot?</a></label><input value="" placeholder="Enter your password" type="password" aria-label="Password"></div><button class="z-primary" data-action="zonaro-run" type="button">Log in</button><button class="z-link" data-action="zonaro-onboard" type="button" style="margin-top:auto;">Don't have an account? <span style="color:#ffc467;">Sign up.</span></button><div class="z-auth-row"><span>◉</span><span>▧</span><span>♢</span></div></div>`);
+    if(s.screen === 'summary') return shell(`<div class="z-screen-dom z-panel-screen"><div class="z-topbar"><div><div class="z-brand" style="font-size:1.45rem;">Zone captured</div><small>Old Quarter locked for Vanguard</small></div><button class="z-tool" data-action="zonaro-run" type="button">↩</button></div><div class="z-card"><b>Run complete</b><div class="z-summary-map"></div><div class="z-stats" style="position:static;margin-top:8px;"><div><span>Distance</span><b>${s.distance.toFixed(1)}<small> KM</small></b></div><div><span>Duration</span><b>${mmss(s.seconds || 2540)}</b></div><div><span>Zones</span><b class="gold">${s.zones}</b></div></div></div><div class="z-list"><button class="z-item" data-action="nav:leader" type="button"><span class="z-badge">#</span><span><b>Leaderboard updated</b><br><small>You moved into Vanguard top 10.</small></span><b>+2</b></button><button class="z-item" data-action="nav:achievements" type="button"><span class="z-badge">★</span><span><b>Badge unlocked</b><br><small>Quartermaster route streak.</small></span><b>New</b></button></div>${nav}</div>`);
+    if(s.screen === 'guild') return shell(`<div class="z-screen-dom z-panel-screen"><div class="z-topbar"><div><div class="z-brand" style="font-size:1.55rem;">Vanguard</div><small>Territory headquarters</small></div><span class="z-badge">V</span></div><div class="z-card"><small>CONTROLLED ZONES</small><div style="font-size:2.1rem;font-weight:900;color:#ffc467;">${s.zones + 11}</div><div class="ma-progress" style="--p:74%;margin-top:10px;"><span></span></div></div><div class="z-list">${['Old Quarter patrol','River gate sprint','Market loop defence'].map((x,i)=>`<button class="z-item" data-action="${i?'toast:Joined':'zonaro-run'}" type="button"><span class="z-badge">${i+1}</span><span><b>${x}</b><br><small>${i?'Join squad challenge':'Resume live map'}</small></span><b>${[8,5,3][i]}km</b></button>`).join('')}</div>${nav}</div>`);
+    if(s.screen === 'leader') return shell(`<div class="z-screen-dom z-panel-screen"><div class="z-topbar"><div><div class="z-brand" style="font-size:1.55rem;">Leaderboard</div><small>Paris weekly conquest</small></div><span class="z-badge">🏆</span></div><div class="z-list">${[['Maya','42.8km','1'],['Affan','31.4km','2'],['Leo','29.6km','3'],['Noor','24.2km','4']].map((r,i)=>`<button class="z-item" data-action="toast:${r[0]} profile" type="button"><span class="z-badge">${r[2]}</span><span><b>${r[0]}</b><br><small>${i===1?'You · Vanguard':'Rival runner'}</small></span><b>${r[1]}</b></button>`).join('')}</div>${nav}</div>`);
+    if(s.screen === 'achievements') return shell(`<div class="z-screen-dom z-panel-screen"><div class="z-topbar"><div><div class="z-brand" style="font-size:1.55rem;">Achievements</div><small>Unlocked by movement</small></div><span class="z-badge">★</span></div><div class="z-list">${[['Quartermaster','Capture 3 zones in one run','Unlocked'],['Night Watch','Run after sunset','68%'],['Cartographer','Trace a full district loop','42%'],['Rival Breaker','Take a zone from another guild','Locked']].map((r,i)=>`<button class="z-item" data-action="toast:${r[0]}" type="button"><span class="z-badge">${i+1}</span><span><b>${r[0]}</b><br><small>${r[1]}</small></span><b>${r[2]}</b></button>`).join('')}</div>${nav}</div>`);
+    return `<div class="z-app z-run"><div class="z-run-head"><div class="z-brand">Zonaro</div><div class="ma-row"><span>🏅</span><span class="z-avatar"></span></div></div><div class="z-map"><div class="z-stats"><div><span>Distance</span><b>${s.distance.toFixed(1)} <small>KM</small></b></div><div><span>Duration</span><b>${mmss(s.seconds || 2537)}</b></div><div><span>Pace</span><b class="gold">5:02 <small>/KM</small></b></div></div></div><div class="z-controls"><button class="z-tool" data-action="nav:guild" type="button" aria-label="Guild">▣</button><button class="z-stop" data-action="zonaro-finish" type="button">■<br>STOP RUN</button><button class="z-tool" data-action="nav:leader" type="button" aria-label="Leaderboard">♙</button></div></div>`;
   }
 
   function renderIg(s){
