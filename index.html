@@ -9,15 +9,22 @@
 <link href="https://fonts.googleapis.com/css2?family=Rajdhani:wght@500;600;700&family=Inter:wght@400;500;600&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet">
 <style>
   :root{
-    --bg:#0a0a0a; --panel:#121212; --panel-2:#161616; --border:#272522;
-    --red:#e4342a; --red-dim:#7a231d; --red-glow: rgba(228,52,42,0.35);
+    --bg:#070807; --panel:#111312; --panel-2:#171918; --border:#2b2d29;
+    --red:#ff332b; --red-dim:#8b251f; --red-glow: rgba(255,51,43,0.38);
+    --blue:#4aa3ff; --cyan:#73f7d4;
     --amber:#ff9f1c; --green:#3ddc84;
     --text:#f2f0ea; --text-dim:#8c8a84; --text-faint:#55534d;
     --mono:'JetBrains Mono',monospace; --display:'Rajdhani',sans-serif; --body:'Inter',sans-serif;
   }
   *{margin:0;padding:0;box-sizing:border-box;}
   html{scroll-behavior:smooth;}
-  body{background:var(--bg);color:var(--text);font-family:var(--body);line-height:1.6;overflow-x:hidden;}
+  body{
+    background:
+      radial-gradient(circle at 74% 12%, rgba(74,163,255,0.1), transparent 28%),
+      radial-gradient(circle at 18% 38%, rgba(255,51,43,0.08), transparent 32%),
+      linear-gradient(180deg,#050605 0%,#0b0c0b 42%,#070807 100%);
+    color:var(--text);font-family:var(--body);line-height:1.6;overflow-x:hidden;
+  }
   ::selection{background:var(--red);color:#0a0a0a;}
   a{color:inherit;text-decoration:none;}
   button{font-family:inherit;}
@@ -25,8 +32,8 @@
 
   .grid-overlay{
     position:fixed;inset:0;pointer-events:none;z-index:1;
-    background-image:linear-gradient(rgba(228,52,42,0.035) 1px, transparent 1px),linear-gradient(90deg, rgba(228,52,42,0.035) 1px, transparent 1px);
-    background-size:48px 48px;
+    background-image:linear-gradient(rgba(255,51,43,0.045) 1px, transparent 1px),linear-gradient(90deg, rgba(74,163,255,0.035) 1px, transparent 1px);
+    background-size:48px 48px,96px 96px;
     mask-image:radial-gradient(ellipse 80% 60% at 50% 0%, black 40%, transparent 100%);
   }
 
@@ -45,7 +52,7 @@
   /* ---------------- HEADER ---------------- */
   header{
     position:fixed;top:0;left:0;right:0;z-index:100;display:flex;align-items:center;justify-content:space-between;
-    padding:16px clamp(20px,5vw,64px);background:rgba(10,10,10,0.75);backdrop-filter:blur(10px);border-bottom:1px solid var(--border);
+    padding:16px clamp(20px,5vw,64px);background:rgba(5,6,5,0.72);backdrop-filter:blur(16px);border-bottom:1px solid rgba(255,255,255,0.08);
   }
   .logo{font-family:var(--display);font-weight:700;font-size:1.2rem;letter-spacing:0.04em;display:flex;align-items:center;gap:10px;}
   .logo .dot{width:8px;height:8px;border-radius:50%;background:var(--green);box-shadow:0 0 8px var(--green);animation:blink 2.4s infinite;}
@@ -69,16 +76,17 @@
   .subtitle{color:var(--text-dim);font-size:0.95rem;max-width:560px;margin-bottom:44px;}
 
   /* ---------------- HERO ---------------- */
-  #hero-section{min-height:100vh;display:flex;align-items:center;padding-top:130px;}
-  .hero-grid{display:grid;grid-template-columns:1fr 340px;gap:56px;align-items:center;width:100%;}
+  #hero-section{min-height:100vh;display:flex;align-items:center;padding-top:130px;overflow:hidden;}
+  #hero-section::before{content:'MISSION_READY';position:absolute;right:-30px;top:120px;font-family:var(--mono);font-size:clamp(5rem,13vw,12rem);font-weight:800;color:rgba(255,255,255,0.018);letter-spacing:0.08em;pointer-events:none;}
+  .hero-grid{display:grid;grid-template-columns:1fr 380px;gap:72px;align-items:center;width:100%;}
   @media(max-width:900px){.hero-grid{grid-template-columns:1fr;}}
   .eyebrow{font-family:var(--mono);font-size:0.75rem;letter-spacing:0.16em;color:var(--red);text-transform:uppercase;margin-bottom:22px;display:flex;align-items:center;gap:10px;}
   .eyebrow::before{content:'';width:26px;height:1px;background:var(--red);}
   h1{font-family:var(--display);font-weight:700;font-size:clamp(2.4rem,5.5vw,4.2rem);line-height:1.02;letter-spacing:0.01em;margin-bottom:20px;}
   h1 span{color:var(--red);}
-  .hero-desc{color:var(--text-dim);font-size:1.05rem;max-width:480px;margin-bottom:32px;}
+  .hero-desc{color:#aaa8a2;font-size:1.08rem;max-width:520px;margin-bottom:32px;}
   .cta-row{display:flex;gap:14px;flex-wrap:wrap;margin-bottom:44px;}
-  .btn{font-family:var(--mono);font-size:0.78rem;letter-spacing:0.06em;text-transform:uppercase;padding:14px 26px;border-radius:2px;cursor:pointer;transition:all 0.15s;display:inline-flex;align-items:center;gap:8px;border:1px solid var(--red);}
+  .btn{font-family:var(--mono);font-size:0.78rem;letter-spacing:0.06em;text-transform:uppercase;padding:14px 26px;border-radius:6px;cursor:pointer;transition:all 0.15s;display:inline-flex;align-items:center;gap:8px;border:1px solid var(--red);}
   .btn:active{transform:scale(0.96);}
   .btn-primary{background:var(--red);color:#0a0a0a;font-weight:600;}
   .btn-primary:hover{background:transparent;color:var(--red);box-shadow:0 0 22px var(--red-glow);}
@@ -90,8 +98,8 @@
 
   /* phone frame (reused for hero + app demo modal) */
   .phone{
-    width:100%;max-width:300px;margin:0 auto;background:#050505;border-radius:38px;padding:10px;
-    border:1px solid #2a2825;box-shadow:0 0 50px rgba(228,52,42,0.1), 0 30px 60px rgba(0,0,0,0.6);
+    width:100%;max-width:318px;margin:0 auto;background:linear-gradient(145deg,#050505,#151515);border-radius:38px;padding:10px;
+    border:1px solid rgba(255,255,255,0.12);box-shadow:0 0 70px rgba(255,51,43,0.12), 0 34px 80px rgba(0,0,0,0.72);
     position:relative;
   }
   .phone-screen{position:relative;background:var(--panel);border-radius:28px;overflow:hidden;aspect-ratio:9/19.5;}
@@ -102,7 +110,7 @@
   .phone-content img{width:100%;height:100%;object-fit:cover;display:block;}
   .phone-content::after{content:'';position:absolute;inset:0;background:linear-gradient(180deg, transparent 65%, rgba(10,10,10,0.7) 100%);pointer-events:none;}
 
-  .speech-bubble{background:var(--panel);border:1px solid var(--border);border-radius:8px;padding:18px 20px;position:relative;margin-top:18px;min-height:88px;}
+  .speech-bubble{background:rgba(17,19,18,0.86);border:1px solid rgba(255,255,255,0.1);border-radius:8px;padding:18px 20px;position:relative;margin-top:18px;min-height:88px;box-shadow:0 18px 40px rgba(0,0,0,0.28);}
   .speech-bubble::before{content:'';position:absolute;top:-8px;left:32px;width:14px;height:14px;background:var(--panel);border-left:1px solid var(--border);border-top:1px solid var(--border);transform:rotate(45deg);}
   .speech-label{font-family:var(--mono);font-size:0.62rem;letter-spacing:0.1em;color:var(--red);text-transform:uppercase;margin-bottom:8px;display:flex;align-items:center;gap:8px;}
   .wave{display:flex;align-items:center;gap:2px;height:12px;}
@@ -163,7 +171,8 @@
   .status-badge.live{background:rgba(61,220,132,0.1);color:#3ddc84;border:1px solid rgba(61,220,132,0.3);}
   .status-badge.concept{background:rgba(255,159,28,0.1);color:#ff9f1c;border:1px solid rgba(255,159,28,0.3);}
 
-  .flagship{background:linear-gradient(180deg,#151515,#101010);border:1px solid #2a3f52;border-radius:8px;padding:32px;margin-bottom:22px;display:block;}
+  .flagship{background:linear-gradient(135deg,rgba(12,18,24,0.96),rgba(17,19,18,0.94));border:1px solid rgba(74,163,255,0.34);border-radius:12px;padding:0;margin-bottom:22px;display:grid;grid-template-columns:minmax(0,1fr) 330px;overflow:hidden;box-shadow:0 24px 80px rgba(0,0,0,0.35);}
+  .flagship>div:first-child{padding:32px;}
   .flagship h3{font-family:var(--display);font-weight:700;font-size:1.8rem;}
   .flagship .tagline{font-family:var(--mono);font-size:0.85rem;color:#4a90d9;margin:6px 0 12px;}
   .flagship .scenario{background:rgba(228,52,42,0.06);border-left:2px solid var(--red);padding:10px 14px;margin:14px 0;font-size:0.86rem;color:var(--text-dim);}
@@ -175,14 +184,43 @@
   .arch-note{font-family:var(--mono);font-size:0.7rem;color:var(--text-faint);margin-top:10px;padding-top:10px;border-top:1px dashed var(--border);}
 
   .proj-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(300px,1fr));gap:20px;}
-  .proj-card{background:var(--panel);border:1px solid var(--border);border-radius:8px;transition:border-color 0.2s;display:flex;flex-direction:column;min-height:280px;}
-  .proj-card:hover{border-color:var(--red-dim);}
+  .proj-card{background:linear-gradient(180deg,rgba(21,22,21,0.96),rgba(13,14,13,0.96));border:1px solid rgba(255,255,255,0.08);border-radius:12px;transition:border-color 0.2s,transform 0.2s,box-shadow 0.2s;display:flex;flex-direction:column;min-height:340px;overflow:hidden;position:relative;}
+  .proj-card:hover{border-color:rgba(255,51,43,0.42);transform:translateY(-3px);box-shadow:0 22px 55px rgba(0,0,0,0.34);}
   .proj-card-body{padding:18px 20px;display:flex;flex-direction:column;gap:8px;flex:1;}
   .proj-card-top{display:flex;justify-content:space-between;align-items:flex-start;gap:10px;}
   .proj-card h4{font-family:var(--display);font-weight:700;font-size:1.15rem;}
   .proj-card .tagline{font-family:var(--mono);font-size:0.72rem;color:var(--red);}
   .proj-card p.desc{color:var(--text-dim);font-size:0.85rem;}
   .proj-card .tag-row{margin-top:auto;padding-top:6px;}
+  .flagship-visual{position:relative;min-height:100%;background:radial-gradient(circle at 40% 36%,rgba(74,163,255,0.24),transparent 24%),linear-gradient(160deg,#071018,#050708);border-left:1px solid rgba(74,163,255,0.2);overflow:hidden;}
+  .flagship-visual::before{content:'';position:absolute;inset:28px;border:1px solid rgba(74,163,255,0.22);border-radius:50%;background:repeating-radial-gradient(circle,transparent 0 35px,rgba(74,163,255,0.12) 36px 37px);}
+  .flagship-visual::after{content:'';position:absolute;left:50%;top:50%;width:130px;height:88px;border:2px solid rgba(74,163,255,0.8);border-left-color:transparent;border-radius:50%;transform:translate(-50%,-50%) rotate(-14deg);box-shadow:0 0 28px rgba(74,163,255,0.4);}
+  .radar-dot{position:absolute;width:8px;height:8px;border-radius:50%;background:var(--green);box-shadow:0 0 18px var(--green);}
+  .radar-dot.a{left:28%;top:32%;}.radar-dot.b{right:24%;top:46%;}.radar-dot.c{left:48%;bottom:26%;}
+  .proj-visual{height:118px;margin:-18px -20px 14px;position:relative;overflow:hidden;border-bottom:1px solid rgba(255,255,255,0.08);background:#101010;}
+  .proj-visual::before,.proj-visual::after{content:'';position:absolute;}
+  .pv-zonaro{background:radial-gradient(circle at 50% 30%,#4a3349,#171220 70%);}
+  .pv-zonaro::before{left:34%;top:22%;width:96px;height:96px;border-radius:34px;background:#5b4438;box-shadow:inset 0 0 0 22px #382b2d;}
+  .pv-zonaro::after{left:18%;right:18%;bottom:-20px;height:70px;border-radius:50% 50% 0 0;background:#261d33;}
+  .pv-ig{background:#fafafa;}
+  .pv-ig::before{inset:14px;display:block;background:linear-gradient(90deg,#feda75,#fa7e1e,#d62976,#962fbf,#4f5bd5);border-radius:18px;}
+  .pv-ig::after{left:36%;top:25%;width:74px;height:74px;border:10px solid #fff;border-radius:50%;box-shadow:0 0 0 8px rgba(255,255,255,0.3);}
+  .pv-food{background:#fff7f3;}
+  .pv-food::before{left:20px;right:20px;top:26px;height:62px;border-radius:18px;background:linear-gradient(135deg,#f7b267,#f79d65);}
+  .pv-food::after{left:52px;top:13px;width:120px;height:120px;border-radius:50%;background:radial-gradient(circle,#d84a30 0 8px,#ffd1a8 9px 16px,#b73b26 17px 20px,transparent 21px),#f0b55d;box-shadow:120px 40px 0 -36px #e92820;}
+  .pv-edu{background:linear-gradient(135deg,#eaf2ff,#ffffff);}
+  .pv-edu::before{left:22px;top:28px;width:74px;height:74px;border-radius:22px;background:#2f6fed;}
+  .pv-edu::after{left:112px;right:24px;top:31px;height:16px;border-radius:999px;background:#bdd2f8;box-shadow:0 28px 0 #d8e4f2,0 56px 0 #e6edf7;}
+  .pv-finance{background:linear-gradient(135deg,#080b0f,#17212b);}
+  .pv-finance::before{left:24px;right:24px;bottom:22px;height:70px;background:linear-gradient(180deg,transparent 0 35%,rgba(213,170,79,0.24));clip-path:polygon(0 70%,18% 42%,36% 58%,55% 24%,75% 44%,100% 18%,100% 100%,0 100%);}
+  .pv-finance::after{right:30px;top:24px;width:52px;height:52px;border:2px solid #d5aa4f;transform:rotate(45deg);}
+  .pv-task{background:#101216;}
+  .pv-task::before{left:24px;right:24px;top:24px;height:16px;border-radius:8px;background:#8bc6ff;box-shadow:0 30px 0 #222832,0 60px 0 #222832;}
+  .pv-task::after{right:26px;top:24px;width:16px;height:16px;border-radius:50%;background:#3ddc84;box-shadow:0 30px 0 #ff9f1c,0 60px 0 #ff332b;}
+  .pv-overlay{background:#111318;}
+  .pv-overlay::before{left:50%;top:22px;width:72px;height:72px;border-radius:50%;background:#7cf2c9;transform:translateX(-50%);box-shadow:0 0 40px rgba(124,242,201,0.4);}
+  .pv-overlay::after{left:26px;right:26px;bottom:16px;height:20px;border-radius:999px;background:#252b35;}
+  @media(max-width:860px){.flagship{grid-template-columns:1fr;}.flagship-visual{min-height:210px;border-left:0;border-top:1px solid rgba(74,163,255,0.2);}}
 
   /* ---------------- EVADE PROTOCOL GAME ---------------- */
   .game-wrap{background:var(--panel);border:1px solid var(--border);border-radius:8px;padding:20px;}
@@ -313,6 +351,59 @@
   .post-img::after,.food-img::after{content:'';position:absolute;inset:18%;border-radius:50%;background:rgba(255,255,255,0.26);filter:blur(12px);}
   .food-img{height:154px;}
   .task-item.done{opacity:0.56;text-decoration:line-through;}
+  .app-gcs .ma-card{background:linear-gradient(180deg,rgba(13,24,34,0.94),rgba(7,16,24,0.94));}
+  .app-gcs .ma-map{border-radius:8px;background:
+    linear-gradient(rgba(74,163,255,0.16) 1px,transparent 1px),
+    linear-gradient(90deg,rgba(74,163,255,0.12) 1px,transparent 1px),
+    radial-gradient(circle at 48% 42%,rgba(74,163,255,0.22),transparent 28%),#08131c;background-size:24px 24px,24px 24px,100% 100%;}
+  .app-gcs .ma-map::before{content:'RAVEN-01';position:absolute;left:12px;top:10px;font-family:var(--mono);font-size:0.64rem;color:#8ab2d6;}
+  .app-gcs .ma-map::after{content:'';position:absolute;right:18px;bottom:18px;width:28px;height:28px;border:1px solid #4aa3ff;border-radius:50%;box-shadow:0 0 18px rgba(74,163,255,0.55);}
+  .app-zonaro .ma-map{background:radial-gradient(circle at 50% 45%,rgba(255,189,89,0.28),transparent 10%),radial-gradient(circle at 32% 62%,rgba(255,189,89,0.16),transparent 8%),#a6a6a8;border:0;border-radius:0;}
+  .app-zonaro .ma-route{border-color:#ffbd59;border-left-color:transparent;box-shadow:0 0 22px rgba(255,189,89,0.3);}
+  .app-food .food-img{background:#f8c071;}
+  .app-food .food-img::before{content:'';position:absolute;left:58px;top:18px;width:166px;height:166px;border-radius:50%;background:
+    radial-gradient(circle at 35% 30%,#c83224 0 7px,transparent 8px),
+    radial-gradient(circle at 65% 38%,#c83224 0 8px,transparent 9px),
+    radial-gradient(circle at 46% 62%,#c83224 0 6px,transparent 7px),
+    radial-gradient(circle at 62% 70%,#6f2f17 0 5px,transparent 6px),
+    #f3b25c;box-shadow:inset 0 0 0 12px #e99649,0 12px 28px rgba(120,44,20,0.18);}
+  .app-food .food-img::after{inset:auto;left:0;right:0;bottom:0;height:56%;border-radius:0;background:linear-gradient(180deg,transparent,rgba(0,0,0,0.32));filter:none;}
+  .app-ig .post-img{background:linear-gradient(135deg,var(--c1),var(--c2));}
+  .app-ig .post-img::before{content:'';position:absolute;left:24%;top:24%;width:52%;height:52%;border-radius:24px;background:rgba(255,255,255,0.34);box-shadow:0 0 0 18px rgba(255,255,255,0.12);}
+  .app-ig .post-img::after{inset:auto;right:18px;bottom:18px;width:44px;height:44px;background:rgba(255,255,255,0.34);filter:none;}
+  .app-finance .ma-card{background:linear-gradient(180deg,#131b24,#0d1218);}
+  .app-finance .ma-chart{background:linear-gradient(180deg,#121a22,#090d12);}
+  .app-edu .ma-card{box-shadow:0 12px 24px rgba(47,111,237,0.1);}
+  .app-task .ma-card{border-left:3px solid rgba(139,198,255,0.45);}
+  .zonaro-splash{min-height:100%;margin:-42px -14px -24px;padding:154px 34px 34px;display:flex;flex-direction:column;align-items:center;justify-content:flex-start;text-align:center;background:#161222;position:relative;overflow:hidden;}
+  .zonaro-splash::after{content:'';position:absolute;left:-18%;right:-18%;bottom:18%;height:190px;border-radius:50% 50% 0 0;background:#231c2d;}
+  .zonaro-mark{width:132px;height:132px;border-radius:44px;background:#563f35;display:grid;place-items:center;position:relative;z-index:1;box-shadow:inset 0 0 0 42px #302520;}
+  .zonaro-mark::before{content:'';width:58px;height:58px;border-radius:50%;background:#ffbd59;}
+  .zonaro-mark::after{content:'';position:absolute;width:24px;height:24px;background:#302520;clip-path:polygon(25% 100%,100% 0,72% 78%);transform:rotate(-8deg);}
+  .zonaro-splash .brand{font-family:Georgia,serif;font-size:2.1rem;font-weight:800;color:#ffbd59;position:relative;z-index:1;margin-top:20px;}
+  .zonaro-splash .rule{width:62px;height:1px;background:#8a6d55;margin-top:24px;position:relative;z-index:1;}
+  .zonaro-splash .subtitle{font-family:var(--mono);letter-spacing:0.46em;font-size:0.66rem;color:#a59a9b;position:relative;z-index:1;margin-top:16px;}
+  .zonaro-splash .ma-btn{position:relative;z-index:1;width:100%;margin-top:58px;}
+  .zonaro-run{min-height:100%;margin:-42px -14px -24px;background:#0f0e08;color:#efe8dc;display:flex;flex-direction:column;}
+  .zonaro-run-head{height:62px;padding:16px 24px 10px;display:flex;align-items:center;justify-content:space-between;background:#18170f;color:#ffbd59;}
+  .zonaro-run-head .name{font-size:1.85rem;font-weight:900;}
+  .zonaro-stats{margin:46px 24px 22px;background:#28271f;border-radius:18px;padding:22px 18px;display:grid;grid-template-columns:repeat(3,1fr);gap:10px;box-shadow:0 14px 30px rgba(0,0,0,0.22);}
+  .zonaro-stats div+div{border-left:1px solid rgba(255,189,89,0.1);padding-left:12px;}
+  .zonaro-stats span{display:block;font-size:0.7rem;letter-spacing:0.05em;color:#d1c4ad;text-transform:uppercase;}
+  .zonaro-stats b{font-size:1.45rem;color:#f4eee4;}
+  .zonaro-stats b.gold{color:#ffbd59;}
+  .zonaro-map-stage{flex:1;background:#a5a5a7;position:relative;min-height:340px;overflow:hidden;}
+  .zonaro-map-stage::before{content:'';position:absolute;left:50%;top:58px;width:146px;height:390px;border:4px solid #f3ae42;border-left-color:transparent;border-top-color:#f3ae42;border-radius:55% 38% 44% 50%;transform:translateX(-40%) rotate(20deg);}
+  .zonaro-map-stage::after{content:'ENTERED: THE OLD QUARTER';position:absolute;left:50%;bottom:118px;transform:translateX(-50%);border:1px solid rgba(255,189,89,0.45);border-radius:999px;padding:12px 18px;color:#ffbd59;font-family:var(--mono);font-size:0.72rem;letter-spacing:0.12em;white-space:nowrap;background:rgba(255,189,89,0.08);}
+  .zonaro-controls{padding:6px 34px 24px;background:#0f0e08;display:grid;grid-template-columns:1fr 118px 1fr;align-items:center;gap:22px;}
+  .zonaro-stop{width:118px;height:118px;border-radius:50%;border:16px solid #4a2f27;background:#ff8c84;color:#4f1714;font-family:var(--mono);font-weight:900;letter-spacing:0.1em;}
+  .zonaro-tool{height:56px;border-radius:50%;background:#191811;border:1px solid rgba(255,189,89,0.28);color:#e4d5b7;}
+  .food-nav{position:sticky;bottom:0;margin:14px -14px -24px;padding:9px 12px 13px;background:#fff;border-top:1px solid #e4e0dd;display:grid;grid-template-columns:repeat(4,1fr);gap:4px;}
+  .food-nav button{border:0;background:transparent;color:#666;font-size:0.68rem;font-weight:700;display:grid;gap:3px;place-items:center;}
+  .food-nav button.active{color:#c91e18;}
+  .food-card-row{display:grid;grid-template-columns:74px 1fr auto;gap:14px;align-items:center;}
+  .food-thumb{width:74px;height:74px;border-radius:10px;background:#f8c071;position:relative;overflow:hidden;}
+  .food-thumb::before{content:'';position:absolute;inset:10px;border-radius:50%;background:#f0b55d;box-shadow:inset 0 0 0 7px #e99649;}
   @media(max-width:430px){.app-modal-overlay{padding:8px;}.app-modal-close{top:12px;right:12px;}}
 </style>
 </head>
@@ -416,12 +507,16 @@
         <div class="tag-row" style="margin:14px 0;"><span class="tag">Flutter</span><span class="tag">FastAPI</span><span class="tag">WebSocket</span><span class="tag">Failsafe logic</span></div>
         <button class="tap-badge" data-launch="gcs">▶ Live Demo</button>
       </div>
+      <div class="flagship-visual" aria-hidden="true">
+        <span class="radar-dot a"></span><span class="radar-dot b"></span><span class="radar-dot c"></span>
+      </div>
     </div>
 
     <div class="proj-grid">
 
       <article class="proj-card reveal">
         <div class="proj-card-body">
+          <div class="proj-visual pv-zonaro" aria-hidden="true"></div>
           <div class="proj-card-top"><h4>Zonaro</h4><span class="status-badge concept">Concept / design study</span></div>
           <p class="tagline">What if Strava was a turf war?</p>
           <p class="desc">An 11-screen product concept — GPS running reimagined as city-wide territory conquest. Design and systems thinking, not yet built.</p>
@@ -432,6 +527,7 @@
 
       <article class="proj-card reveal">
         <div class="proj-card-body">
+          <div class="proj-visual pv-ig" aria-hidden="true"></div>
           <div class="proj-card-top"><h4>Instagram clone</h4><span class="status-badge live">Interactive prototype</span></div>
           <p class="tagline">UI clone — practice project, not affiliated with Instagram</p>
           <p class="desc">Feed, explore, reels, and profile — the broadest UI-surface project, proving range across common app patterns.</p>
@@ -442,6 +538,7 @@
 
       <article class="proj-card reveal">
         <div class="proj-card-body">
+          <div class="proj-visual pv-food" aria-hidden="true"></div>
           <div class="proj-card-top"><h4>Food delivery app</h4><span class="status-badge live">Interactive prototype</span></div>
           <p class="tagline">Browse, order, track — the full commerce loop</p>
           <p class="desc">Learning project, UI redesigned by me — home → item detail → cart → order tracking.</p>
@@ -452,6 +549,7 @@
 
       <article class="proj-card reveal">
         <div class="proj-card-body">
+          <div class="proj-visual pv-edu" aria-hidden="true"></div>
           <div class="proj-card-top"><h4>Edu_questor</h4><span class="status-badge live">Interactive prototype</span></div>
           <p class="tagline">A platform connecting students and tutors</p>
           <p class="desc">Two-sided marketplace — matching, chat, and trust-signal profile design. Core loop: feed → tutor profile → chat.</p>
@@ -462,6 +560,7 @@
 
       <article class="proj-card reveal">
         <div class="proj-card-body">
+          <div class="proj-visual pv-finance" aria-hidden="true"></div>
           <div class="proj-card-top"><h4>Finance_Terminal</h4><span class="status-badge live">Interactive prototype</span></div>
           <p class="tagline">A wealth and markets dashboard</p>
           <p class="desc">Net worth tracking, live market indices, portfolio breakdown, secure biometric login. Dark + gold identity.</p>
@@ -472,6 +571,7 @@
 
       <article class="proj-card reveal">
         <div class="proj-card-body">
+          <div class="proj-visual pv-task" aria-hidden="true"></div>
           <div class="proj-card-top"><h4>task-tracker</h4><span class="status-badge live">Interactive prototype</span></div>
           <p class="tagline">A focused desktop task manager</p>
           <p class="desc">Small-scope, restrained by design — list view and a desktop-native slide-in panel for new tasks.</p>
@@ -482,6 +582,7 @@
 
       <article class="proj-card reveal">
         <div class="proj-card-body">
+          <div class="proj-visual pv-overlay" aria-hidden="true"></div>
           <div class="proj-card-top"><h4>overlay_app</h4><span class="status-badge live">Interaction demo</span></div>
           <p class="tagline">A floating, always-on-top quick-launcher</p>
           <p class="desc">Minimized bubble expands into a compact action panel — the interaction itself is the product.</p>
@@ -684,7 +785,6 @@
 
     let isPlaying = false;
     let hasTyped = false;
-    let hasAttemptedAutoPlay = false;
     let hasCrossedHeroTrigger = false;
 
     function startCaption(){
@@ -697,7 +797,7 @@
     function playIntro(){
       startCaption();
       audioEl.muted = false;
-      audioEl.play().then(() => {
+      return audioEl.play().then(() => {
         isPlaying = true;
         toggleBtn.textContent = '⏸';
         toggleBtn.setAttribute('aria-label','Pause voice narration');
@@ -717,16 +817,18 @@
     }
 
     function maybeAutoPlay(){
-      if(hasAttemptedAutoPlay || !heroEl) return;
+      if(isPlaying || !heroEl) return;
       if(heroProgress() >= 0.2){
         hasCrossedHeroTrigger = true;
-        hasAttemptedAutoPlay = true;
         playIntro();
       }
     }
 
     function onUserActivation(){
-      if(hasCrossedHeroTrigger && !isPlaying) playIntro();
+      if((hasCrossedHeroTrigger || heroProgress() >= 0.2) && !isPlaying){
+        hasCrossedHeroTrigger = true;
+        playIntro();
+      }
       else setTimeout(maybeAutoPlay, 80);
     }
 
@@ -896,7 +998,7 @@
   }
 
   function appTop(title, right = ''){
-    return `<div class="ma-top"><div><div class="ma-title">${title}</div><div class="ma-sub">${demoTitles[activeDemoKey]}</div></div>${right}</div>`;
+    return `<div class="ma-top"><div class="ma-title">${title}</div>${right}</div>`;
   }
 
   function miniTabs(items, current){
@@ -916,14 +1018,14 @@
   }
 
   function renderZonaro(s){
-    if(s.screen === 'splash') return `<div class="ma-full" style="text-align:center;gap:24px;"><div style="width:108px;height:108px;border-radius:30px;background:#5b4438;margin:0 auto;display:grid;place-items:center;font-size:2.4rem;">◆</div><div><div class="ma-title" style="font-size:2rem;color:#ffbd59;">ZONARO</div><div class="ma-sub">Run. Claim. Rule.</div></div><button class="ma-btn" data-action="zonaro-onboard" type="button">Open</button></div>`;
+    if(s.screen === 'splash') return `<div class="zonaro-splash"><div class="zonaro-mark"></div><div class="brand">ZONARO</div><div class="rule"></div><button class="ma-btn" data-action="zonaro-onboard" type="button">Open</button><div class="subtitle">URBAN CONQUEST</div></div>`;
     if(s.screen === 'onboard') return `<div class="ma-full" style="gap:16px;">${appTop('Claim the city')}<div class="ma-map"><div class="ma-route"></div></div><div class="ma-card"><h3>Your route becomes territory.</h3><p class="ma-sub">Close loops, capture zones, and climb the city leaderboard with your guild.</p></div><button class="ma-btn" data-action="zonaro-login" type="button">Continue</button></div>`;
     if(s.screen === 'login') return `<div class="ma-full" style="gap:13px;">${appTop('Welcome back')}<input class="ma-input" value="affan.runner" aria-label="Username"><input class="ma-input" value="••••••" aria-label="Password"><button class="ma-btn" data-action="zonaro-run" type="button">Sign in</button></div>`;
     if(s.screen === 'summary') return `${appTop('Zone captured')}<div class="ma-card" style="text-align:center;"><div class="metric">${s.distance.toFixed(2)}<small> km</small></div><div class="ma-sub">Captured ${s.zones} zones in ${mmss(s.seconds)}</div></div><div class="ma-grid two" style="margin-top:10px;"><button class="ma-btn" data-action="nav:guild" type="button">Guild</button><button class="ma-btn ghost" data-action="nav:leader" type="button">Leaderboard</button></div>${miniTabs([['run','Run'],['guild','Guild'],['leader','Ranks'],['achievements','Rewards']],s.screen)}`;
     if(s.screen === 'guild') return `${appTop('Guild HQ')}<div class="ma-card"><div class="ma-between"><b>North Wolves</b><span class="ma-pill active">#2 City</span></div><div class="ma-progress" style="margin-top:14px;--p:72%"><span></span></div><p class="ma-sub" style="margin-top:8px;">18 districts controlled this week.</p></div><div class="ma-grid" style="margin-top:10px;"><div class="ma-card ma-between"><span>Affan</span><b>${s.zones} zones</b></div><div class="ma-card ma-between"><span>Riya</span><b>11 zones</b></div></div>${miniTabs([['run','Run'],['guild','Guild'],['leader','Ranks'],['achievements','Rewards']],s.screen)}`;
     if(s.screen === 'leader') return `${appTop('Leaderboard')}<div class="ma-grid"><div class="ma-card ma-between"><span>1. City Falcons</span><b>420</b></div><div class="ma-card ma-between"><span>2. North Wolves</span><b>386</b></div><div class="ma-card ma-between"><span>3. Metro Kings</span><b>332</b></div></div>${miniTabs([['run','Run'],['guild','Guild'],['leader','Ranks'],['achievements','Rewards']],s.screen)}`;
     if(s.screen === 'achievements') return `${appTop('Achievements')}<div class="ma-grid two"><div class="ma-card"><h3>Loop Lord</h3><p class="ma-sub">Closed 5 routes</p></div><div class="ma-card"><h3>Zone King</h3><p class="ma-sub">${s.zones}/10 zones</p></div><div class="ma-card"><h3>Early Bird</h3><p class="ma-sub">6 AM run</p></div><div class="ma-card"><h3>Guild XP</h3><p class="ma-sub">+240 XP</p></div></div>${miniTabs([['run','Run'],['guild','Guild'],['leader','Ranks'],['achievements','Rewards']],s.screen)}`;
-    return `${appTop('Live Run','<span class="ma-pill active">'+(s.running?'Tracking':'Paused')+'</span>')}<div class="ma-map"><div class="ma-route"></div></div><div class="ma-grid two" style="margin-top:10px;"><div class="ma-card"><div class="ma-sub">Distance</div><div class="metric">${s.distance.toFixed(2)}<small> km</small></div></div><div class="ma-card"><div class="ma-sub">Time</div><div class="metric">${mmss(s.seconds)}</div></div><div class="ma-card"><div class="ma-sub">Zones</div><div class="metric">${s.zones}</div></div><div class="ma-card"><div class="ma-sub">Pace</div><div class="metric">5'42</div></div></div><div class="ma-grid two" style="margin-top:10px;"><button class="ma-btn" data-action="zonaro-toggle" type="button">${s.running?'Pause':'Start'}</button><button class="ma-btn ghost" data-action="zonaro-finish" type="button">Finish</button></div>${miniTabs([['run','Run'],['guild','Guild'],['leader','Ranks'],['achievements','Rewards']],s.screen)}`;
+    return `<div class="zonaro-run"><div class="zonaro-run-head"><div class="name">Zonaro</div><span>${s.zones} zones</span></div><div class="zonaro-map-stage"><div class="zonaro-stats"><div><span>Distance</span><b>${s.distance.toFixed(1)}</b><small> KM</small></div><div><span>Duration</span><b>${mmss(s.seconds)}</b></div><div><span>Pace</span><b class="gold">5:02</b><small> /KM</small></div></div></div><div class="zonaro-controls"><button class="zonaro-tool" data-action="nav:guild" type="button">Guild</button><button class="zonaro-stop" data-action="zonaro-finish" type="button">${s.running?'Stop Run':'Finish'}</button><button class="zonaro-tool" data-action="nav:leader" type="button">Rank</button></div></div>`;
   }
 
   function renderIg(s){
@@ -938,7 +1040,7 @@
     if(s.screen === 'detail') return `${appTop('Menu item','<button class="ma-btn slim ghost" data-action="food-home" type="button">Back</button>')}<div class="food-img" style="--c1:#f7b267;--c2:#f79d65;"></div><div class="ma-between" style="margin:14px 0;"><div><h3>Double Cheeseburger</h3><p class="ma-sub">Melty cheese, pickles, chopped onions.</p></div><span class="ma-pill active">$12.99</span></div><div class="ma-row">${['S','M','L'].map(x=>`<button class="ma-pill ${active(s.size,x)}" data-action="food-size:${x}" type="button">${x}</button>`).join('')}</div><div class="ma-between ma-card" style="margin-top:14px;"><span>Quantity</span><div class="ma-row"><button class="ma-btn slim ghost" data-action="food-qty:-1" type="button">-</button><b>${s.qty}</b><button class="ma-btn slim ghost" data-action="food-qty:1" type="button">+</button></div></div><button class="ma-btn" data-action="food-add" type="button" style="width:100%;margin-top:12px;">Add ${s.qty} to cart</button>`;
     if(s.screen === 'cart') return `${appTop('Cart','<span class="ma-pill active">${s.cartQty}</span>')}<div class="ma-card"><div class="ma-between"><div><b>Double Cheeseburger</b><p class="ma-sub">Size ${s.size}</p></div><div class="ma-row"><button class="ma-btn slim ghost" data-action="food-cart:-1" type="button">-</button><b>${s.cartQty}</b><button class="ma-btn slim ghost" data-action="food-cart:1" type="button">+</button></div></div></div><div class="ma-card" style="margin-top:10px;"><div class="ma-between"><span>Subtotal</span><b>$${(s.cartQty*12.99).toFixed(2)}</b></div><div class="ma-between"><span>Delivery</span><b>$2.99</b></div><hr style="border-color:var(--ma-border);margin:10px 0;"><div class="ma-between"><b>Total</b><b>$${(s.cartQty*12.99+2.99).toFixed(2)}</b></div></div><button class="ma-btn" data-action="food-checkout" type="button" style="width:100%;margin-top:12px;">Checkout</button>`;
     if(s.screen === 'order') return `${appTop('Order status')}<div class="ma-card"><h3>${['Preparing','On the way','Delivered'][s.orderStage]}</h3><div class="ma-progress" style="margin:12px 0;--p:${[33,66,100][s.orderStage]}%"><span></span></div><p class="ma-sub">Luigi's Woodfired · ETA ${s.orderStage===2?'now':'18 min'}</p></div><button class="ma-btn" data-action="food-next-stage" type="button" style="width:100%;margin-top:12px;">Update Status</button><button class="ma-btn ghost" data-action="food-home" type="button" style="width:100%;margin-top:8px;">Order Again</button>`;
-    return `${appTop('Delivery Location','<button class="ma-btn slim ghost" data-action="food-cart" type="button">Cart '+s.cartQty+'</button>')}<input class="ma-input" value="Search for restaurants, dishes..." aria-label="Search food"><div class="ma-row" style="overflow:hidden;margin:12px 0;">${['Pizza','Burgers','Sushi','Healthy'].map(c=>`<button class="ma-pill ${active(s.category,c)}" data-action="food-cat:${c}" type="button">${c}</button>`).join('')}</div><button class="food-img" style="width:100%;border:0;--c1:#f7b267;--c2:#f79d65;" data-action="food-detail" type="button"><span style="position:absolute;left:14px;bottom:14px;color:#fff;text-align:left;"><b>Luigi's Woodfired</b><br>★ 4.9 · Free Delivery</span></button><h3 style="margin:14px 0 8px;">Popular Near You</h3><div class="ma-grid">${['Napoli Pizzeria','Chicago Town','Crust & Co.'].map((n,i)=>`<button class="ma-card ma-between" data-action="food-detail" type="button"><span>${n}<br><span class="ma-sub">★ ${(4.8-i/10).toFixed(1)} · ${20+i*5}-30 min</span></span><b>${i?'$$':'$$$'}</b></button>`).join('')}</div>`;
+    return `${appTop('Delivery Location','<button class="ma-btn slim ghost" data-action="food-cart" type="button">Cart '+s.cartQty+'</button>')}<input class="ma-input" value="Search for restaurants, dishes..." aria-label="Search food"><div class="ma-row" style="overflow:hidden;margin:12px 0 20px;">${['Pizza','Burgers','Sushi','Healthy'].map(c=>`<button class="ma-pill ${active(s.category,c)}" data-action="food-cat:${c}" type="button">${c}</button>`).join('')}</div><button class="food-img" style="width:100%;height:176px;border:0;--c1:#f7b267;--c2:#f79d65;" data-action="food-detail" type="button"><span style="position:absolute;left:16px;bottom:17px;color:#fff;text-align:left;font-size:1.05rem;"><b>Luigi's Woodfired</b><br><span style="font-size:0.82rem;">★ 4.9 · Free Delivery over $30</span></span></button><h3 style="margin:20px 0 10px;">Popular Near You</h3><div class="ma-grid">${[['Napoli Pizzeria','Italian · Pizza','$$',4.8],['Chicago Town','American · Deep Dish','$$$',4.5],['Crust & Co.','Artisan · Flatbread','$$',4.7]].map((r,i)=>`<button class="ma-card food-card-row" data-action="food-detail" type="button"><span class="food-thumb"></span><span style="text-align:left;"><b>${r[0]}</b><br><span class="ma-sub">★ ${r[3]} · ${20+i*5}-30 min<br>${r[1]}</span></span><b>${r[2]}</b></button>`).join('')}</div><div class="food-nav"><button class="active" data-action="food-home" type="button">Home</button><button data-action="toast:Search" type="button">Search</button><button data-action="food-cart" type="button">Cart</button><button data-action="food-checkout" type="button">Orders</button></div>`;
   }
 
   function renderEdu(s){
